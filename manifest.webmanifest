@@ -1,0 +1,15 @@
+{
+  "name": "Sajjel 3endak",
+  "short_name": "Sajjel 3endak",
+  "description": "Score card games with friends. Starting with Leekha.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEF1EC",
+  "theme_color": "#1E5A48",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

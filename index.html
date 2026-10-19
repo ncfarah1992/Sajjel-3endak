@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1E5A48">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sajjel 3endak">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Sajjel 3endak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: one-column phone app, sticky score header, bottom tab bar; cards drawn as small ivory tiles */
+:root{
+  --bg:#EEF1EC; --surface:#FFFFFF; --card:#FBFAF5; --ink:#18221F; --muted:#5E6B66; --line:#D5DCD7;
+  --felt:#1E5A48; --felt-ink:#FFFFFF; --red:#C0262D; --black:#18221F; --warn:#B86A00; --bad:#B3261E; --good:#2E7D4F;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1614; --surface:#18211E; --card:#222C28; --ink:#E8EEEA; --muted:#93A39C; --line:#2E3A36;
+  --felt:#2F8A6E; --felt-ink:#06120E; --red:#F0636A; --black:#E8EEEA; --warn:#E5A23C; --bad:#F2766F; --good:#5CC48A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1614; --surface:#18211E; --card:#222C28; --ink:#E8EEEA; --muted:#93A39C; --line:#2E3A36;
+  --felt:#2F8A6E; --felt-ink:#06120E; --red:#F0636A; --black:#E8EEEA; --warn:#E5A23C; --bad:#F2766F; --good:#5CC48A; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--felt)}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--felt);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-bottom:84px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--felt);color:var(--felt-ink);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 12px}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:24px;margin:0;letter-spacing:-.01em}
+.brand small{font-family:var(--f-mono);font-size:11px;opacity:.8;letter-spacing:.06em;text-transform:uppercase}
+main{flex:1;display:flex;flex-direction:column;gap:18px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0;text-wrap:balance}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:600}
+.btn.primary{background:var(--felt);color:var(--felt-ink);border-color:var(--felt)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:13px}
+input[type=text],select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+.notice{font-size:12px;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:8px 10px}
+
+/* scoreboard */
+.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.seat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.seat .name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat .score{font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1}
+.meter{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--good)}
+.seat.warn .meter i{background:var(--warn)} .seat.bad .meter i{background:var(--bad)}
+.seat.bad .score{color:var(--bad)}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid currentColor}
+.pill.team{color:var(--felt)}
+.pill.lose{color:var(--bad)}
+.pill.win{color:var(--good)}
+
+/* cards */
+.pc{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:30px;height:42px;border-radius:5px;background:var(--card);
+  border:1px solid var(--line);font-family:var(--f-mono);font-weight:600;font-size:12px;line-height:1;gap:2px;flex:none}
+.pc.r{color:var(--red)} .pc.k{color:var(--black)}
+.pc.big{width:44px;height:62px;font-size:15px}
+.pc.off{opacity:.25}
+.hand{display:flex;flex-wrap:wrap;gap:4px}
+
+/* round entry */
+.alloc{display:flex;flex-direction:column;gap:10px}
+.prow{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;background:var(--surface)}
+.prow .head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);font-size:18px;font-weight:600}
+.step span{min-width:24px;text-align:center}
+.specials{display:flex;gap:8px}
+.tog{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:4px 8px 4px 4px;font-size:13px;font-weight:600}
+.tog[aria-pressed="true"]{border-color:var(--felt);box-shadow:inset 0 0 0 1px var(--felt)}
+.tog .pc{width:24px;height:32px;font-size:10px}
+.total-bar{position:sticky;bottom:72px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:12px}
+.total-bar .meter{flex:1;height:8px}
+.ok{color:var(--good)} .err{color:var(--bad)}
+
+/* history table */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tfoot td{font-weight:700;border-bottom:0}
+
+/* players + stats */
+.plist{display:flex;flex-direction:column}
+.pitem{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.pitem:last-child{border-bottom:0}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);font-family:var(--f-display);font-weight:800;flex:none}
+.pitem .grow{flex:1;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
+.kpi b{display:block;font-family:var(--f-display);font-size:24px;font-weight:800}
+.kpi span{font-size:12px;color:var(--muted)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:84px 1fr 44px;align-items:center;gap:8px;font-size:13px}
+.bar .track{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar .track i{display:block;height:100%;background:var(--felt);border-radius:6px}
+.bar .lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.plink{border:0;background:none;text-align:left;padding:0;min-width:0;font:inherit;color:inherit}
+button.lbl.plink{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.form{display:flex;gap:4px;flex-wrap:wrap}
+.form .f{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:12px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.form .f.w{color:var(--good);border-color:var(--good)} .form .f.l{color:var(--bad);border-color:var(--bad)}
+.best{background:var(--card);border:1px solid var(--felt);border-radius:10px;padding:10px 12px}
+td .muted{font-size:12px}
+.nameform{display:flex;flex-direction:column;gap:10px}
+.nameform label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;min-width:0}
+.nameform .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+textarea{font:12px/1.4 var(--f-mono);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;resize:vertical}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--card);padding:9px;font-weight:600;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--felt);color:var(--felt-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 12px;font-weight:500;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--felt);color:var(--felt-ink);border-color:var(--felt)}
+.chip:disabled{opacity:.35}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);
+  padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav.tabs button{border:0;background:none;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
+nav.tabs button[aria-current="page"]{color:var(--felt)}
+nav.tabs svg{width:22px;height:22px}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.meter i,.bar .track i{transition:width .3s ease}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div class="brand"><h1>Sajjel 3endak</h1><small id="hdrSub">Leekha</small></div>
+  </header>
+  <main id="view"></main>
+</div>
+<nav class="tabs" aria-label="Sections"><div class="in">
+  <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="11" height="16" rx="2"/><path d="M9 7v1M18 6l2 .5-3 14-6-1.4"/></svg>Game</button>
+  <button data-tab="players"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.3 3-5 6-5s5.4 1.7 6 5M16 5.2a3 3 0 0 1 0 5.6M18 14.4c1.6.6 2.7 2.2 3 4.6"/></svg>Players</button>
+  <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"/></svg>Stats</button>
+</div></nav>
+
+<script>
+(function(){
+const LIMIT = 101, TOTAL = 36, HEARTS = 13;
+const KEY = 'sajjel-3endak-v1', OLDKEYS = ['leekha-scorebook-v2','leekha-scorebook-v1'];
+const GAMES = {leekha:'Leekha'};
+const display = p => p.alias ? p.alias : (p.first + (p.last ? ' ' + p.last[0].toUpperCase() + '.' : ''));
+const fullName = p => [p.first, p.last].filter(Boolean).join(' ');
+const initials = p => ((p.first||'?')[0] + ((p.last||'')[0]||'')).toUpperCase();
+function normalize(d){
+  d.players.forEach(p=>{ if(p.first===undefined){ const parts=(p.name||'').trim().split(/\s+/); p.first=parts[0]||''; p.last=parts.slice(1).join(' '); }
+    p.alias = p.alias||''; p.name = display(p); });
+  d.games.forEach(g=>{ g.type = g.type||'leekha'; });
+  return d;
+}
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+/* ---------- sample data (clearly marked) ---------- */
+function sample(){
+  let seed = 20261019; const rnd = ()=>{ seed = (seed*16807)%2147483647; return (seed-1)/2147483646; };
+  const names = [['Nicolas','Khoury','Nico'],['Rami','Saad',''],['Joelle','Haddad','Jojo'],['Karim','Nassar',''],['Maya','Aoun',''],['Tony','Khoury','Tony K']];
+  const luck = [0.85,1.15,1,1.05,0.9,1.1]; // higher = tends to take more points
+  const players = names.map(([first,last,alias],i)=>({id:'p'+i,first,last,alias,joined:'2026-08-01',sample:true}));
+  const pick = seats=>{ const w=seats.map(p=>luck[+p.slice(1)]); let x=rnd()*w.reduce((a,b)=>a+b,0); for(let i=0;i<seats.length;i++){ x-=w[i]; if(x<=0) return seats[i]; } return seats[seats.length-1]; };
+  const deal = seats=>{ const h={}; seats.forEach(p=>h[p]=0); for(let i=0;i<HEARTS;i++) h[pick(seats)]++; return {hearts:h,queen:pick(seats),ten:pick(seats)}; };
+  const over = g=>{ const t=totals(g); return g.seats.some(p=>t[p]>=LIMIT); };
+  let day = new Date('2026-08-10');
+  const play = (mode,seats,maxRounds)=>{ day = new Date(day.getTime()+3*864e5);
+    const g={id:uid(),type:'leekha',sample:true,date:maxRounds?'2026-10-19':day.toISOString().slice(0,10),mode,seats,teams:mode==='teams'?[[seats[0],seats[1]],[seats[2],seats[3]]]:null,rounds:[]};
+    while(!over(g) && g.rounds.length<(maxRounds||99)){ const rd=deal(seats); if(mode==='solo'){ const m=seats.find(p=>rawPts(rd,p)===TOTAL); if(m) rd.moon=m; } g.rounds.push(rd); }
+    return g; };
+  const T = (a,b,c,d)=>['p'+a,'p'+b,'p'+c,'p'+d];
+  const plan = [['teams',T(0,4,1,3)],['solo',T(0,1,2,3)],['teams',T(0,4,2,5)],['teams',T(1,3,2,5)],['teams',T(0,4,1,3)],['solo',T(0,2,4,5)],
+    ['teams',T(0,2,1,3)],['teams',T(4,5,1,3)],['teams',T(0,4,1,3)],['solo',T(1,3,4,5)],['teams',T(0,1,4,3)],['teams',T(2,4,0,5)],
+    ['teams',T(0,3,1,2)],['teams',T(0,4,2,5)],['solo',T(0,1,3,4)],['teams',T(1,3,2,5)],['teams',T(0,2,1,3)],['teams',T(4,5,1,3)],
+    ['teams',T(0,4,1,3)],['solo',T(0,2,3,5)]];
+  const games = plan.map(([m,s])=>play(m,s));
+  const live = play('teams',T(0,4,1,3),3); games.push(live);
+  return normalize({players, games, current:live.id, sample:true});
+}
+function load(){ try{ const s = localStorage.getItem(KEY); if(s) return normalize(JSON.parse(s));
+  for(const k of OLDKEYS){ const o = localStorage.getItem(k); if(o){ const d = JSON.parse(o); if(!d.sample) return normalize(d); } } }catch(e){} return {players:[],games:[],current:null,sample:false}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+let S = null;
+let tab = 'game';
+let draft = null;      // round being entered
+let setup = null;      // new game setup
+let confirmClear = false;
+let editing = false;   // editing the open player's name
+let backupMsg = '', showBackup = false, confirmRestore = false;
+let profile = null;    // player id whose dashboard is open
+
+/* ---------- scoring ---------- */
+const rawPts = (rd,pid) => (rd.hearts[pid]||0) + (rd.queen===pid?13:0) + (rd.ten===pid?10:0);
+/* Solo games: whoever takes all 36 scores 0 and every other player gets 36 */
+const roundPts = (rd,pid) => rd.moon ? (rd.moon===pid?0:TOTAL) : rawPts(rd,pid);
+function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); g.rounds.forEach(rd=>g.seats.forEach(p=>t[p]+=roundPts(rd,p))); return t; }
+function sides(g){ // returns [{label, members, score}]
+  const t = totals(g);
+  if(g.mode==='teams') return g.teams.map((m,i)=>({label:'Team '+(i?'B':'A'), members:m, score:m.reduce((a,p)=>a+t[p],0)}));
+  return g.seats.map(p=>({label:pname(p), members:[p], score:t[p]}));
+}
+function result(g){
+  if(g.mode==='teams'){ // individual scores; the first player to reach 101 loses for their team
+    const t = totals(g); const over = g.seats.filter(p=>t[p]>=LIMIT); if(!over.length) return null;
+    const top = over.sort((a,b)=>t[b]-t[a])[0]; const li = g.teams[0].includes(top)?0:1;
+    const team = i=>({label:'Team '+(i?'B':'A'), members:g.teams[i], score:Math.max(...g.teams[i].map(p=>t[p]))});
+    return {loser:{...team(li), who:top, score:t[top]}, winners:[team(1-li)]};
+  }
+  const sd = sides(g); const over = sd.filter(s=>s.score>=LIMIT);
+  if(!over.length) return null;
+  const loser = over.sort((a,b)=>b.score-a.score)[0];
+  const rest = sd.filter(s=>s!==loser); const best = Math.min(...rest.map(s=>s.score));
+  return {loser, winners: rest.filter(s=>s.score===best)};
+}
+const pname = id => (S.players.find(p=>p.id===id)||{name:'?'}).name;
+const cur = () => S.games.find(g=>g.id===S.current);
+S = load();
+
+/* ---------- card glyphs ---------- */
+const card = (rank,suit,cls='') => `<span class="pc ${suit==='♥'||suit==='♦'?'r':'k'} ${cls}" aria-label="${rank} of ${suit}"><span>${rank}</span><span>${suit}</span></span>`;
+const handFor = (rd,pid,cls='') => {
+  let h=''; for(let i=0;i<(rd.hearts[pid]||0);i++) h+=card('1','♥',cls);
+  if(rd.queen===pid) h+=card('Q','♠',cls); if(rd.ten===pid) h+=card('10','♦',cls); return h;
+};
+
+/* ---------- views ---------- */
+function render(){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-current', b.dataset.tab===tab?'page':'false'));
+  const v = $('#view');
+  if(tab==='game') v.innerHTML = draft ? viewRound() : (setup ? viewSetup() : viewGame());
+  if(tab==='players') v.innerHTML = profile ? viewProfile(profile) : viewPlayers();
+  if(tab==='stats') v.innerHTML = profile ? viewProfile(profile) : viewStats();
+  const g = cur(); $('#hdrSub').textContent = tab==='game' && g ? `Round ${g.rounds.length + (draft?1:0)} · to ${LIMIT}` : 'Leekha';
+}
+
+function sampleNote(){ if(!S.players.length && !S.games.length) return `<div class="notice">New here? Register your players below, or <button class="btn sm ghost" data-act="load-sample">try it with example data</button> first.</div>`; return S.sample ? `<div class="notice">Example players and games are loaded so you can see how it works. <button class="btn sm ghost" data-act="clear-sample">Clear examples</button></div>` : ''; }
+
+function viewGame(){
+  const g = cur();
+  if(!g) return `${sampleNote()}<section class="panel"><h2>No game on the table</h2><p class="muted" style="margin:0">Register at least 4 players, then start a game. Each round you split the 36 points between the players.</p><button class="btn primary" data-act="new-game">Start a game</button></section>${recentGames()}`;
+  const t = totals(g), res = result(g);
+  const sd = sides(g);
+  let board = '';
+  if(g.mode==='teams'){
+    board = g.seats.map(p=>seat(pname(p), t[p], (g.teams[0].includes(p)?'Team A':'Team B')+' with '+pname(g.teams.find(m=>m.includes(p)).find(x=>x!==p)), res, p)).join('');
+  } else board = g.seats.map(p=>seat(pname(p), t[p], '', res, p)).join('');
+  const banner = res ? `<section class="panel"><div class="row between"><h2>Game over</h2><span class="pill lose">${esc(res.loser.who?pname(res.loser.who):res.loser.label)} hit ${res.loser.score}</span></div>
+     <p style="margin:0">Winner: <b>${res.winners.map(w=>esc(w.label)+(g.mode==='teams'?' ('+w.members.map(pname).map(esc).join(' & ')+')':'')).join(', ')}</b>${g.mode==='teams'?'':' (lowest score)'}.</p>
+     <button class="btn primary" data-act="new-game">New game</button></section>` : '';
+  return `${sampleNote()}
+  <section class="row between"><div><div class="eyebrow">${g.mode==='teams'?'Teams of 2':'Every player for themselves'} · ${esc(g.date)}</div><h2>Current game</h2></div>
+    ${res?'':`<button class="btn primary" data-act="add-round">+ Round</button>`}</section>
+  ${banner}
+  <div class="board">${board}</div>
+  ${historyTable(g)}
+  ${lastRoundCards(g)}
+  ${res?'':`<div class="row" style="justify-content:flex-end"><button class="btn sm ghost danger" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button><button class="btn sm ghost" data-act="new-game">Abandon & new game</button></div>`}
+  ${recentGames()}`;
+}
+function seat(label, score, sub, res, pid){
+  const pct = Math.min(100, score/LIMIT*100);
+  const cls = score>=LIMIT?'bad':(score>=80?'warn':'');
+  const tag = res ? (res.loser.members.includes(pid)?'<span class="pill lose">Lost</span>':(res.winners.some(w=>w.members.includes(pid))?'<span class="pill win">Won</span>':'')) : (score>=80&&score<LIMIT?`<span class="pill" style="color:var(--warn)">${LIMIT-score} left</span>`:'');
+  return `<div class="seat ${cls}"><div class="row between"><span class="name">${esc(label)}</span>${tag}</div>
+    <div class="row between" style="align-items:flex-end"><span class="score num">${score}</span><span class="num muted" style="font-size:12px">/ ${LIMIT}</span></div>
+    <div class="meter"><i style="width:${pct}%"></i></div>${sub?`<div class="muted" style="font-size:12px">${esc(sub)}</div>`:''}</div>`;
+}
+function historyTable(g){
+  if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Tap “+ Round” after the first hand is played.</p></section>`;
+  const t = totals(g);
+  return `<section class="panel"><div class="eyebrow">Round by round</div><div class="tablewrap"><table>
+    <thead><tr><th>#</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead>
+    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${i+1}</td>${g.seats.map(p=>{const v=roundPts(rd,p);return `<td class="num">${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span style="color:var(--black)">♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
+    <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
+}
+function lastRoundCards(g){
+  if(!g.rounds.length) return '';
+  const rd = g.rounds[g.rounds.length-1];
+  return `<section class="panel"><div class="eyebrow">Cards taken in round ${g.rounds.length}</div>
+    ${g.seats.map(p=>`<div class="row" style="align-items:flex-start"><div style="width:76px;flex:none;font-weight:600">${esc(pname(p))}<div class="num muted" style="font-size:12px">${rd.moon===p?'Took all 36 → 0':roundPts(rd,p)+' pts'}</div></div><div class="hand">${handFor(rd,p)||'<span class="muted" style="font-size:13px">Clean hand</span>'}</div></div>`).join('')}</section>`;
+}
+function recentGames(){
+  const done = S.games.filter(g=>result(g)&&g.id!==S.current).slice(-3).reverse();
+  if(!done.length) return '';
+  return `<section class="panel"><div class="eyebrow">Recent games</div>${done.map(g=>{const r=result(g);return `<div class="row between"><span>${esc(g.date)} · ${g.mode==='teams'?'Teams':'Solo'}</span><span>Won by <b>${r.winners.map(w=>esc(w.label)).join(', ')}</b></span></div>`}).join('')}</section>`;
+}
+
+/* new game setup */
+function viewSetup(){
+  const enough = S.players.length>=4;
+  const ok = setup.seats.length===4;
+  return `<section class="row between"><h2>New game</h2><button class="btn sm ghost" data-act="cancel-setup">Cancel</button></section>
+  ${enough?'':`<div class="notice">You need 4 registered players. Add them in the Players tab.</div>`}
+  <section class="panel"><div class="eyebrow">Card game</div>
+    <div class="chips">${Object.entries(GAMES).map(([k,v])=>`<button class="chip" aria-pressed="true">${v}</button>`).join('')}</div>
+    <div class="muted" style="font-size:12px">More card games will be added here.</div></section>
+  <section class="panel"><div class="eyebrow">Format</div>
+    <div class="seg"><button data-mode="solo" aria-pressed="${setup.mode==='solo'}">Every player for themselves</button><button data-mode="teams" aria-pressed="${setup.mode==='teams'}">Teams of 2</button></div></section>
+  <section class="panel"><div class="row between"><div class="eyebrow">Pick 4 players</div><span class="num muted">${setup.seats.length}/4</span></div>
+    <div class="chips">${S.players.map(p=>{const on=setup.seats.includes(p.id);return `<button class="chip" data-seat="${p.id}" aria-pressed="${on}" ${!on&&setup.seats.length>=4?'disabled':''}>${esc(p.name)}</button>`}).join('')}</div>
+    ${setup.mode==='teams'&&ok?`<div class="notice">Team A: <b>${esc(pname(setup.seats[0]))} & ${esc(pname(setup.seats[1]))}</b> · Team B: <b>${esc(pname(setup.seats[2]))} & ${esc(pname(setup.seats[3]))}</b><br>Teams follow the order you tap players. Scores stay individual: the first player to reach ${LIMIT} loses the game for their team.</div>`:''}
+  </section>
+  <button class="btn primary" data-act="start" ${ok?'':'disabled'}>Deal the first hand</button>`;
+}
+
+/* round entry */
+function allocated(){ let n = Object.values(draft.hearts).reduce((a,b)=>a+b,0); return {hearts:n, total:n+(draft.queen?13:0)+(draft.ten?10:0)}; }
+function viewRound(){
+  const g = cur(); const a = allocated();
+  const heartsLeft = HEARTS - a.hearts;
+  const done = a.total===TOTAL;
+  const left = TOTAL - a.total;
+  const moon = g.mode==='solo' ? g.seats.find(p=>rawPts(draft,p)===TOTAL) : null;
+  const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left · ${heartsLeft} ♥${!draft.queen?' · Q♠':''}${!draft.ten?' · 10♦':''}</span>`;
+  return `<section class="row between"><div><div class="eyebrow">Round ${g.rounds.length+1}</div><h2>Who took what?</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
+  <div class="notice">Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36.${g.mode==='solo'?' If one player takes all 36, they score 0 and the other three get 36 each.':''}</div>
+  <div class="alloc">${g.seats.map(p=>{const h=draft.hearts[p]||0;const pts=h+(draft.queen===p?13:0)+(draft.ten===p?10:0);
+    return `<div class="prow"><div class="head"><b>${esc(pname(p))}</b><span class="num" style="font-weight:600">${pts} pts</span></div>
+      <div class="row between" style="flex-wrap:wrap">
+        <div class="step"><button data-h="${p}" data-d="-1" aria-label="One less heart for ${esc(pname(p))}" ${h?'':'disabled'}>−</button><span class="num">${h}</span><button data-h="${p}" data-d="1" aria-label="One more heart for ${esc(pname(p))}" ${heartsLeft?'':'disabled'}>+</button><span class="muted" style="font-size:13px">♥</span></div>
+        <div class="specials">
+          <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}">${card('Q','♠')}13</button>
+          <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}">${card('10','♦')}10</button>
+        </div></div>
+      <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
+  <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
+  <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>Save round</button></div>`;
+}
+
+/* players */
+function viewPlayers(){
+  const st = stats();
+  return `${sampleNote()}<section class="panel"><h2>Register a player</h2>
+    ${nameForm('addForm', {first:'',last:'',alias:''}, 'Register player')}</section>
+  <section class="panel"><div class="row between"><div class="eyebrow">${S.players.length} registered</div></div>
+  <div class="plist">${S.players.map(p=>{const s=st[p.id];return `<div class="pitem"><div class="avatar">${esc(initials(p))}</div>
+    <button class="grow plink" data-prof="${p.id}"><b>${esc(p.name)}</b> <span class="muted">›</span><div class="muted" style="font-size:13px">${esc(fullName(p))}</div><div class="muted" style="font-size:13px">${s.games} games · ${s.wins} wins · ${s.losses} losses</div></button>
+    <button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button></div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
+  <section class="panel"><div><div class="eyebrow">Backup</div><div class="muted" style="font-size:13px">Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.</div></div>
+    <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="copy-backup">Copy backup</button><button class="btn sm" data-act="download-backup">Save backup file</button><button class="btn sm ghost" data-act="show-restore">Restore from backup</button><label class="btn sm ghost" style="cursor:pointer">Open backup file<input type="file" id="backupFile" accept=".json,application/json" hidden></label></div>
+    ${showBackup?`<textarea id="backupOut" readonly rows="4" aria-label="Backup text">${esc(JSON.stringify(S))}</textarea><div class="muted" style="font-size:12px">Copying was blocked here. Select all of the text above and copy it.</div>`:''}
+    ${confirmRestore?`<textarea id="restoreIn" rows="4" placeholder="Paste a backup here" aria-label="Paste a backup"></textarea><div class="row" style="flex-wrap:wrap"><button class="btn sm danger" data-act="restore">Replace all data with this backup</button><button class="btn sm ghost" data-act="cancel-restore">Cancel</button></div>`:''}
+    ${backupMsg?`<div style="font-size:13px">${esc(backupMsg)}</div>`:''}</section>
+  <section class="panel"><div class="eyebrow">Data</div>
+    ${confirmClear ? `<div class="confirm"><span>Delete every player and game?</span><button class="btn sm danger" data-act="reset-yes">Delete all</button><button class="btn sm" data-act="reset-no">Keep</button></div>` : `<button class="btn sm ghost danger" data-act="reset">Delete all players and games</button>`}</section>`;
+}
+
+/* stats */
+function stats(){
+  const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0});
+  S.games.forEach(g=>{
+    const res = result(g);
+    g.rounds.forEach(rd=>g.seats.forEach(p=>{ if(!st[p]) return; const v=roundPts(rd,p); st[p].rounds++; st[p].pts+=v; if(rd.queen===p)st[p].queens++; if(rd.ten===p)st[p].tens++; if(!v&&rd.moon!==p)st[p].clean++; if(rd.moon===p)st[p].moons++; }));
+    if(res) g.seats.forEach(p=>{ if(!st[p]) return; st[p].games++; if(res.loser.members.includes(p)) st[p].losses++; if(res.winners.some(w=>w.members.includes(p))) st[p].wins++; });
+  });
+  return st;
+}
+function viewStats(){
+  const st = stats(); const finished = S.games.filter(result).length;
+  const rounds = S.games.reduce((a,g)=>a+g.rounds.length,0);
+  const ps = S.players.filter(p=>st[p.id].rounds);
+  const bars = (title, fn, fmt, sub) => {
+    const vals = ps.map(p=>({p, v:fn(st[p.id])})).sort((a,b)=>b.v-a.v);
+    const max = Math.max(1, ...vals.map(x=>x.v));
+    return `<section class="panel"><div><div class="eyebrow">${title}</div>${sub?`<div class="muted" style="font-size:12px">${sub}</div>`:''}</div><div class="bars">${vals.map(x=>`<div class="bar"><button class="lbl plink" data-prof="${x.p.id}">${esc(x.p.name)}</button><div class="track"><i style="width:${x.v/max*100}%"></i></div><span class="num" style="text-align:right">${fmt(x.v)}</span></div>`).join('')}</div></section>`;
+  };
+  if(!ps.length) return `${sampleNote()}<section class="panel"><h2>No stats yet</h2><p class="muted" style="margin:0">Play a few rounds and the leaderboard fills in here.</p></section>`;
+  return `${sampleNote()}<div class="kpis"><div class="kpi"><b class="num">${finished}</b><span>games finished</span></div><div class="kpi"><b class="num">${rounds}</b><span>rounds played</span></div><div class="kpi"><b class="num">${S.players.length}</b><span>players</span></div></div>
+  <div class="notice">Tap a player's name to open their dashboard.</div>
+  ${bars('Win rate', s=>s.games?s.wins/s.games:0, v=>Math.round(v*100)+'%', 'Finished games only')}
+  ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Lower is better. A fair share is 9.')}
+  ${bars('Queen of spades taken', s=>s.queens, v=>v)}
+  ${bars('Clean rounds (0 points)', s=>s.clean, v=>v)}
+  ${bars('Took all 36', s=>s.moons, v=>v, 'Solo games only')}
+  ${partnerBoards()}`;
+}
+
+/* ---------- partnerships & player dashboard ---------- */
+const pct = (w,g) => g ? Math.round(w/g*100)+'%' : '–';
+const pairKey = m => m.slice().sort().join('|');
+const pairName = k => k.split('|').map(pname).join(' & ');
+function partnerships(){
+  const pairs = {}, vs = {};
+  S.games.forEach(g=>{ if(g.mode!=='teams') return; const res = result(g); if(!res) return;
+    g.teams.forEach((m,i)=>{ const k=pairKey(m), ok=pairKey(g.teams[1-i]); const won=res.winners[0].members.includes(m[0]);
+      const p = pairs[k] || (pairs[k]={key:k,members:m.slice().sort(),games:0,wins:0}); p.games++; if(won) p.wins++;
+      const row = vs[k] || (vs[k]={}); const v = row[ok] || (row[ok]={key:ok,games:0,wins:0}); v.games++; if(won) v.wins++; });
+  });
+  return {pairs, vs};
+}
+const byRate = (a,b) => b.wins/b.games - a.wins/a.games || b.games - a.games;
+function partnerBoards(){
+  const {pairs, vs} = partnerships(); const list = Object.values(pairs).sort(byRate);
+  if(!list.length) return '';
+  const riv = []; Object.keys(vs).forEach(k=>Object.values(vs[k]).forEach(o=>{ if(k<o.key) riv.push({a:k,b:o.key,games:o.games,wins:o.wins}); }));
+  riv.sort((x,y)=>y.games-x.games);
+  return `<section class="panel"><div><div class="eyebrow">Best partnerships</div><div class="muted" style="font-size:12px">Teams of 2, finished games</div></div>
+    <div class="tablewrap"><table><thead><tr><th>Pair</th><th>Games</th><th>W–L</th><th>Win %</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(pairName(x.key))}</td><td class="num">${x.games}</td><td class="num">${x.wins}–${x.games-x.wins}</td><td class="num">${pct(x.wins,x.games)}</td></tr>`).join('')}</tbody></table></div></section>
+  <section class="panel"><div><div class="eyebrow">Partnership rivalries</div><div class="muted" style="font-size:12px">Record of the first pair against the second</div></div>
+    <div class="tablewrap"><table><thead><tr><th>Matchup</th><th>Games</th><th>Record</th></tr></thead><tbody>${riv.map(r=>`<tr><td>${esc(pairName(r.a))}<br><span class="muted">vs ${esc(pairName(r.b))}</span></td><td class="num">${r.games}</td><td class="num">${r.wins}–${r.games-r.wins}</td></tr>`).join('')}</tbody></table></div></section>`;
+}
+function spark(hist){
+  if(hist.length<2) return '<p class="muted" style="margin:0">Needs at least 2 finished games.</p>';
+  const W=320, H=130, L=28, R=8, max=Math.max(LIMIT+20, ...hist.map(h=>h.final));
+  const x = i => L + i*(W-L-R)/(hist.length-1), y = v => H-14-(v/max)*(H-26);
+  const pts = hist.map((h,i)=>`${x(i).toFixed(1)},${y(h.final).toFixed(1)}`).join(' ');
+  const mono = 'font-family="IBM Plex Mono, monospace" font-size="10"';
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Final score in each game">
+    <line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/><text x="0" y="${y(0)+4}" ${mono} fill="var(--muted)">0</text>
+    <line x1="${L}" x2="${W-R}" y1="${y(50)}" y2="${y(50)}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="0" y="${y(50)+4}" ${mono} fill="var(--muted)">50</text>
+    <line x1="${L}" x2="${W-R}" y1="${y(LIMIT)}" y2="${y(LIMIT)}" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="0" y="${y(LIMIT)+4}" ${mono} fill="var(--bad)">${LIMIT}</text>
+    <polyline points="${pts}" fill="none" stroke="var(--felt)" stroke-width="2"/>
+    ${hist.map((h,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(h.final).toFixed(1)}" r="4" fill="${h.won?'var(--good)':h.lost?'var(--bad)':'var(--muted)'}"/>`).join('')}
+  </svg><div class="muted" style="font-size:12px">Green: won · Red: lost · Grey: neither (solo games)</div>`;
+}
+function viewProfile(id){
+  const p = S.players.find(x=>x.id===id);
+  if(!p){ profile=null; return tab==='stats' ? viewStats() : viewPlayers(); }
+  const s = stats()[id]; const {pairs, vs} = partnerships();
+  const hist = S.games.filter(g=>g.seats.includes(id) && result(g)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0)
+    .map(g=>{ const r=result(g); return {g, won:r.winners.some(w=>w.members.includes(id)), lost:r.loser.members.includes(id), final:totals(g)[id]}; });
+  const rec = m => { const h=hist.filter(x=>x.g.mode===m); return `${h.filter(x=>x.won).length}–${h.filter(x=>x.lost).length}`; };
+  const mine = Object.values(pairs).filter(x=>x.members.includes(id)).map(x=>({...x, partner:x.members.find(m=>m!==id)})).sort(byRate);
+  const best = mine.find(x=>x.games>=2) || mine[0];
+  const form = hist.slice(-10).map(h=>`<span class="f ${h.won?'w':h.lost?'l':''}" title="${esc(h.g.date)}">${h.won?'W':h.lost?'L':'–'}</span>`).join('');
+  return `<section class="row"><button class="btn sm ghost" data-act="back">← Back</button></section>
+  <section class="row" style="gap:14px"><div class="avatar" style="width:52px;height:52px;font-size:20px">${esc(initials(p))}</div>
+    <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2><div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
+    ${editing?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
+  ${editing?`<section class="panel"><h2>Edit player</h2>${nameForm('editForm', p, 'Save changes')}<button class="btn sm ghost" data-act="cancel-edit">Cancel</button></section>`:''}
+  <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
+  <div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>
+  <section class="panel"><div class="eyebrow">Record (won–lost)</div>
+    <div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>
+    <div class="row between"><span>Teams of 2</span><b class="num">${rec('teams')}</b></div>
+    ${form?`<div><div class="eyebrow" style="margin-bottom:6px">Last ${Math.min(10,hist.length)} games, oldest first</div><div class="form">${form}</div></div>`:''}</section>
+  <section class="panel"><div class="eyebrow">Final score per game</div>${spark(hist)}</section>
+  <section class="panel"><div class="eyebrow">Partnerships</div>
+    ${best?`<div class="best"><span class="muted" style="font-size:12px">Best partner${best.games<2?' (only 1 game so far)':''}</span><div class="row between"><b style="font-size:17px">${esc(pname(best.partner))}</b><span class="num">${best.wins}–${best.games-best.wins} · ${pct(best.wins,best.games)}</span></div></div>`:''}
+    ${mine.length?`<div class="tablewrap"><table><thead><tr><th>Partner</th><th>Games</th><th>W–L</th><th>Win %</th></tr></thead><tbody>${mine.map(x=>`<tr><td>${esc(pname(x.partner))}</td><td class="num">${x.games}</td><td class="num">${x.wins}–${x.games-x.wins}</td><td class="num">${pct(x.wins,x.games)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted" style="margin:0">No finished team games yet.</p>'}</section>
+  ${mine.map(x=>{ const opp=Object.values(vs[x.key]||{}).sort((a,b)=>b.games-a.games);
+    return `<section class="panel"><div class="eyebrow">With ${esc(pname(x.partner))}, against</div><div class="tablewrap"><table><thead><tr><th>Partnership</th><th>Games</th><th>W–L</th></tr></thead><tbody>${opp.map(o=>{ const l=o.games-o.wins; return `<tr><td>${esc(pairName(o.key))}</td><td class="num">${o.games}</td><td class="num ${o.wins>l?'ok':o.wins<l?'err':''}">${o.wins}–${l}</td></tr>`; }).join('')}</tbody></table></div></section>`; }).join('')}`;
+}
+
+/* ---------- player names ---------- */
+function nameForm(id, p, label){
+  return `<form id="${id}" class="nameform" novalidate>
+    <div class="two"><label>First name<input type="text" id="${id}-first" value="${esc(p.first)}" maxlength="24" autocomplete="off" required></label>
+    <label>Last name<input type="text" id="${id}-last" value="${esc(p.last)}" maxlength="24" autocomplete="off" required></label></div>
+    <label>Alias <span class="muted">(optional, shown on the scoreboard)</span><input type="text" id="${id}-alias" value="${esc(p.alias)}" maxlength="16" autocomplete="off" placeholder="e.g. Abou Elie, Nico, Big Rami"></label>
+    <div class="err" id="${id}-err" style="font-size:13px" hidden></div>
+    <button class="btn primary" type="submit">${label}</button></form>`;
+}
+function checkName(first, last, alias, exceptId){
+  if(!first || !last) return 'Enter both a first and a last name.';
+  const others = S.players.filter(p=>p.id!==exceptId); const low = s=>s.toLowerCase();
+  if(alias && others.some(p=>low(p.alias||'')===low(alias) || (!p.alias && low(p.name)===low(alias)))) return `The alias “${alias}” is already taken. Pick another one.`;
+  if(!alias){
+    const same = others.find(p=>low(p.first)===low(first) && low(p.last)===low(last));
+    if(same) return `${first} ${last} is already registered. Add an alias to tell them apart.`;
+    const shown = display({first,last,alias:''});
+    if(others.some(p=>low(p.name)===low(shown))) return `Another player already shows as “${shown}”. Add an alias to tell them apart.`;
+  }
+  return '';
+}
+
+/* ---------- events ---------- */
+document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; tab=b.dataset.tab; confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
+$('#view').addEventListener('submit', e=>{
+  e.preventDefault(); const id = e.target.id; const v = k => $('#'+id+'-'+k).value.trim().replace(/\s+/g,' ');
+  const first=v('first'), last=v('last'), alias=v('alias'); const err=$('#'+id+'-err');
+  const editId = id==='editForm' ? profile : null;
+  const problem = checkName(first, last, alias, editId);
+  if(problem){ err.textContent=problem; err.hidden=false; return; }
+  if(editId){ const p=S.players.find(x=>x.id===editId); Object.assign(p,{first,last,alias}); p.name=display(p); editing=false; save(); render(); return; }
+  const p={id:uid(),first,last,alias,joined:new Date().toISOString().slice(0,10)}; p.name=display(p);
+  S.players.push(p); save(); render(); $('#addForm-first').focus();
+});
+$('#view').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b || b.disabled) return;
+  if(b.type==='submit') return; // let the form's submit handler run; re-rendering here would remove the form first
+  const g = cur(); const act = b.dataset.act;
+  if(act==='new-game'){ setup={mode:'solo',seats:[]}; draft=null; }
+  if(act==='cancel-setup') setup=null;
+  if(b.dataset.mode) setup.mode=b.dataset.mode;
+  if(b.dataset.seat){ const i=setup.seats.indexOf(b.dataset.seat); i>=0?setup.seats.splice(i,1):setup.seats.push(b.dataset.seat); }
+  if(act==='start'){ const s=setup.seats; const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),mode:setup.mode,seats:s.slice(),teams:setup.mode==='teams'?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
+    S.games.push(ng); S.current=ng.id; setup=null; save(); }
+  if(act==='add-round'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
+  if(act==='cancel-round') draft=null;
+  if(b.dataset.h){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
+  if(b.dataset.sp){ const k=b.dataset.sp; draft[k] = draft[k]===b.dataset.p ? null : b.dataset.p; }
+  if(act==='save-round'){ if(g.mode==='solo'){ const m=g.seats.find(p=>rawPts(draft,p)===TOTAL); if(m) draft.moon=m; } g.rounds.push(draft); draft=null; save(); }
+  if(act==='undo'){ g.rounds.pop(); save(); }
+  if(act==='load-sample'){ S=sample(); save(); }
+  if(act==='clear-sample'){ S={players:S.players.filter(p=>!p.sample),games:S.games.filter(x=>!x.sample),current:null,sample:false}; save(); }
+  if(b.dataset.del){ S.players=S.players.filter(p=>p.id!==b.dataset.del); save(); }
+  if(b.dataset.prof){ profile=b.dataset.prof; window.scrollTo(0,0); }
+  if(act==='back'){ profile=null; editing=false; }
+  if(act==='edit-player') editing=true;
+  if(act==='cancel-edit') editing=false;
+  if(act==='copy-backup'){ const txt=JSON.stringify(S); showBackup=false; backupMsg='';
+    try{ navigator.clipboard.writeText(txt).then(()=>{ backupMsg=`Backup copied: ${S.players.length} players, ${S.games.length} games.`; render(); }).catch(()=>{ showBackup=true; render(); }); }catch(err){ showBackup=true; } }
+  if(act==='download-backup'){ const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='sajjel-3endak-backup-'+new Date().toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500); backupMsg='Backup file saved.'; }
+  if(act==='show-restore'){ confirmRestore=true; backupMsg=''; }
+  if(act==='cancel-restore') confirmRestore=false;
+  if(act==='restore'){ try{ const d=JSON.parse($('#restoreIn').value); if(!Array.isArray(d.players)||!Array.isArray(d.games)) throw 0;
+      S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); confirmRestore=false; backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }
+    catch(err){ backupMsg='That text is not a Sajjel 3endak backup. Paste the full text you copied with “Copy backup”.'; } }
+  if(act==='reset') confirmClear=true;
+  if(act==='reset-no') confirmClear=false;
+  if(act==='reset-yes'){ S={players:[],games:[],current:null,sample:false}; confirmClear=false; save(); }
+  render();
+});
+$('#view').addEventListener('change', e=>{ if(e.target.id!=='backupFile' || !e.target.files[0]) return; const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.players)||!Array.isArray(d.games)) throw 0; S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }catch(err){ backupMsg='That file is not a Sajjel 3endak backup.'; } render(); };
+  r.readAsText(e.target.files[0]); });
+// keep the screen awake while scoring
+let lock=null; async function wake(){ try{ if('wakeLock' in navigator && document.visibilityState==='visible') lock=await navigator.wakeLock.request('screen'); }catch(e){} }
+document.addEventListener('visibilitychange', wake); wake();
+render();
+})();
+</script>
+
+<script>if("serviceWorker" in navigator){ addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }</script>
+</body>
+</html>
