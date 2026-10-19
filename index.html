@@ -508,7 +508,7 @@ $('#view').addEventListener('submit', e=>{
 });
 $('#view').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(!b || b.disabled) return;
-  if(b.type==='submit') return; // let the form's submit handler run; re-rendering here would remove the form first
+  if(b.form && b.type==='submit') return; // let the form's submit handler run; re-rendering here would remove the form first
   const g = cur(); const act = b.dataset.act;
   if(act==='new-game'){ setup={mode:'solo',seats:[]}; draft=null; }
   if(act==='cancel-setup') setup=null;
