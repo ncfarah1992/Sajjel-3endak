@@ -44,7 +44,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;margin:0;font-weight:400}
-.logo .ar{font-family:var(--f-logo-ar);font-weight:700;font-size:26px;line-height:1;color:var(--gold);white-space:nowrap}
+.logo .ar{font-family:var(--f-logo-ar);font-weight:700;font-size:31px;line-height:1;color:var(--gold);white-space:nowrap}
 .logo{min-width:0;flex:none}
 .logo .lat b{white-space:nowrap}
 .brand small{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -240,7 +240,7 @@ td.was{color:var(--muted);font-style:italic}
 .hdr-r{display:flex;align-items:center;gap:8px;min-width:0}
 .langbtn{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--gold);font:700 14px var(--f-logo-ar);display:grid;place-items:center;padding:0}
 .langbtn.en{font:700 11px var(--f-mono)}
-@media (max-width:440px){.logo .lat span{display:none}.logo .ar{font-size:23px}.brand small{padding:3px 8px}}
+@media (max-width:440px){.logo .lat span{display:none}.logo .ar{font-size:28px}.brand small{padding:3px 8px}}
 @media (max-width:400px){.logo .lat{display:none}}
 :root[lang="ar"]{--f-body:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;--f-display:"Reem Kufi","IBM Plex Sans Arabic",serif}
 :root[lang="ar"] .eyebrow,:root[lang="ar"] th,:root[lang="ar"] .seat .team,:root[lang="ar"] nav.tabs button{letter-spacing:0;text-transform:none}
@@ -286,6 +286,42 @@ td.was{color:var(--muted);font-style:italic}
 .gs.ga{border-bottom:2px solid var(--team-a);padding-bottom:3px} .gs.gb{border-bottom:2px solid var(--team-b);padding-bottom:3px}
 :root[lang="ar"] .tp>b{letter-spacing:0}
 
+/* personal key */
+.chip.taken{opacity:.75}
+.keybox{display:flex;align-items:center;gap:10px;justify-content:space-between;background:rgba(0,0,0,.25);border:1px dashed var(--line);border-radius:12px;padding:8px 12px;margin-top:8px}
+.keybox b{display:block;font-size:17px;letter-spacing:.1em;color:var(--gold)}
+
+/* 400 + tarneeb */
+.bidtag{font:600 10.5px var(--f-mono);color:var(--gold-ink);background:var(--gold);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.seat.neg .score{color:var(--bad)}
+.suits{display:flex;gap:6px}
+.suit{width:38px;height:44px;border-radius:8px;border:1px solid var(--line);background:var(--ivory);color:var(--black);font-size:20px;padding:0;opacity:.75}
+.suit.r{color:var(--red)}
+.suit[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 3px var(--gold)}
+.pts.ok{color:var(--good)} .pts.err{color:var(--bad)}
+.seg{flex-wrap:wrap}
+
+.tog:disabled{opacity:.28;filter:grayscale(1);cursor:not-allowed}
+
+/* rule book */
+.rbook{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;width:100%;text-align:start;background:linear-gradient(160deg,rgba(231,196,106,.16),rgba(0,0,0,.2));border:1px solid var(--gold);border-radius:14px;padding:10px 14px;color:var(--ink)}
+.rbook-ic{font-size:22px}
+.rbook b{display:block;font-family:var(--f-display);font-size:16px;color:var(--gold)}
+.rbook .muted{font-size:12.5px}
+.rules{display:flex;flex-direction:column;gap:14px}
+.rb-title{font-size:28px;color:var(--gold)}
+.rb h3{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--f-display);font-size:18px}
+.rb-n{width:26px;height:34px;border-radius:5px;background:var(--ivory);color:var(--red);display:grid;place-items:center;font:700 13px var(--f-mono);flex:none;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.rb p{margin:0;line-height:1.6}
+.rb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;line-height:1.55}
+.rb b{color:var(--gold)}
+.rb .ex{background:rgba(0,0,0,.22);border-inline-start:3px solid var(--gold);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.6}
+.rb .ex>b:first-child{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.rt{width:100%;font-size:14px}
+.rt td,.rt th{text-align:start;padding:6px 8px}
+.rt td:not(:first-child),.rt th:not(:first-child){text-align:center}
+:root[lang="ar"] .rb .ex>b:first-child{letter-spacing:0}
+
 /* tab bar */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(10,36,28,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -315,7 +351,22 @@ nav.tabs svg{width:22px;height:22px}
 (function(){
 const LIMIT = 101, TOTAL = 36, HEARTS = 13;
 const KEY = 'sajjel-3endak-v1', OLDKEYS = ['leekha-scorebook-v2','leekha-scorebook-v1'];
-const GAMES = {leekha:'Leekha'};
+const GAMES = {leekha:'Leekha','400':'400',tarneeb:'Tarneeb'};
+const GAME_LIST = () => ['leekha','400','tarneeb'].map(k=>[k,GAMES[k]]);   // fixed order (number-like keys would sort first)
+const GAME = {
+  leekha:  {target:101, teamsOnly:false},   // stay under 101; reaching it loses
+  '400':   {target:41,  teamsOnly:true},    // a player reaches 41 with a partner above 0
+  tarneeb: {target:31,  teamsOnly:true},    // first team to 31
+};
+const typeOf = g => (g && g.type) || 'leekha';
+const tgt = g => GAME[typeOf(g)].target;
+const gameName = g => GAMES[typeOf(g)];
+/* 400: value of a bid. Below 30 points, bids of 5+ are worth more. 10 is always 40, and 13 is 52 (or an instant win). */
+const V400_LOW  = {5:10,6:12,7:14,8:24,9:27,10:40,11:44,12:48,13:52};
+const V400_HIGH = {5:5, 6:6, 7:7, 8:16,9:27,10:40,11:44,12:48,13:52};
+const val400 = (bid, score) => bid<=4 ? bid : (score>=30 ? V400_HIGH : V400_LOW)[bid];
+/* 400: the four bids must reach 11; 12 once anyone has 30-39; 13 once anyone has 40 or more */
+const min400 = scores => { const m=Math.max(...scores); return m>=40 ? 13 : m>=30 ? 12 : 11; };
 const display = p => p.alias ? p.alias : (p.first + (p.last ? ' ' + p.last[0].toUpperCase() + '.' : ''));
 const fullName = p => [p.first, p.last].filter(Boolean).join(' ');
 const PALETTE = ['#CDE6F5','#F2D1C9','#D6EFD9','#E3D7F5','#F5E6C4','#F5CDE1','#C9EFEA','#E8DCCB','#D4DCF7','#F0F0C8'];
@@ -373,7 +424,7 @@ let backupMsg = '', showBackup = false, confirmRestore = false;
 let profile = null;    // player id whose dashboard is open
 let openG = null, openH = null;   // game open in the Tables tab / History tab
 let confirmDel = false, shareMsg = '', subState = null;
-let histMode = 'all', histPlayer = null;
+let histMode = 'all', histPlayer = null, statsGame = 'leekha';
 
 /* ---------- scoring ---------- */
 const rawPts = (rd,pid) => (rd.hearts[pid]||0) + (rd.queen===pid?13:0) + (rd.ten===pid?10:0);
@@ -382,9 +433,23 @@ const roundPts = (rd,pid) => rd.moon ? (rd.moon===pid?0:TOTAL) : rawPts(rd,pid);
 /* Substitutes: a new player can take over a seat. Each round is scored to whoever sat there at the time,
    and the seat's running total carries over to the newcomer. */
 function occAt(g,i){ const s=(g.seats0||g.seats).slice(); (g.subs||[]).forEach(x=>{ if(x.at<=i) s[x.seat]=x.in; }); return s; }
-function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); g.rounds.forEach((rd,i)=>{ const o=occAt(g,i); g.seats.forEach((p,k)=>t[p]+=roundPts(rd,o[k])); }); return t; }
+/* Points each player got in each round, keyed by the player who sat in the seat at the time. */
+function deltas(g){
+  const type=typeOf(g), out=[], run=[0,0,0,0];
+  g.rounds.forEach((rd,i)=>{ const o=occAt(g,i), d={};
+    if(type==='leekha') o.forEach(p=>d[p]=roundPts(rd,p));
+    else if(type==='400') o.forEach((p,k)=>{ const bid=rd.bids[p]||0, v=val400(bid,run[k]); d[p] = (rd.tricks[p]||0)>=bid ? v : -v; });
+    else { const bk=o.indexOf(rd.bidder), bt=bk<2?0:1, made=rd.taken>=rd.bid;
+      o.forEach((p,k)=>{ const tk=k<2?0:1; d[p] = tk===bt ? (made ? rd.taken : -rd.bid) : (made ? 0 : 13-rd.taken); }); }
+    o.forEach((p,k)=>run[k]+=d[p]); out.push(d); });
+  return out;
+}
+/* seat scores before round i (used for 400's thresholds) */
+function scoresBefore(g,i){ const run=[0,0,0,0]; deltas(g).slice(0,i).forEach((d,j)=>{ const o=occAt(g,j); o.forEach((p,k)=>run[k]+=d[p]); }); return run; }
+function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); deltas(g).forEach((d,i)=>{ const o=occAt(g,i); g.seats.forEach((p,k)=>t[p]+=d[o[k]]); }); return t; }
 /* Dealer: whoever took the Q♠ last round deals next, unless one player took all 13 hearts (then they deal). First deal is random. */
 function dealerOf(g){
+  if(typeOf(g)!=='leekha') return null;
   if(!g.rounds.length) return g.firstDealer && g.seats.includes(g.firstDealer) ? g.firstDealer : null;
   const i=g.rounds.length-1, rd=g.rounds[i];
   const d = Object.keys(rd.hearts).find(p=>rd.hearts[p]===HEARTS) || rd.queen;
@@ -395,7 +460,28 @@ function sides(g){ // returns [{label, members, score}]
   if(g.mode==='teams') return g.teams.map((m,i)=>({label:'Team '+(i?'B':'A'), members:m, score:m.reduce((a,p)=>a+t[p],0)}));
   return g.seats.map(p=>({label:pname(p), members:[p], score:t[p]}));
 }
+/* 400 and Tarneeb: walk the rounds and stop at the first one that decides the game */
+function resultScan(g){
+  const type=typeOf(g), D=deltas(g), run=[0,0,0,0];
+  for(let i=0;i<D.length;i++){ const o=occAt(g,i), rd=g.rounds[i]; o.forEach((p,k)=>run[k]+=D[i][p]);
+    let win=null, why=null;
+    if(type==='400'){ const k13=o.findIndex(p=>rd.bids[p]===13 && (rd.tricks[p]||0)>=13);
+      if(k13>=0){ win=k13<2?0:1; why={kind:'13', who:o[k13]}; }
+      else { const c=[0,1,2,3].filter(k=>run[k]>=41 && run[k^1]>0).sort((a,b)=>run[b]-run[a]);
+        if(c.length){ win=c[0]<2?0:1; why={kind:'reach', who:o[c[0]], score:run[c[0]]}; } } }
+    else { const a=run[0], b=run[2]; if(a>=31||b>=31){ win = a>=31&&b>=31 ? (a>=b?0:1) : (a>=31?0:1); why={kind:'reach', score:Math.max(a,b)}; } }
+    if(win!=null){ const team=t=>({label:'Team '+(t?'B':'A'), members:g.teams[t], score: type==='tarneeb' ? run[t*2] : Math.max(run[t*2],run[t*2+1])});
+      return {winners:[team(win)], loser:team(1-win), why, at:i}; }
+  }
+  return null;
+}
+function resultNote(g,r){ const type=typeOf(g);
+  if(type==='leekha') return `${r.loser.who?pname(r.loser.who):r.loser.label} hit ${r.loser.score}`;
+  if(r.why.kind==='13') return `${pname(r.why.who)} made 13`;
+  if(type==='400') return `${pname(r.why.who)} reached ${r.why.score}`;
+  return `${r.winners[0].label} reached ${r.winners[0].score}`; }
 function result(g){
+  if(typeOf(g)!=='leekha') return resultScan(g);
   if(g.mode==='teams'){ // individual scores; the first player to reach 101 loses for their team
     const t = totals(g); const over = g.seats.filter(p=>t[p]>=LIMIT); if(!over.length) return null;
     const top = over.sort((a,b)=>t[b]-t[a])[0]; const li = g.teams[0].includes(top)?0:1;
@@ -486,7 +572,31 @@ const AR = {
 "Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.":'حذف كلّ اللاعبين والألعاب على هذا الهاتف؟ سيغادر الهاتف المجموعة، وتبقى بيانات المجموعة محفوظة.',
 "Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.":'استعادة نسخة احتياطية تجعل هذا الهاتف يغادر المجموعة أوّلاً، حتى لا تُستبدل بيانات المجموعة.',
 'No internet connection. Try again when you are online.':'لا يوجد اتصال بالإنترنت. حاول مجدّداً عند الاتصال.','Type the group code first.':'اكتب رمز المجموعة أوّلاً.','No group has this code. Check it and try again.':'لا توجد مجموعة بهذا الرمز. تحقّق منه وحاول مجدّداً.',
-'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Next pick':'الاختيار التالي','Empty':'فارغ',
+'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Rule book':'كتاب القواعد','Rules':'القواعد','How to play and score Leekha, 400 and Tarneeb':'كيف تلعب وتحسب الليخة والـ400 والطرنيب','Tarneeb':'طرنيب','Card game':'لعبة الورق',
+'Stay under 101. Every ♥ is 1, the 10♦ is 10, the Q♠ is 13.':'ابقَ تحت 101. كلّ ♥ بنقطة، الـ10♦ بـ10، والـQ♠ بـ13.',
+'Teams of 2, hearts are trump. Each player bids, and a team wins when one player reaches 41 with a partner above 0.':'فرق من لاعبَين والكبّة طرنيب. كلّ لاعب يطلب، ويربح الفريق عندما يصل أحد لاعبيه إلى 41 وشريكه فوق الصفر.',
+'Teams of 2. The highest bidder picks trump. First team to 31 wins.':'فرق من لاعبَين. صاحب أعلى طلب يختار الطرنيب. أوّل فريق يصل إلى 31 يربح.',
+'Partners sit opposite each other. Scores stay individual: the first player to reach 101 loses the game for their team.':'كلّ شريكين يجلسان متقابلين. النتائج فردية: أوّل لاعب يصل إلى 101 يخسر اللعبة لفريقه.',
+'Partners sit opposite each other. Each player keeps their own score.':'كلّ شريكين يجلسان متقابلين. لكلّ لاعب نتيجته.','Partners sit opposite each other. The team shares one score.':'كلّ شريكين يجلسان متقابلين. للفريق نتيجة واحدة.',
+'Tap a player in a team to take them out.':'اضغط على لاعب في فريق لإخراجه.',
+'Bids':'الطلبات','Tricks taken':'الأكلات','Bids and tricks':'الطلبات والأكلات','Bid':'الطلب','Took':'أكل','Ready':'جاهز','Start the hand':'ابدأ اللعب',
+'Enter bids':'سجّل الطلبات','Enter tricks':'سجّل الأكلات','Change bids':'تغيير الطلبات','Cancel bids':'إلغاء الطلبات','Enter the winning bid':'سجّل الطلب الرابح','Hearts are trump':'الكبّة طرنيب',
+'The four bids must add up to at least':'مجموع الطلبات الأربعة يجب أن يكون على الأقل','because someone is on 30 or more':'لأنّ أحدهم وصل إلى 30 أو أكثر',"If they don't, the cards are dealt again.":'وإلّا تُوزَّع الأوراق من جديد.',
+'Making your bid adds its value, missing it takes the value away. Bidding 13 and making it wins the game.':'إذا حقّقت طلبك تُضاف قيمته، وإذا فشلت تُطرح. من يطلب 13 ويحقّقها يربح اللعبة.',
+'Bids of 5 or more are worth double below 30 points.':'الطلبات من 5 وما فوق قيمتها مضاعفة تحت الـ30 نقطة.',
+'Bids:':'الطلبات:','in total. Playing the hand…':'بالمجموع. اللعب جارٍ…','Playing the hand…':'اللعب جارٍ…','bid':'طلب',
+'Winning bid':'الطلب الرابح','Bid and tricks':'الطلب والأكلات','Who won the bidding?':'مين ربح الطلب؟','Trump is optional, it is only shown on the table.':'اختيار الطرنيب اختياري، ويظهر فقط على الطاولة.',
+'Bid / tricks taken, then the points':'الطلب / الأكلات، ثمّ النقاط',
+"No rounds yet. Enter everyone's bids before the hand, then the tricks they took after it.":'لا جولات بعد. سجّل طلبات الجميع قبل اللعب، ثمّ الأكلات بعده.',
+'No rounds yet. Enter the winning bid before the hand, then the tricks after it.':'لا جولات بعد. سجّل الطلب الرابح قبل اللعب، ثمّ الأكلات بعده.',
+'Bids made':'الطلبات الناجحة','Share of their own bids each player made':'نسبة الطلبات التي نجح فيها كلّ لاعب','Share of winning bids the player made':'نسبة الطلبات الرابحة التي نجح فيها اللاعب',
+'Average bid':'معدّل الطلب','Higher is better':'الأعلى أفضل','Bid 13 and made it':'طلب 13 ونجح','bids made':'طلبات ناجحة','average bid':'معدّل الطلب','bid 13 and made it':'طلب 13 ونجح',
+'Most wins this month (at least 3 games).':'أكثر انتصارات هذا الشهر (3 ألعاب على الأقل).','Ties go to the better win rate, then the fewest points per round.':'عند التعادل: نسبة الفوز الأعلى، ثمّ أقلّ نقاط في الجولة.',
+'Ties go to the better win rate, then the most points per round.':'عند التعادل: نسبة الفوز الأعلى، ثمّ أكثر نقاط في الجولة.','not started':'لم تبدأ','Your personal key':'مفتاحك الشخصي','Move here':'انقل إلى هنا','Key copied. Keep it somewhere safe.':'تمّ نسخ المفتاح. احفظه في مكان آمن.',
+'Pick yourself. Only this phone can then edit your profile, and games you start are scored here. Friends see them as view only. Changed phones? Tap your locked name and enter your personal key.':'اختر نفسك. بعدها هذا الهاتف وحده يعدّل ملفّك، والألعاب التي تبدأها تُسجَّل هنا ويراها أصدقاؤك للمشاهدة فقط. غيّرت هاتفك؟ اضغط على اسمك المقفل وأدخل مفتاحك الشخصي.',
+'If this is you on a new phone, enter your personal key to move your profile and your games here.':'إذا كنت أنت على هاتف جديد، أدخل مفتاحك الشخصي لنقل ملفّك وألعابك إلى هنا.',
+'Save this key in your notes. If you change phones, join the group again, tap your name and enter the key to get your profile and games back.':'احفظ هذا المفتاح في ملاحظاتك. إذا غيّرت هاتفك، انضمّ إلى المجموعة مجدّداً، اضغط على اسمك وأدخل المفتاح لاستعادة ملفّك وألعابك.',
+'That key does not match. Check it and try again.':'المفتاح غير صحيح. تحقّق منه وحاول مجدّداً.','This profile has no personal key yet. Open the app once on the old phone to create it.':'لا يوجد مفتاح شخصي لهذا الملف بعد. افتح التطبيق مرّة على الهاتف القديم لإنشائه.','Next pick':'الاختيار التالي','Empty':'فارغ',
 'Tap players in order: the first two are':'اختر اللاعبين بالترتيب: أوّل اثنين هما',', the next two are':'، والاثنان التاليان هما',
 '. Partners sit opposite each other. Scores stay individual: the first player to reach 101 loses the game for their team. Tap a player in a team to take them out.':'. كلّ شريكين يجلسان متقابلين. النتائج فردية: أوّل لاعب يصل إلى 101 يخسر اللعبة لفريقه. اضغط على لاعب في فريق لإخراجه.','Take the rest':'ياخد الباقي','View only':'للمشاهدة فقط',
 'Another phone is keeping score for this game.':'هاتف آخر يسجّل نتائج هذه اللعبة.','Scores update here by themselves.':'النتائج تتحدّث هنا تلقائياً.',
@@ -510,9 +620,9 @@ const ARX = [
 [/^points\. Past rounds stay in (.+)'s own stats\.$/,'نقطة. الجولات السابقة تبقى في إحصاءات $1.'],
 [/^(.+) deals (next|first)$/,(m,n,w)=>`${n} ${w==='next'?'يوزّع الجولة التالية':'يوزّع أوّلاً'}`],
 [/^(.+) is (\d+) away from (\d+)$/,'$1 على بعد $2 من $3'],
-[/^(.+) hit (\d+)$/,'$1 وصل إلى $2'],
+[/^([^·]+) hit (\d+)$/,(m,n,v)=>`${n} وصل إلى ${v}`],[/^([^·]+) made 13$/,'$1 حقّق 13'],[/^([^·]+) reached (-?\d+)$/,(m,n,v)=>`${tr(n)} وصل إلى ${v}`],
 [/^Showing games with (.+): (\d+) won, (\d+) lost\.$/,'ألعاب $1: $2 فوز، $3 خسارة.'],
-[/^Player of the month · (.+)$/,'لاعب الشهر · $1'],
+[/^Player of the month · (.+)$/,(m,x)=>'لاعب الشهر · '+tr(x)],
 [/^(\d+) wins? from (\d+) games · (.+) pts\/round$/,'$1 فوز من $2 ألعاب · $3 نقطة/جولة'],
 [/^(.+) · (\d+) wins?$/,'$1 · $2 فوز'],
 [/^vs (.+)$/,'ضدّ $1'],[/^With (.+), against$/,'مع $1، ضدّ'],
@@ -527,6 +637,16 @@ const ARX = [
 [/^(.+)'s phone is keeping score for this game\.$/,'هاتف $1 يسجّل نتائج هذه اللعبة.'],
 [/^Only (.+) can edit this profile, on their own phone\.$/,'فقط $1 يستطيع تعديل هذا الملف من هاتفه.'],
 [/^Remove (.+)$/,'إزالة $1'],
+[/^(.+) is set up on another phone$/,'$1 مُعدّ على هاتف آخر'],
+[/^Welcome back, (.+)\. Your profile and the games you score are on this phone now\.$/,'أهلاً بعودتك يا $1. ملفّك والألعاب التي تسجّلها أصبحت على هذا الهاتف.'],
+[/^Only (.+) can edit this profile\. They can do it once they install the app and pick themselves under “This phone belongs to”\.$/,'فقط $1 يستطيع تعديل هذا الملف، بعد أن يثبّت التطبيق ويختار نفسه في «هذا الهاتف لـ».'],
+[/^(\d+) rounds$/,'$1 جولات'],[/^round (\d+)$/,'الجولة $1'],[/^worth (-?\d+)$/,'قيمته $1'],
+[/^Bids (\d+)\/(\d+)$/,'الطلبات $1/$2'],[/^Tricks (\d+)\/13$/,'الأكلات $1/13'],[/^Bids are (\d+) short of (\d+)$/,'ينقص الطلبات $1 للوصول إلى $2'],[/^(\d+) tricks left to give$/,'باقي $1 أكلات'],
+[/^Bid (\d+)(.*)$/,'طلب $1$2'],[/^Trump (.)$/,'الطرنيب $1'],[/^· trump (.)$/,'· الطرنيب $1'],[/^\(Team (A|B)\) bid$/,(m,t)=>`(الفريق ${t==='A'?'أ':'ب'}) طلب`],
+[/^Tricks taken by Team (A|B)$/,(m,t)=>`أكلات الفريق ${t==='A'?'أ':'ب'}`],[/^Team (A|B) took (\d+)$/,(m,t,n)=>`الفريق ${t==='A'?'أ':'ب'} أكل ${n}`],
+[/^Team (A|B) makes it: \+(\d+)\. Team (A|B) scores nothing\.$/,(m,a,n,b)=>`الفريق ${a==='A'?'أ':'ب'} حقّق طلبه: +${n}. الفريق ${b==='A'?'أ':'ب'} لا يسجّل شيئاً.`],
+[/^Team (A|B) goes down: −(\d+)\. Team (A|B) scores \+(\d+)\.$/,(m,a,n,b,v)=>`الفريق ${a==='A'?'أ':'ب'} فشل: −${n}. الفريق ${b==='A'?'أ':'ب'} يسجّل +${v}.`],
+[/^(\d+)(?: (.))? · took (\d+)$/,(m,b,t,k)=>`${b}${t?' '+t:''} · أكل ${k}`],
 [/^Synced (\d+) min ago$/,'تمّت المزامنة منذ $1 دقيقة'],[/^Synced (.+)$/,(m,x)=>'تمّت المزامنة '+tr(x)],[/^Sync problem: (.+)$/,(m,x)=>'مشكلة في المزامنة: '+tr(x)],
 [/^Group created\. Share the code (\w+) with your friends\.$/,'تمّ إنشاء المجموعة. شارك الرمز $1 مع أصدقائك.'],[/^You joined (.+)\.$/,'انضممت إلى $1.'],
 [/^Could not create the group: (.+)$/,'تعذّر إنشاء المجموعة: $1'],[/^Could not join: (.+)$/,'تعذّر الانضمام: $1'],[/^Copy blocked\. The code is (\w+)\.$/,'النسخ ممنوع. الرمز هو $1.'],[/^The code is (\w+)\.$/,'الرمز هو $1.'],
@@ -534,6 +654,7 @@ const ARX = [
 function tr(str){ const m=String(str).match(/^(\s*)([\s\S]*?)(\s*)$/); const core=m[2]; if(!core) return str;
   let out = Object.prototype.hasOwnProperty.call(AR,core) ? AR[core] : null;
   if(out==null) for(const [re,rep] of ARX){ if(re.test(core)){ out=core.replace(re,rep); break; } }
+  if(out==null && core.includes(' · ')) { const parts=core.split(' · '); const tp=parts.map(x=>tr(x)); if(tp.some((x,i)=>x!==parts[i])) out=tp.join(' · '); }
   return out==null ? str : m[1]+out+m[3]; }
 function localize(root){
   const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:n=>n.parentElement&&n.parentElement.closest('script,style,svg,[data-raw]')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
@@ -550,7 +671,9 @@ let ME = (()=>{ try{ return localStorage.getItem('sajjel-me')||null; }catch(e){ 
 const canScore = g => !g.owner || g.owner===DEVICE;
 // A player profile can be edited only by its owner phone: the phone that registered it, until the player
 // claims it with "This phone belongs to"; after that only the player's own phone can edit it.
-const canEditPlayer = p => !p.owner || p.owner===DEVICE;
+const ownsPlayer = p => !p.owner || p.owner===DEVICE;
+const canEditPlayer = p => !SY.code || p.sample || (p.id===ME && ownsPlayer(p));
+let claimFor = null, claimMsg = '';
 const scorerName = g => g.ownerPlayer && S.players.some(p=>p.id===g.ownerPlayer) ? pname(g.ownerPlayer) : null;
 let confirmTake = false;
 
@@ -565,12 +688,16 @@ const handFor = (rd,pid,cls='') => {
 function render(){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-current', b.dataset.tab===tab?'page':'false'));
   const v = $('#view');
+  if(rulesOpen){ v.innerHTML = viewRules(); }
+  else {
   if(tab==='game') v.innerHTML = draft ? viewRound() : (setup ? viewSetup() : (cur() ? viewGame() : viewHome()));
   if(tab==='history') v.innerHTML = draft ? viewRound() : (cur() ? viewGame() : viewHistory());
   if(tab==='players') v.innerHTML = profile ? viewProfile(profile) : viewPlayers();
   if(tab==='stats') v.innerHTML = profile ? viewProfile(profile) : viewStats();
+  }
   applyLang();
-  const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `Round ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : 'Leekha';
+  const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `Round ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : '';
+  $('#hdrSub').hidden = !g || !!rulesOpen;
   localize(document.querySelector('.app')); localize(document.querySelector('nav.tabs')); pendingRender=false; paintSync();
 }
 
@@ -584,7 +711,9 @@ function viewGame(){
   const order = g.mode==='teams' ? [g.seats[0], g.seats[2], g.seats[1], g.seats[3]] : g.seats;
   const spots = ['s','w','n','e'];
   const dl = dealerOf(g);
-  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i], p===dl)).join('');
+  const type = typeOf(g), pend = !res && g.pending;
+  const extraOf = p => type==='400' && pend ? `<span class="bidtag">Bid ${pend.bids[p]}</span>` : type==='tarneeb' && pend && pend.bidder===p ? `<span class="bidtag">Bid ${pend.bid}${pend.trump?' '+pend.trump:''}</span>` : '';
+  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i], p===dl, g, extraOf(p))).join('');
   const subNotes = (g.subs||[]).map(x=>`<li>${esc(pname(x.in))} took ${esc(pname(x.out))}'s seat ${x.at?`after round ${x.at}`:'before the first round'}</li>`).join('');
   const others = S.players.filter(p=>!g.seats.includes(p.id));
   const subPanel = !res && subState ? `<section class="panel"><div class="row between"><h2>Substitute a player</h2><button class="btn sm ghost" data-act="sub-cancel">Cancel</button></div>
@@ -593,44 +722,52 @@ function viewGame(){
      ${subState.out&&subState.in?`<div class="notice"><b>${esc(pname(subState.in))}</b> takes <b>${esc(pname(subState.out))}</b>'s seat and continues from <b>${t[subState.out]}</b> points. Past rounds stay in ${esc(pname(subState.out))}'s own stats.</div>`:''}
      <button class="btn primary" data-act="sub-yes" ${subState.out&&subState.in?'':'disabled'}>Confirm substitution</button></section>` : '';
   const mine = canScore(g);
-  const firstDeal = mine && !res && !g.rounds.length ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
+  const firstDeal = mine && !res && !g.rounds.length && typeOf(g)==='leekha' ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
      <div class="chips">${g.seats.map(p=>`<button class="chip" data-firstdealer="${p}" aria-pressed="${dl===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
      <div class="muted" style="font-size:12px">After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.</div></section>` : '';
   const winners = res ? res.winners.flatMap(w=>w.members) : [];
   const banner = res ? `<section class="panel result">
-     <div class="row between"><span class="crown">${winners.length>1?'Winners':'Winner'}</span><span class="pill lose">${esc(res.loser.who?pname(res.loser.who):res.loser.label)} hit ${res.loser.score}</span></div>
+     <div class="row between"><span class="crown">${winners.length>1?'Winners':'Winner'}</span><span class="pill ${type==='leekha'?'lose':'win'}">${esc(resultNote(g,res))}</span></div>
      <div class="winrow">${winners.map(p=>`<span class="winner">${avatar(p,'xl')}<b>${esc(pname(p))}</b></span>`).join('')}</div>
-     <p class="muted" style="margin:0;font-size:13px">${g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+LIMIT} · ${g.rounds.length} rounds</p>
+     <p class="muted" style="margin:0;font-size:13px">${g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+tgt(g)} · ${g.rounds.length} rounds</p>
      <div class="row" style="flex-wrap:wrap"><button class="btn primary" data-act="rematch">Rematch</button><button class="btn" data-act="share">Share result</button></div>
      ${shareMsg?`<div style="font-size:13px">${esc(shareMsg)}</div>`:''}</section>` : '';
   const backTo = tab==='history' ? 'History' : 'All tables';
-  return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</span></section>
+  return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><button class="btn sm ghost" data-rules="${typeOf(g)}">Rules</button><span class="eyebrow">${gameName(g)} · ${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</span></section>
   ${banner}
   <div class="tablebox"><div class="oval"></div>
-    <div class="center"><div class="pile">${card('1','♥','big')}${card('Q','♠','big')}${card('10','♦','big')}</div><div class="rlabel">${g.rounds.length?`Round ${g.rounds.length} played`:'First deal'}</div></div>
+    <div class="center"><div class="pile">${type==='leekha'?card('1','♥','big')+card('Q','♠','big')+card('10','♦','big'):type==='400'?card('Q','♥','big')+card('A','♥','big')+card('K','♥','big'):(pend&&pend.trump?card('A',pend.trump,'big'):card('A','♠','big')+card('A','♥','big')+card('A','♦','big'))}</div>
+      <div class="rlabel">${type==='400'?'Hearts are trump':type==='tarneeb'&&pend&&pend.trump?'Trump '+pend.trump:g.rounds.length?`Round ${g.rounds.length} played`:'First deal'}</div></div>
     ${board}</div>
   ${dl&&!res?`<div class="dealnote">${card('Q','♠')} <span><b>${esc(pname(dl))}</b> deals ${g.rounds.length?'next':'first'}</span></div>`:''}
   ${firstDeal}
-  ${res?'':(mine?`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`
+  ${pend&&type==='400'?`<div class="dealnote"><span><span>Bids:</span> <b>${g.seats.reduce((a,p)=>a+(pend.bids[p]||0),0)}</b> <span>in total. Playing the hand…</span></span></div>`:''}
+  ${pend&&type==='tarneeb'?`<div class="dealnote"><span><b>${esc(pname(pend.bidder))}</b> <span>bid</span> <b>${pend.bid}</b>${pend.trump?` <span>· trump ${pend.trump}</span>`:''} <span>Playing the hand…</span></span></div>`:''}
+  ${res?'':(mine?(type==='leekha'?`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`
+      : pend ? `<button class="btn primary big" data-act="add-round">Enter tricks</button><button class="btn sm ghost" data-act="edit-bids" style="align-self:center">Change bids</button>` : `<button class="btn primary big" data-act="add-round">${type==='400'?'Enter bids':'Enter the winning bid'}</button>`)
     :`<section class="panel viewonly"><div class="row" style="align-items:flex-start"><svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
       <div><b>View only</b><div class="muted" style="font-size:13px">${scorerName(g)?`${esc(scorerName(g))}'s phone is keeping score for this game.`:'Another phone is keeping score for this game.'} Scores update here by themselves.</div></div></div></section>`)}
   ${subNotes?`<ul class="subnotes">${subNotes}</ul>`:''}
   ${subPanel}
   ${historyTable(g)}
   ${lastRoundCards(g)}
-  ${mine?`<div class="row" style="justify-content:flex-end;flex-wrap:wrap">${res?'':`${subState?'':`<button class="btn sm ghost" data-act="sub-open">Substitute a player</button>`}<button class="btn sm ghost" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button>`}
+  ${mine?`<div class="row" style="justify-content:flex-end;flex-wrap:wrap">${res?'':`${subState?'':`<button class="btn sm ghost" data-act="sub-open">Substitute a player</button>`}<button class="btn sm ghost" data-act="undo" ${g.rounds.length||g.pending?'':'disabled'}>${g.pending?'Cancel bids':'Undo last round'}</button>`}
     ${confirmDel?`<span style="font-size:13px">Delete this game for good?</span><button class="btn sm danger" data-act="del-yes">Delete</button><button class="btn sm" data-act="del-no">Keep</button>`:`<button class="btn sm ghost danger" data-act="del-game">Delete game</button>`}</div>`
   : (res?'':`<div class="row" style="justify-content:flex-end;flex-wrap:wrap">${confirmTake?`<span style="font-size:13px">Take over scoring? Only do this if the scorer's phone is not available. Rounds it scored but has not synced yet will be lost.</span><button class="btn sm danger" data-act="take-yes">Take over</button><button class="btn sm" data-act="take-no">Cancel</button>`:`<button class="btn sm ghost" data-act="take-over">Take over scoring</button>`}</div>`)}`;
 }
-function seat(pid, score, team, res, spot, dealer){
-  const pct = Math.min(100, score/LIMIT*100);
+function seat(pid, score, team, res, spot, dealer, g, extra){
+  const T = g ? tgt(g) : LIMIT, leekha = !g || typeOf(g)==='leekha';
+  const pct = Math.max(0, Math.min(100, score/T*100));
   const won = res && res.winners.some(w=>w.members.includes(pid)), lost = res && res.loser.members.includes(pid);
-  const cls = [spot, score>=LIMIT?'bad':(score>=80?'warn':''), won?'won':'', lost?'lost':''].join(' ');
-  const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':(team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:''))) : (score>=80&&score<LIMIT?`<span class="pill hot">${LIMIT-score} left</span>`:(team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:''));
+  const cls = [spot, leekha?(score>=T?'bad':(score>=80?'warn':'')):(score<0?'neg':''), won?'won':'', lost?'lost':''].join(' ');
+  const teamTag = team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:'';
+  const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':teamTag)) : (extra || (leekha && score>=80&&score<T ? `<span class="pill hot">${T-score} left</span>` : teamTag));
   return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?'<span class="dealer">Deals</span>':''}</span><span class="name">${esc(pname(pid))}</span>
-    <span class="score">${score}<small>/${LIMIT}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
+    <span class="score">${score}<small>/${T}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
 }
 function historyTable(g){
+  if(typeOf(g)==='400') return historyTable400(g);
+  if(typeOf(g)==='tarneeb') return historyTableTarneeb(g);
   if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Tap “Score the first round” after the first hand is played.</p></section>`;
   const t = totals(g);
   return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div>${canScore(g)?'<span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span>':''}</div><div class="tablewrap"><table>
@@ -638,18 +775,38 @@ function historyTable(g){
     <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${canScore(g)?`<button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button>`:i+1}</td>${occAt(g,i).map((p,k)=>{const v=roundPts(rd,p);return `<td class="num${p!==g.seats[k]?' was':''}" ${p!==g.seats[k]?`title="${esc(pname(p))}"`:''}>${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
     <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
 }
+function historyTable400(g){
+  if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Enter everyone's bids before the hand, then the tricks they took after it.</p></section>`;
+  const t=totals(g), D=deltas(g), edit=canScore(g);
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div>${edit?'<span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span>':''}</div>
+    <div class="muted" style="font-size:11.5px">Bid / tricks taken, then the points</div><div class="tablewrap"><table>
+    <thead><tr><th>#</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead>
+    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${edit?`<button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button>`:i+1}</td>${occAt(g,i).map((p,k)=>{ const d=D[i][p]; return `<td class="num${p!==g.seats[k]?' was':''}"><span class="muted">${rd.bids[p]}/${rd.tricks[p]}</span> <b class="${d>=0?'ok':'err'}">${d>0?'+':''}${d}</b></td>`; }).join('')}</tr>`).join('')}</tbody>
+    <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
+}
+function historyTableTarneeb(g){
+  if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Enter the winning bid before the hand, then the tricks after it.</p></section>`;
+  const D=deltas(g), edit=canScore(g); let a=0, b=0;
+  const rows = g.rounds.map((rd,i)=>{ const o=occAt(g,i), da=D[i][o[0]], db=D[i][o[2]]; a+=da; b+=db; const made=rd.taken>=rd.bid;
+    return `<tr><td class="num">${edit?`<button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button>`:i+1}</td>
+      <td style="text-align:start">${esc(pname(rd.bidder))} <span class="muted">${rd.bid}${rd.trump?' '+rd.trump:''} · took ${rd.taken}</span> <span class="${made?'ok':'err'}">${made?'✓':'✗'}</span></td>
+      <td class="num"><b class="${da>0?'ok':da<0?'err':'muted'}">${da>0?'+':''}${da}</b></td><td class="num"><b class="${db>0?'ok':db<0?'err':'muted'}">${db>0?'+':''}${db}</b></td></tr>`; }).join('');
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div>${edit?'<span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span>':''}</div><div class="tablewrap"><table>
+    <thead><tr><th>#</th><th style="text-align:start">Winning bid</th><th class="ta">Team A</th><th class="tb">Team B</th></tr></thead><tbody>${rows}</tbody>
+    <tfoot><tr><td></td><td style="text-align:start">Total</td><td class="num">${a}</td><td class="num">${b}</td></tr></tfoot></table></div></section>`;
+}
 function lastRoundCards(g){
-  if(!g.rounds.length) return '';
+  if(!g.rounds.length || typeOf(g)!=='leekha') return '';
   const rd = g.rounds[g.rounds.length-1];
   return `<section class="panel"><div class="eyebrow">Cards taken in round ${g.rounds.length}</div>
     ${occAt(g,g.rounds.length-1).map(p=>`<div class="row" style="align-items:flex-start"><div style="width:76px;flex:none;font-weight:600">${esc(pname(p))}<div class="num muted" style="font-size:12px">${rd.moon===p?'Took all 36 → 0':roundPts(rd,p)+' pts'}</div></div><div class="hand">${handFor(rd,p)||'<span class="muted" style="font-size:13px">Clean hand</span>'}</div></div>`).join('')}</section>`;
 }
 function tableCard(g){
   const t = totals(g); const order = g.mode==='teams' ? [g.teams[0][0],g.teams[0][1],g.teams[1][0],g.teams[1][1]] : g.seats.slice().sort((a,b)=>t[a]-t[b]);
-  const hot = g.seats.filter(p=>t[p]>=80).sort((a,b)=>t[b]-t[a])[0];
+  const hot = typeOf(g)==='leekha' ? g.seats.filter(p=>t[p]>=80).sort((a,b)=>t[b]-t[a])[0] : null;
   return `<button class="gcard" data-open="${g.id}">
-    <div class="row between"><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${canScore(g)?'':'<span class="vo">View only</span> '}${ago(lastPlayed(g))}</span></div>
-    <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${t[p]>=80?'hot':''} ${g.mode==='teams'?(g.teams[0].includes(p)?'ga':'gb'):''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
+    <div class="row between"><span class="eyebrow">${gameName(g)} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${canScore(g)?'':'<span class="vo">View only</span> '}${ago(lastPlayed(g))}</span></div>
+    <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${typeOf(g)==='leekha'&&t[p]>=80?'hot':''} ${g.mode==='teams'?(g.teams[0].includes(p)?'ga':'gb'):''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
     ${hot?`<div class="gwarn">${esc(pname(hot))} is ${LIMIT-t[hot]} away from ${LIMIT}</div>`:''}
     ${dealerOf(g)?`<div class="muted" style="font-size:12px">${esc(pname(dealerOf(g)))} deals ${g.rounds.length?'next':'first'}</div>`:''}
     <span class="go">Continue →</span></button>`;
@@ -659,14 +816,15 @@ function resultCard(g){
   return `<button class="hcard" data-open="${g.id}">
     <div class="hav">${winners.map(p=>avatar(p)).join('')}</div>
     <div style="min-width:0"><div class="hwin">${winners.map(pname).map(esc).join(' & ')}</div>
-      <div class="muted" style="font-size:12px">${esc(g.date)} · ${g.mode==='teams'?'Teams':'Solo'} · ${g.rounds.length} rounds · ${esc(r.loser.who?pname(r.loser.who):r.loser.label)} hit ${r.loser.score}</div></div>
+      <div class="muted" style="font-size:12px">${esc(g.date)} · ${gameName(g)} · ${g.rounds.length} rounds · ${esc(resultNote(g,r))}</div></div>
     <span class="muted">›</span></button>`;
 }
 function viewHome(){
   const open = S.games.filter(g=>!result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a));
   const done = S.games.filter(g=>result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a)).slice(0,3);
   return `${sampleNote()}
-  <section class="row between"><div><div class="eyebrow">Leekha</div><h2>Open tables</h2></div>${open.length?`<button class="btn primary" data-act="new-game">+ New game</button>`:''}</section>
+  <button class="rbook" data-rules="leekha"><span class="rbook-ic" aria-hidden="true">📖</span><span><b>Rule book</b><span class="muted">How to play and score Leekha, 400 and Tarneeb</span></span><span class="muted">›</span></button>
+  <section class="row between"><div><div class="eyebrow">Leekha · 400 · Tarneeb</div><h2>Open tables</h2></div>${open.length?`<button class="btn primary" data-act="new-game">+ New game</button>`:''}</section>
   ${open.length ? `<div class="glist">${open.map(tableCard).join('')}</div><p class="muted" style="margin:0;font-size:12.5px">Someone had to leave? Just go back to the tables. The game waits here until you continue it.</p>`
     : `<section class="panel"><div class="row" style="gap:6px">${card('Q','♠','big')}${card('10','♦','big')}${card('1','♥','big')}</div><h2>No game on the table</h2><p class="muted" style="margin:0">Start a game with 4 registered players. You can keep several games open at once and come back to any of them later.</p><button class="btn primary big" data-act="new-game">Start a game</button></section>`}
   ${done.length?`<section class="panel"><div class="row between"><div class="eyebrow">Recently finished</div><button class="btn sm ghost" data-go="history">See all</button></div><div class="hlist">${done.map(resultCard).join('')}</div></section>`:''}`;
@@ -674,14 +832,14 @@ function viewHome(){
 function viewHistory(){
   let done = S.games.filter(g=>result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a));
   const all = done.length;
-  if(histMode!=='all') done = done.filter(g=>g.mode===histMode);
+  if(histMode!=='all') done = done.filter(g=>typeOf(g)===histMode);
   if(histPlayer) done = done.filter(g=>g.seats.includes(histPlayer));
   const months = {}; done.forEach(g=>{ const k=(g.date||'').slice(0,7); (months[k]=months[k]||[]).push(g); });
   const mname = k => { const [y,m]=k.split('-'); return new Date(+y, +m-1, 1).toLocaleDateString('en-GB',{month:'long',year:'numeric'}); };
   const played = S.players.filter(p=>S.games.some(g=>result(g)&&g.seats.includes(p.id)));
   return `${sampleNote()}<section><div class="eyebrow">${all} finished game${all===1?'':'s'}</div><h2>History</h2></section>
   ${all?`<section class="panel">
-    <div class="seg"><button data-hmode="all" aria-pressed="${histMode==='all'}">All</button><button data-hmode="solo" aria-pressed="${histMode==='solo'}">Solo</button><button data-hmode="teams" aria-pressed="${histMode==='teams'}">Teams</button></div>
+    <div class="seg"><button data-hmode="all" aria-pressed="${histMode==='all'}">All</button>${GAME_LIST().map(([k,v])=>`<button data-hmode="${k}" aria-pressed="${histMode===k}">${v}</button>`).join('')}</div>
     <div class="chips">${played.map(p=>`<button class="chip" data-hplayer="${p.id}" aria-pressed="${histPlayer===p.id}">${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>
     ${histPlayer?`<div class="muted" style="font-size:12.5px">Showing games with ${esc(pname(histPlayer))}: ${done.filter(g=>result(g).winners.some(w=>w.members.includes(histPlayer))).length} won, ${done.filter(g=>result(g).loser.members.includes(histPlayer)).length} lost.</div>`:''}
   </section>`:''}
@@ -698,13 +856,13 @@ function viewSetup(){
     : `<span class="slot empty${i===nextSlot?' next':''}">${i===nextSlot?'Next pick':'Empty'}</span>`; };
   return `<section class="row between"><h2>New game</h2><button class="btn sm ghost" data-act="cancel-setup">Cancel</button></section>
   ${enough?'':`<div class="notice">You need 4 registered players. Add them in the Players tab.</div>`}
-  <section class="panel"><div class="eyebrow">Card game</div>
-    <div class="chips">${Object.entries(GAMES).map(([k,v])=>`<button class="chip plain" aria-pressed="true">♥ ${v}</button>`).join('')}</div>
-    <div class="muted" style="font-size:12px">More card games will be added here.</div></section>
-  <section class="panel"><div class="eyebrow">Format</div>
-    <div class="seg"><button data-mode="solo" aria-pressed="${setup.mode==='solo'}">Every player for themselves</button><button data-mode="teams" aria-pressed="${setup.mode==='teams'}">Teams of 2</button></div></section>
+  <section class="panel"><div class="row between"><div class="eyebrow">Card game</div><button class="btn sm ghost" data-rules="${setup.type}">Rules</button></div>
+    <div class="seg">${GAME_LIST().map(([k,v])=>`<button data-gtype="${k}" aria-pressed="${setup.type===k}">${v}</button>`).join('')}</div>
+    <div class="muted" style="font-size:12.5px">${setup.type==='leekha'?'Stay under 101. Every ♥ is 1, the 10♦ is 10, the Q♠ is 13.':setup.type==='400'?'Teams of 2, hearts are trump. Each player bids, and a team wins when one player reaches 41 with a partner above 0.':'Teams of 2. The highest bidder picks trump. First team to 31 wins.'}</div></section>
+  ${GAME[setup.type].teamsOnly?'':`<section class="panel"><div class="eyebrow">Format</div>
+    <div class="seg"><button data-mode="solo" aria-pressed="${setup.mode==='solo'}">Every player for themselves</button><button data-mode="teams" aria-pressed="${setup.mode==='teams'}">Teams of 2</button></div></section>`}
   <section class="panel"><div class="row between"><div class="eyebrow">Pick 4 players</div><span class="num muted">${picked}/4</span></div>
-    ${teams?`<div class="notice">Tap players in order: the first two are <b class="ta">Team A</b>, the next two are <b class="tb">Team B</b>. Partners sit opposite each other. Scores stay individual: the first player to reach ${LIMIT} loses the game for their team. Tap a player in a team to take them out.</div>
+    ${teams?`<div class="notice">Tap players in order: the first two are <b class="ta">Team A</b>, the next two are <b class="tb">Team B</b>.<br><span>${setup.type==='leekha'?'Partners sit opposite each other. Scores stay individual: the first player to reach 101 loses the game for their team.':setup.type==='400'?'Partners sit opposite each other. Each player keeps their own score.':'Partners sit opposite each other. The team shares one score.'}</span> <span>Tap a player in a team to take them out.</span></div>
     <div class="teampick"><div class="tp a"><b>Team A</b>${slot(0)}${slot(1)}</div><div class="tp b"><b>Team B</b>${slot(2)}${slot(3)}</div></div>`:''}
     <div class="chips">${S.players.map(p=>{const on=setup.seats.includes(p.id);return `<button class="chip${teams&&on?' team-'+teamOf(p.id):''}" data-seat="${p.id}" aria-pressed="${on}" ${!on&&picked>=4?'disabled':''}>${avatar(p.id)}${esc(p.name)}${on?` <span class="order">${teams?teamOf(p.id).toUpperCase():setup.seats.indexOf(p.id)+1}</span>`:''}</button>`}).join('')}</div>
   </section>
@@ -714,6 +872,8 @@ function viewSetup(){
 /* round entry */
 function allocated(){ let n = Object.values(draft.hearts).reduce((a,b)=>a+b,0); return {hearts:n, total:n+(draft.queen?13:0)+(draft.ten?10:0)}; }
 function viewRound(){
+  if(typeOf(cur())==='400') return viewRound400();
+  if(typeOf(cur())==='tarneeb') return viewRoundTarneeb();
   const g = cur(); const a = allocated(); const seatsR = draft.index!=null ? occAt(g,draft.index) : g.seats;
   const heartsLeft = HEARTS - a.hearts;
   const done = a.total===TOTAL;
@@ -727,13 +887,55 @@ function viewRound(){
       <div class="row between" style="flex-wrap:wrap">
         <div class="step"><button data-h="${p}" data-d="-1" aria-label="One less heart for ${esc(pname(p))}" ${h?'':'disabled'}>−</button><span class="num">${h}</span><button data-h="${p}" data-d="1" aria-label="One more heart for ${esc(pname(p))}" ${heartsLeft?'':'disabled'}>+</button><span class="muted" style="font-size:13px">♥</span></div>
         <div class="specials">
-          <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}">${card('Q','♠')}13</button>
-          <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}">${card('10','♦')}10</button>
+          <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}" ${draft.queen&&draft.queen!==p?'disabled title="Already given to '+esc(pname(draft.queen))+'"':''}>${card('Q','♠')}13</button>
+          <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}" ${draft.ten&&draft.ten!==p?'disabled title="Already given to '+esc(pname(draft.ten))+'"':''}>${card('10','♦')}10</button>
         </div></div>
       <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div>
       <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
   <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
   <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>${draft.index!=null?'Save changes':'Save round'}</button></div>`;
+}
+
+/* 400: bids before the hand, tricks after it */
+function viewRound400(){
+  const g=cur(), idx=draft.index, seatsR = idx!=null ? occAt(g,idx) : g.seats;
+  const before = scoresBefore(g, idx!=null ? idx : g.rounds.length), minB = min400(before);
+  const showB = draft.phase!=='tricks', showT = draft.phase!=='bids';
+  const sumB = seatsR.reduce((a,p)=>a+(draft.bids[p]||0),0), sumT = seatsR.reduce((a,p)=>a+(draft.tricks[p]||0),0);
+  const rows = seatsR.map((p,k)=>{ const bid=draft.bids[p]||2, tk=draft.tricks[p]||0, v=val400(bid,before[k]), made=tk>=bid;
+    return `<div class="prow"><div class="head"><span class="who">${avatar(p)}<span><b>${esc(pname(p))}</b><span class="muted" style="display:block;font-size:11.5px">${before[k]} pts${g.teams?` · ${k<2?'Team A':'Team B'}`:''}</span></span></span>
+      ${showT?`<span class="pts ${made?'ok':'err'}">${made?'+':'−'}${v}</span>`:`<span class="muted" style="font-size:12px">worth ${v}</span>`}</div>
+      <div class="row between" style="flex-wrap:wrap">
+        <div class="step"><span class="muted" style="font-size:12px;min-width:30px">Bid</span>${showB?`<button data-bid4="${p}" data-d="-1" ${bid<=2?'disabled':''} aria-label="Lower bid">−</button><span class="num">${bid}</span><button data-bid4="${p}" data-d="1" ${bid>=13?'disabled':''} aria-label="Raise bid">+</button>`:`<span class="num">${bid}</span>`}</div>
+        ${showT?`<div class="step"><span class="muted" style="font-size:12px">Took</span><button data-trick4="${p}" data-d="-1" ${tk<=0?'disabled':''} aria-label="One trick less">−</button><span class="num">${tk}</span><button data-trick4="${p}" data-d="1" ${sumT>=13?'disabled':''} aria-label="One trick more">+</button></div>`:''}
+      </div></div>`; }).join('');
+  const bidsOk = sumB>=minB, tricksOk = sumT===13;
+  return `<section class="row between"><div><div class="eyebrow">${idx!=null?`Fixing round ${idx+1}`:`Round ${g.rounds.length+1}`}</div><h2>${draft.phase==='bids'?'Bids':draft.phase==='tricks'?'Tricks taken':'Bids and tricks'}</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
+  <div class="notice">${showB?`<span>The four bids must add up to at least</span> <b>${minB}</b>${minB>11?' <span>because someone is on 30 or more</span>':''}. <span>If they don't, the cards are dealt again.</span> `:''}<span>${showT?'Making your bid adds its value, missing it takes the value away. Bidding 13 and making it wins the game.':'Bids of 5 or more are worth double below 30 points.'}</span></div>
+  <div class="alloc">${rows}</div>
+  <div class="total-bar"><span class="num" style="font-weight:700;font-size:15px">${showB?`Bids ${sumB}/${minB}`:''}${showB&&showT?' · ':''}${showT?`Tricks ${sumT}/13`:''}</span></div>
+  <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px" class="${(showB&&!bidsOk)||(showT&&!tricksOk)?'err':'ok'}">${showB&&!bidsOk?`Bids are ${minB-sumB} short of ${minB}`:showT&&!tricksOk?`${13-sumT} tricks left to give`:'Ready'}</span>
+    ${draft.phase==='bids'?`<button class="btn primary" data-act="save-bids" ${bidsOk?'':'disabled'}>Start the hand</button>`:`<button class="btn primary" data-act="save-round" ${tricksOk&&bidsOk?'':'disabled'}>${idx!=null?'Save changes':'Save round'}</button>`}</div>`;
+}
+/* Tarneeb: winning bid and trump before the hand, tricks after it */
+function viewRoundTarneeb(){
+  const g=cur(), idx=draft.index, seatsR = idx!=null ? occAt(g,idx) : g.seats;
+  const showB = draft.phase!=='tricks', showT = draft.phase!=='bid';
+  const bk = seatsR.indexOf(draft.bidder), bt = bk<0 ? null : (bk<2 ? 'A' : 'B'), ot = bt==='A' ? 'B' : 'A';
+  const made = draft.taken>=draft.bid;
+  return `<section class="row between"><div><div class="eyebrow">${idx!=null?`Fixing round ${idx+1}`:`Round ${g.rounds.length+1}`}</div><h2>${draft.phase==='bid'?'Winning bid':draft.phase==='tricks'?'Tricks taken':'Bid and tricks'}</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
+  ${showB?`<section class="panel"><div class="eyebrow">Who won the bidding?</div>
+    <div class="chips">${seatsR.map((p,k)=>`<button class="chip team-${k<2?'a':'b'}" data-tbidder="${p}" aria-pressed="${draft.bidder===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
+    <div class="row between" style="flex-wrap:wrap"><div class="step"><span class="muted" style="font-size:12px;min-width:30px">Bid</span><button data-tbid="-1" ${draft.bid<=7?'disabled':''} aria-label="Lower bid">−</button><span class="num">${draft.bid}</span><button data-tbid="1" ${draft.bid>=13?'disabled':''} aria-label="Raise bid">+</button></div>
+      <div class="suits">${['♠','♥','♦','♣'].map(x=>`<button class="suit ${x==='♥'||x==='♦'?'r':''}" data-trump="${x}" aria-pressed="${draft.trump===x}" aria-label="Trump ${x}">${x}</button>`).join('')}</div></div>
+    <div class="muted" style="font-size:12px">Trump is optional, it is only shown on the table.</div></section>`
+  :`<div class="notice"><b>${esc(pname(draft.bidder))}</b> <span>(Team ${bt}) bid</span> <b>${draft.bid}</b>${draft.trump?` <span>· trump ${draft.trump}</span>`:''}</div>`}
+  ${showT&&bt?`<section class="panel"><div class="eyebrow">Tricks taken by Team ${bt}</div>
+    <div class="row between"><div class="step"><button data-ttaken="-1" ${draft.taken<=0?'disabled':''} aria-label="One trick less">−</button><span class="num" style="font-size:22px">${draft.taken}</span><button data-ttaken="1" ${draft.taken>=13?'disabled':''} aria-label="One trick more">+</button></div>
+      <span class="muted" style="font-size:13px">Team ${ot} took ${13-draft.taken}</span></div>
+    <div class="${made?'ok':'err'}" style="font-size:14px">${made?`Team ${bt} makes it: +${draft.taken}. Team ${ot} scores nothing.`:`Team ${bt} goes down: −${draft.bid}. Team ${ot} scores +${13-draft.taken}.`}</div></section>`:''}
+  <div class="row between" style="flex-wrap:wrap"><span></span>
+    ${draft.phase==='bid'?`<button class="btn primary" data-act="save-bids" ${draft.bidder?'':'disabled'}>Start the hand</button>`:`<button class="btn primary" data-act="save-round" ${draft.bidder?'':'disabled'}>${idx!=null?'Save changes':'Save round'}</button>`}</div>`;
 }
 
 /* players */
@@ -744,7 +946,7 @@ function viewPlayers(){
   <section class="panel"><div class="row between"><div class="eyebrow">${S.players.length} registered</div></div>
   <div class="plist">${S.players.map(p=>{const s=st[p.id];return `<div class="pitem">${avatar(p.id)}
     <button class="grow plink" data-prof="${p.id}"><b>${esc(p.name)}</b> <span class="muted">›</span><div class="muted" style="font-size:13px">${esc(fullName(p))}</div><div class="muted" style="font-size:13px">${s.games} games · ${s.wins} wins · ${s.losses} losses</div></button>
-    ${canEditPlayer(p)?`<button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button>`:(p.claimed&&p.owner!==DEVICE?'<span class="vo">Own phone</span>':'')}${p.id===ME?'<span class="vo">You</span>':''}</div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
+    ${(!SY.code||(ownsPlayer(p)&&(!p.claimed||p.id===ME)))?`<button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button>`:(p.claimed&&p.owner!==DEVICE?'<span class="vo">Own phone</span>':'')}${p.id===ME?'<span class="vo">You</span>':''}</div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
   ${syncPanel()}
   <section class="panel"><div><div class="eyebrow">Backup</div><div class="muted" style="font-size:13px">${SY.code?'Your group is also saved online. A backup file is still a good extra copy.':'Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.'}</div></div>
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="copy-backup">Copy backup</button><button class="btn sm" data-act="download-backup">Save backup file</button><button class="btn sm ghost" data-act="show-restore">Restore from backup</button><label class="btn sm ghost" style="cursor:pointer">Open backup file<input type="file" id="backupFile" accept=".json,application/json" hidden></label></div>
@@ -757,10 +959,17 @@ function viewPlayers(){
 }
 
 /* stats */
+const ofType = () => S.games.filter(g=>typeOf(g)===statsGame);
 function stats(){
-  const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0});
-  S.games.forEach(g=>{
-    const res = result(g);
+  const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0,bids:0,made:0,bidSum:0,thirteen:0});
+  ofType().forEach(g=>{
+    const res = result(g), ty=typeOf(g);
+    if(ty!=='leekha'){ const D=deltas(g);
+      g.rounds.forEach((rd,i)=>{ Object.keys(D[i]).forEach(p=>{ if(!st[p]) return; st[p].rounds++; st[p].pts+=D[i][p]; });
+        if(ty==='400') Object.keys(rd.bids).forEach(p=>{ if(!st[p]) return; st[p].bids++; st[p].bidSum+=rd.bids[p]; if((rd.tricks[p]||0)>=rd.bids[p]) st[p].made++; if(rd.bids[p]===13&&rd.tricks[p]>=13) st[p].thirteen++; });
+        else if(st[rd.bidder]){ const x=st[rd.bidder]; x.bids++; x.bidSum+=rd.bid; if(rd.taken>=rd.bid) x.made++; if(rd.bid===13&&rd.taken>=13) x.thirteen++; } });
+      if(res) g.seats.forEach(p=>{ if(!st[p]) return; st[p].games++; if(res.loser.members.includes(p)) st[p].losses++; if(res.winners.some(w=>w.members.includes(p))) st[p].wins++; });
+      return; }
     g.rounds.forEach(rd=>Object.keys(rd.hearts).forEach(p=>{ if(!st[p]) return; const v=roundPts(rd,p); st[p].rounds++; st[p].pts+=v; if(rd.queen===p)st[p].queens++; if(rd.ten===p)st[p].tens++; if(!v&&rd.moon!==p)st[p].clean++; if(rd.moon===p)st[p].moons++; }));
     if(res) g.seats.forEach(p=>{ if(!st[p]) return; st[p].games++; if(res.loser.members.includes(p)) st[p].losses++; if(res.winners.some(w=>w.members.includes(p))) st[p].wins++; });
   });
@@ -768,14 +977,14 @@ function stats(){
 }
 function monthTable(){ // month -> player -> {games,wins,pts,rounds}
   const m = {};
-  S.games.forEach(g=>{ const r=result(g); if(!r) return; const k=(g.date||'').slice(0,7); const mt=m[k]=m[k]||{};
+  ofType().forEach(g=>{ const r=result(g); if(!r) return; const k=(g.date||'').slice(0,7); const mt=m[k]=m[k]||{};
     g.seats.forEach(p=>{ const x=mt[p]=mt[p]||{games:0,wins:0,pts:0,rounds:0}; x.games++; if(r.winners.some(w=>w.members.includes(p))) x.wins++; });
-    g.rounds.forEach(rd=>Object.keys(rd.hearts).forEach(p=>{ const x=mt[p]=mt[p]||{games:0,wins:0,pts:0,rounds:0}; x.pts+=roundPts(rd,p); x.rounds++; })); });
+    deltas(g).forEach(d=>Object.keys(d).forEach(p=>{ const x=mt[p]=mt[p]||{games:0,wins:0,pts:0,rounds:0}; x.pts+=d[p]; x.rounds++; })); });
   return m;
 }
 const MIN_GAMES = 3;
 function rankMonth(mt){ return Object.entries(mt).filter(([p,x])=>x.games>=MIN_GAMES && S.players.some(q=>q.id===p))
-  .sort((a,b)=>b[1].wins-a[1].wins || b[1].wins/b[1].games-a[1].wins/a[1].games || a[1].pts/Math.max(1,a[1].rounds)-b[1].pts/Math.max(1,b[1].rounds)); }
+  .sort((a,b)=>b[1].wins-a[1].wins || b[1].wins/b[1].games-a[1].wins/a[1].games || (statsGame==='leekha'?1:-1)*(a[1].pts/Math.max(1,a[1].rounds)-b[1].pts/Math.max(1,b[1].rounds))); }
 const monthName = k => { const [y,mm]=k.split('-'); return new Date(+y, +mm-1, 1).toLocaleDateString(lang==='ar'?'ar-LB':'en-GB',{month:'long',year:'numeric'}); };
 function potmTitles(){ const t={}; const now=new Date().toISOString().slice(0,7); const mt=monthTable(); Object.keys(mt).filter(k=>k<now).forEach(k=>{ const top=rankMonth(mt[k])[0]; if(top) (t[top[0]]=t[top[0]]||[]).push(k); }); return t; }
 function potmPanel(){
@@ -783,33 +992,40 @@ function potmPanel(){
   const ranked = rankMonth(mt[now]||{});
   const line = x => `${x.wins} win${x.wins===1?'':'s'} from ${x.games} games · ${x.rounds?(x.pts/x.rounds).toFixed(1):'–'} pts/round`;
   const past = Object.keys(mt).filter(k=>k<now).sort().reverse().map(k=>[k,rankMonth(mt[k])[0]]).filter(x=>x[1]);
-  return `<section class="panel potm"><div class="eyebrow">Player of the month · ${monthName(now)}</div>
+  return `<section class="panel potm"><div class="eyebrow">Player of the month · ${GAMES[statsGame]} · ${monthName(now)}</div>
     ${ranked.length?`<button class="potm-top plink" data-prof="${ranked[0][0]}"><span class="crownwrap">${avatar(ranked[0][0],'xl')}<span class="crownic" aria-hidden="true">♛</span></span>
       <span><b class="potm-name">${esc(pname(ranked[0][0]))}</b><span class="muted" style="display:block;font-size:13px">${line(ranked[0][1])}</span></span></button>
       ${ranked.slice(1,3).map(([p,x],i)=>`<button class="potm-run plink" data-prof="${p}"><span class="num muted">${i+2}</span>${avatar(p)}<span style="min-width:0"><b>${esc(pname(p))}</b><span class="muted" style="display:block;font-size:12px">${line(x)}</span></span></button>`).join('')}`
     :`<p class="muted" style="margin:0;font-size:13px">No one has played ${MIN_GAMES} finished games yet this month. The race starts with the next game.</p>`}
-    <div class="muted" style="font-size:11.5px">Most wins this month (at least ${MIN_GAMES} games). Ties go to the better win rate, then the fewest points per round.</div>
+    <div class="muted" style="font-size:11.5px"><span>Most wins this month (at least ${MIN_GAMES} games).</span> <span>${statsGame==='leekha'?'Ties go to the better win rate, then the fewest points per round.':'Ties go to the better win rate, then the most points per round.'}</span></div>
     ${past.length?`<div class="eyebrow" style="margin-top:4px">Past winners</div><div class="potm-past">${past.map(([k,[p,x]])=>`<button class="potm-run plink" data-prof="${p}">${avatar(p)}<span style="min-width:0"><b>${esc(pname(p))}</b><span class="muted" style="display:block;font-size:12px">${monthName(k)} · ${x.wins} wins</span></span></button>`).join('')}</div>`:''}
   </section>`;
 }
+const gamePicker = () => `<div class="seg">${GAME_LIST().map(([k,v])=>`<button data-sgame="${k}" aria-pressed="${statsGame===k}">${v}</button>`).join('')}</div>`;
 function viewStats(){
-  const st = stats(); const finished = S.games.filter(result).length;
-  const rounds = S.games.reduce((a,g)=>a+g.rounds.length,0);
+  const st = stats(); const finished = ofType().filter(result).length;
+  const rounds = ofType().reduce((a,g)=>a+g.rounds.length,0);
   const ps = S.players.filter(p=>st[p.id].rounds);
   const bars = (title, fn, fmt, sub) => {
     const vals = ps.map(p=>({p, v:fn(st[p.id])})).sort((a,b)=>b.v-a.v);
     const max = Math.max(1, ...vals.map(x=>x.v));
     return `<section class="panel"><div><div class="eyebrow">${title}</div>${sub?`<div class="muted" style="font-size:12px">${sub}</div>`:''}</div><div class="bars">${vals.map(x=>`<div class="bar"><button class="lbl plink" data-prof="${x.p.id}">${esc(x.p.name)}</button><div class="track"><i style="width:${x.v/max*100}%"></i></div><span class="num" style="text-align:right">${fmt(x.v)}</span></div>`).join('')}</div></section>`;
   };
-  if(!ps.length) return `${sampleNote()}<section class="panel"><h2>No stats yet</h2><p class="muted" style="margin:0">Play a few rounds and the leaderboard fills in here.</p></section>`;
-  return `${sampleNote()}<div class="kpis"><div class="kpi"><b class="num">${finished}</b><span>games finished</span></div><div class="kpi"><b class="num">${rounds}</b><span>rounds played</span></div><div class="kpi"><b class="num">${S.players.length}</b><span>players</span></div></div>
-  ${potmPanel()}
-  <div class="notice">Tap a player's name to open their dashboard.</div>
-  ${bars('Win rate', s=>s.games?s.wins/s.games:0, v=>Math.round(v*100)+'%', 'Finished games only')}
+  if(!ps.length) return `${sampleNote()}${gamePicker()}<section class="panel"><h2>No stats yet</h2><p class="muted" style="margin:0">Play a few rounds and the leaderboard fills in here.</p></section>`;
+  const specific = statsGame==='leekha' ? `
   ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Lower is better. A fair share is 9.')}
   ${bars('Queen of spades taken', s=>s.queens, v=>v)}
   ${bars('Clean rounds (0 points)', s=>s.clean, v=>v)}
-  ${bars('Took all 36', s=>s.moons, v=>v, 'Solo games only')}
+  ${bars('Took all 36', s=>s.moons, v=>v, 'Solo games only')}` : `
+  ${bars('Bids made', s=>s.bids?s.made/s.bids:0, v=>Math.round(v*100)+'%', statsGame==='400'?'Share of their own bids each player made':'Share of winning bids the player made')}
+  ${bars('Average bid', s=>s.bids?s.bidSum/s.bids:0, v=>v.toFixed(1))}
+  ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Higher is better')}
+  ${bars('Bid 13 and made it', s=>s.thirteen, v=>v)}`;
+  return `${sampleNote()}${gamePicker()}<div class="kpis"><div class="kpi"><b class="num">${finished}</b><span>games finished</span></div><div class="kpi"><b class="num">${rounds}</b><span>rounds played</span></div><div class="kpi"><b class="num">${S.players.length}</b><span>players</span></div></div>
+  ${potmPanel()}
+  <div class="notice">Tap a player's name to open their dashboard.</div>
+  ${bars('Win rate', s=>s.games?s.wins/s.games:0, v=>Math.round(v*100)+'%', 'Finished games only')}
+  ${specific}
   ${partnerBoards()}`;
 }
 
@@ -819,7 +1035,7 @@ const pairKey = m => m.slice().sort().join('|');
 const pairName = k => k.split('|').map(pname).join(' & ');
 function partnerships(){
   const pairs = {}, vs = {};
-  S.games.forEach(g=>{ if(g.mode!=='teams') return; const res = result(g); if(!res) return;
+  ofType().forEach(g=>{ if(g.mode!=='teams') return; const res = result(g); if(!res) return;
     g.teams.forEach((m,i)=>{ const k=pairKey(m), ok=pairKey(g.teams[1-i]); const won=res.winners[0].members.includes(m[0]);
       const p = pairs[k] || (pairs[k]={key:k,members:m.slice().sort(),games:0,wins:0}); p.games++; if(won) p.wins++;
       const row = vs[k] || (vs[k]={}); const v = row[ok] || (row[ok]={key:ok,games:0,wins:0}); v.games++; if(won) v.wins++; });
@@ -839,14 +1055,13 @@ function partnerBoards(){
 }
 function spark(hist){
   if(hist.length<2) return '<p class="muted" style="margin:0">Needs at least 2 finished games.</p>';
-  const W=320, H=130, L=28, R=8, max=Math.max(LIMIT+20, ...hist.map(h=>h.final));
-  const x = i => L + i*(W-L-R)/(hist.length-1), y = v => H-14-(v/max)*(H-26);
+  const T=GAME[statsGame].target, W=320, H=130, L=28, R=8, max=Math.max(T+Math.round(T/5), ...hist.map(h=>h.final)), min=Math.min(0, ...hist.map(h=>h.final));
+  const x = i => L + i*(W-L-R)/(hist.length-1), y = v => H-14-((v-min)/(max-min))*(H-26);
   const pts = hist.map((h,i)=>`${x(i).toFixed(1)},${y(h.final).toFixed(1)}`).join(' ');
   const mono = 'font-family="IBM Plex Mono, monospace" font-size="10"';
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Final score in each game">
     <line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/><text x="0" y="${y(0)+4}" ${mono} fill="var(--muted)">0</text>
-    <line x1="${L}" x2="${W-R}" y1="${y(50)}" y2="${y(50)}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="0" y="${y(50)+4}" ${mono} fill="var(--muted)">50</text>
-    <line x1="${L}" x2="${W-R}" y1="${y(LIMIT)}" y2="${y(LIMIT)}" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="0" y="${y(LIMIT)+4}" ${mono} fill="var(--bad)">${LIMIT}</text>
+    <line x1="${L}" x2="${W-R}" y1="${y(T)}" y2="${y(T)}" stroke="${statsGame==='leekha'?'var(--bad)':'var(--good)'}" stroke-dasharray="4 4"/><text x="0" y="${y(T)+4}" ${mono} fill="${statsGame==='leekha'?'var(--bad)':'var(--good)'}">${T}</text>
     <polyline points="${pts}" fill="none" stroke="var(--felt)" stroke-width="2"/>
     ${hist.map((h,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(h.final).toFixed(1)}" r="4" fill="${h.won?'var(--good)':h.lost?'var(--bad)':'var(--muted)'}"/>`).join('')}
   </svg><div class="muted" style="font-size:12px">Green: won · Red: lost · Grey: neither (solo games)</div>`;
@@ -855,7 +1070,7 @@ function viewProfile(id){
   const p = S.players.find(x=>x.id===id);
   if(!p){ profile=null; return tab==='stats' ? viewStats() : viewPlayers(); }
   const s = stats()[id]; const {pairs, vs} = partnerships(); const titles = potmTitles()[id]||[];
-  const hist = S.games.filter(g=>g.seats.includes(id) && result(g)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0)
+  const hist = ofType().filter(g=>g.seats.includes(id) && result(g)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0)
     .map(g=>{ const r=result(g); return {g, won:r.winners.some(w=>w.members.includes(id)), lost:r.loser.members.includes(id), final:totals(g)[id]}; });
   const rec = m => { const h=hist.filter(x=>x.g.mode===m); return `${h.filter(x=>x.won).length}–${h.filter(x=>x.lost).length}`; };
   const mine = Object.values(pairs).filter(x=>x.members.includes(id)).map(x=>({...x, partner:x.members.find(m=>m!==id)})).sort(byRate);
@@ -865,13 +1080,15 @@ function viewProfile(id){
   <section class="row" style="gap:14px">${avatar(p.id,'xl')}
     <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2><div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
     ${editing||!canEditPlayer(p)?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
-  ${canEditPlayer(p)?'':`<div class="notice">${p.claimed?`Only ${esc(p.name)} can edit this profile, on their own phone.`:'Only the phone that registered this player can edit this profile.'}</div>`}
+  ${canEditPlayer(p)?'':`<div class="notice">${p.claimed?`Only ${esc(p.name)} can edit this profile, on their own phone.`:`Only ${esc(p.name)} can edit this profile. They can do it once they install the app and pick themselves under “This phone belongs to”.`}</div>`}
   ${editing?`<section class="panel"><h2>Edit player</h2>${nameForm('editForm', p, 'Save changes')}<button class="btn sm ghost" data-act="cancel-edit">Cancel</button></section>`:''}
   ${titles.length?`<div class="notice potm-badge">♛ Player of the month${titles.length>1?` ${titles.length} times`:''}: ${titles.map(monthName).join(', ')}</div>`:''}
+  ${gamePicker()}
   <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
-  <div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>
+  ${statsGame==='leekha'?`<div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>`
+   :`<div class="kpis"><div class="kpi"><b class="num">${pct(s.made,s.bids)}</b><span>bids made</span></div><div class="kpi"><b class="num">${s.bids?(s.bidSum/s.bids).toFixed(1):'–'}</b><span>average bid</span></div><div class="kpi"><b class="num">${s.thirteen}</b><span>bid 13 and made it</span></div></div>`}
   <section class="panel"><div class="eyebrow">Record (won–lost)</div>
-    <div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>
+    ${statsGame==='leekha'?`<div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>`:''}
     <div class="row between"><span>Teams of 2</span><b class="num">${rec('teams')}</b></div>
     ${form?`<div><div class="eyebrow" style="margin-bottom:6px">Last ${Math.min(10,hist.length)} games, oldest first</div><div class="form">${form}</div></div>`:''}</section>
   <section class="panel"><div class="eyebrow">Final score per game</div>${spark(hist)}</section>
@@ -988,7 +1205,7 @@ function syncNow(){
       const local = localRecords(); let maxTs = SY.cursor||0;
       for(const r of rows){
         maxTs = Math.max(maxTs, +r.server_ts||0); const k=recKey(r.kind,r.id), loc=local[k];
-        const watching = loc && (r.kind==='game' ? !canScore(loc.data) : !canEditPlayer(loc.data));
+        const watching = loc && (r.kind==='game' ? !canScore(loc.data) : !ownsPlayer(loc.data));
         const dirty = watching ? false : loc ? strHash(JSON.stringify(loc.data))!==SY.hashes[k] : SY.hashes[k]!=null;   // changed or deleted here, not sent yet
         if(dirty) continue;                       // this phone's newer change is sent below and wins
         if(r.deleted){ if(loc){ removeLocal(r.kind,r.id); changed=true; } delete SY.hashes[k]; continue; }
@@ -998,7 +1215,7 @@ function syncNow(){
       if(changed) saveLocal();
       // 2. send what changed on this phone
       const now=Date.now(), mine=localRecords(), out=[];
-      for(const k in mine){ if(mine[k].kind==='game' ? !canScore(mine[k].data) : !canEditPlayer(mine[k].data)) continue; const h=strHash(JSON.stringify(mine[k].data)); if(h!==SY.hashes[k]) out.push({row:{kind:mine[k].kind,id:mine[k].id,data:mine[k].data,updated_at:now,deleted:false},k,h}); }
+      for(const k in mine){ if(mine[k].kind==='game' ? !canScore(mine[k].data) : !ownsPlayer(mine[k].data)) continue; const h=strHash(JSON.stringify(mine[k].data)); if(h!==SY.hashes[k]) out.push({row:{kind:mine[k].kind,id:mine[k].id,data:mine[k].data,updated_at:now,deleted:false},k,h}); }
       for(const k in SY.hashes){ if(!mine[k]){ const i=k.indexOf(':'); out.push({row:{kind:k.slice(0,i),id:k.slice(i+1),data:null,updated_at:now,deleted:true},k,h:null}); } }
       for(let i=0;i<out.length;i+=100){ const part=out.slice(i,i+100); await rpc('sj_push', {p_code:SY.code, p_rows:part.map(x=>x.row)});
         part.forEach(x=>{ if(x.h==null) delete SY.hashes[x.k]; else SY.hashes[x.k]=x.h; }); }
@@ -1036,8 +1253,13 @@ function syncPanel(){
     <div class="muted" style="font-size:12.5px">Send this code to your friends. Anyone with it can see and change this group's games, so share it only with your card group.</div>
     <div id="syncLabel" style="font-size:13px">${esc(syncLabel())}</div>
     <div><div class="eyebrow" style="margin-bottom:6px">This phone belongs to</div>
-      <div class="chips">${S.players.filter(p=>!p.sample).map(p=>`<button class="chip" data-me="${p.id}" aria-pressed="${ME===p.id}" ${p.claimed&&p.owner!==DEVICE?'disabled':''}>${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>
-      <div class="muted" style="font-size:12px;margin-top:6px">Pick yourself. Only this phone can then edit your profile, and games you start are scored here. Friends see them as view only.</div></div>
+      <div class="chips">${S.players.filter(p=>!p.sample).map(p=>`<button class="chip${p.claimed&&p.owner!==DEVICE?' taken':''}" data-me="${p.id}" aria-pressed="${ME===p.id}">${avatar(p.id)}${esc(p.name)}${p.claimed&&p.owner!==DEVICE?' <span aria-hidden="true">🔒</span>':''}</button>`).join('')}</div>
+      <div class="muted" style="font-size:12px;margin-top:6px">Pick yourself. Only this phone can then edit your profile, and games you start are scored here. Friends see them as view only. Changed phones? Tap your locked name and enter your personal key.</div>
+      ${claimFor?`<div class="syncbox"><b>${esc(pname(claimFor))} is set up on another phone</b><div class="muted" style="font-size:12.5px">If this is you on a new phone, enter your personal key to move your profile and your games here.</div>
+        <div class="row"><input type="text" id="claimKey" maxlength="16" placeholder="XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" style="text-transform:uppercase;font-family:var(--f-mono);letter-spacing:.08em"><button class="btn primary" data-act="claim-key">Move here</button></div>
+        <button class="btn sm ghost" data-act="claim-cancel" style="align-self:flex-start">Cancel</button>${claimMsg?`<div class="err" style="font-size:13px">${esc(claimMsg)}</div>`:''}</div>`:''}
+      ${ME&&myKey()&&S.players.some(p=>p.id===ME&&p.owner===DEVICE)?`<div class="keybox"><div><span class="muted" style="font-size:12px">Your personal key</span><b class="num" data-raw>${esc(myKey())}</b></div><button class="btn sm" data-act="key-copy">Copy</button></div>
+        <div class="muted" style="font-size:12px">Save this key in your notes. If you change phones, join the group again, tap your name and enter the key to get your profile and games back.</div>`:''}</div>
     ${syncMsg?`<div style="font-size:13px">${esc(syncMsg)}</div>`:''}
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="sync-now">Sync now</button>
       ${confirmLeave?`<span style="font-size:13px">Stop syncing on this phone? Your data stays here and online.</span><button class="btn sm danger" data-act="sync-leave-yes">Leave group</button><button class="btn sm" data-act="sync-leave-no">Stay</button>`:`<button class="btn sm ghost danger" data-act="sync-leave">Leave group</button>`}</div></section>`;
@@ -1056,6 +1278,118 @@ async function syncJoin(){ const code=(($('#syncCode')||{}).value||'').trim().to
     syncMsg=`You joined ${info[0].name}.`; }
   catch(e){ syncBusyUI=false; syncMsg = e.offline ? 'No internet connection. Try again when you are online.' : 'Could not join: '+e.message; }
   render(); }
+
+
+/* ---------- personal key: move your profile and games to a new phone ---------- */
+const KEY_STORE = 'sajjel-key';
+const myKey = () => { try{ return localStorage.getItem(KEY_STORE)||''; }catch(e){ return ''; } };
+function newKey(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const r=new Uint32Array(12); (window.crypto||{}).getRandomValues ? crypto.getRandomValues(r) : r.forEach((_,i)=>r[i]=Math.random()*1e9);
+  let k=''; r.forEach((v,i)=>{ k+=A[v%32]; if(i===3||i===7) k+='-'; }); return k; }
+async function keyHash(id, key){ const norm=String(key).toUpperCase().replace(/[^A-Z0-9]/g,'');
+  const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode('sajjel3endak|'+id+'|'+norm));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+async function claimSelf(p){
+  const prev=S.players.find(x=>x.id===ME); if(prev && prev.owner===DEVICE && prev.id!==p.id) prev.claimed=false;
+  const k=newKey(); try{ p.keyHash=await keyHash(p.id,k); }catch(e){ syncMsg='This browser cannot create a personal key.'; render(); return; }
+  ME=p.id; p.owner=DEVICE; p.claimed=true;
+  try{ localStorage.setItem('sajjel-me',ME); localStorage.setItem(KEY_STORE,k); }catch(e){}
+  syncMsg=''; save(); render(); }
+async function recoverWithKey(id, key){
+  const p=S.players.find(x=>x.id===id); if(!p) return;
+  if(!p.keyHash){ claimMsg='This profile has no personal key yet. Open the app once on the old phone to create it.'; render(); return; }
+  let h; try{ h=await keyHash(id,key); }catch(e){ claimMsg='This browser cannot check keys.'; render(); return; }
+  if(h!==p.keyHash){ claimMsg='That key does not match. Check it and try again.'; render(); return; }
+  const prev=S.players.find(x=>x.id===ME); if(prev && prev.owner===DEVICE && prev.id!==id) prev.claimed=false;
+  p.owner=DEVICE; p.claimed=true; ME=id;
+  S.games.forEach(g=>{ if(g.ownerPlayer===id && g.owner!==DEVICE){ g.owner=DEVICE; } });
+  try{ localStorage.setItem('sajjel-me',ME); localStorage.setItem(KEY_STORE, String(key).toUpperCase().trim()); }catch(e){}
+  claimFor=null; claimMsg=''; syncMsg=`Welcome back, ${p.name.replace(/\.$/,'')}. Your profile and the games you score are on this phone now.`; save(); render(); }
+// profiles claimed before keys existed get a key the next time the app opens
+async function ensureKey(){ const p=S.players.find(x=>x.id===ME); if(!p || p.owner!==DEVICE || (p.keyHash && myKey())) return;
+  const k=newKey(); try{ p.keyHash=await keyHash(p.id,k); }catch(e){ return; } try{ localStorage.setItem(KEY_STORE,k); }catch(e){} save(); safeRender(); }
+
+/* ---------- rule book ---------- */
+let rulesOpen = null;   // 'leekha' | '400' | 'tarneeb' | 'app' while the rule book is open
+const RB = {
+en: {
+  title:'Rule book', back:'← Back', tabs:{leekha:'Leekha','400':'400',tarneeb:'Tarneeb',app:'Using the app'},
+  leekha:[
+    ['At a glance', `<ul><li>4 players, a full 52-card deck, 13 cards each.</li><li>Play <b>every player for themselves</b> or in <b>teams of 2</b> (partners sit opposite).</li><li>Penalty cards: every <b>♥ is 1 point</b>, the <b>10♦ is 10</b>, the <b>Q♠ is 13</b>. That is <b>36 points</b> in every round.</li><li>The goal is to <b>stay under 101</b>.</li></ul>`],
+    ['The deal', `<p>The first dealer is picked at random. After that, <b>whoever took the Q♠ deals the next round</b>. If one player took all 13 hearts, that player deals instead.</p>`],
+    ['Playing a hand', `<ul><li>There is no trump.</li><li>You must follow the suit that was led if you can.</li><li>The highest card of the suit led wins the trick, and the winner leads the next trick.</li><li>Try not to win tricks that hold hearts, the 10♦ or the Q♠.</li></ul>`],
+    ['Scoring a round', `<p>After the 13 tricks, each player counts the penalty cards they took. The four scores always add up to 36.</p><div class="ex"><b>Example</b> Maya took 4 hearts and the Q♠: 4 + 13 = <b>17</b>. Rami took the 10♦ and 2 hearts: <b>12</b>. Karim took 7 hearts: <b>7</b>. Nico took nothing: <b>0</b>.</div>`],
+    ['Taking all 36 (every player for themselves)', `<p>If one player takes <b>every heart, the 10♦ and the Q♠</b>, they score <b>0</b> and each of the other three scores <b>36</b>.</p><p>In teams this rule does not apply: the 36 points count normally.</p>`],
+    ['End of the game', `<ul><li><b>Every player for themselves:</b> the game ends when someone reaches 101 or more. The player with the <b>lowest score</b> wins.</li><li><b>Teams of 2:</b> each player keeps their own score. The <b>first player to reach 101 loses the game for their team</b>.</li></ul>`],
+  ],
+  '400':[
+    ['At a glance', `<ul><li>4 players in <b>teams of 2</b>, partners sit opposite.</li><li>13 cards each. <b>Hearts are always trump.</b></li><li>Every player has their <b>own score</b>.</li><li>A team wins when one player reaches <b>41 or more</b> and their partner is <b>above 0</b>.</li></ul>`],
+    ['Bidding', `<p>Before the hand, each player bids how many tricks <b>they</b> will take on their own. The smallest bid is <b>2</b>.</p><p>The four bids together must reach a minimum, or the cards are dealt again:</p><table class="rt"><tr><td>Normal</td><td><b>11</b></td></tr><tr><td>Someone has 30 to 39</td><td><b>12</b></td></tr><tr><td>Someone has 40 or more</td><td><b>13</b></td></tr></table>`],
+    ['Playing a hand', `<ul><li>Follow the suit that was led if you can.</li><li>If you can't, you can play a heart to trump.</li><li>The highest heart wins the trick. With no heart, the highest card of the suit led wins.</li></ul>`],
+    ['Scoring a round', `<p>If you take <b>at least</b> your bid, you <b>add</b> the bid's value. If you take fewer, you <b>lose</b> it. Extra tricks count for nothing.</p><p>The value depends on <b>your own score before the round</b>:</p>
+      <div class="tablewrap"><table class="rt"><thead><tr><th>Bid</th><th>Below 30</th><th>30 and above</th></tr></thead><tbody>
+      <tr><td>2, 3, 4</td><td>2, 3, 4</td><td>2, 3, 4</td></tr><tr><td>5</td><td>10</td><td>5</td></tr><tr><td>6</td><td>12</td><td>6</td></tr><tr><td>7</td><td>14</td><td>7</td></tr><tr><td>8</td><td>24</td><td>16</td></tr><tr><td>9</td><td>27</td><td>27</td></tr><tr><td>10</td><td>40</td><td>40</td></tr><tr><td>11</td><td>44</td><td>44</td></tr><tr><td>12</td><td>48</td><td>48</td></tr><tr><td>13</td><td colspan="2">Win the game, or −52</td></tr></tbody></table></div>
+      <div class="ex"><b>Example</b> Rami has 12 points, bids 6 and takes 7: <b>+12</b>. Next round he has 34, bids 6 and takes 5: <b>−6</b>. Maya bids 4 and takes 6: <b>+4</b>.</div>`],
+    ['Winning', `<ul><li>A team wins when one player reaches <b>41 or more</b> and their partner's score is <b>above 0</b>. If the partner is at 0 or below, play continues.</li><li>A player who bids <b>13 and takes all 13 tricks</b> wins the game for their team at once. Missing it costs <b>52</b>.</li></ul>`],
+  ],
+  tarneeb:[
+    ['At a glance', `<ul><li>4 players in <b>teams of 2</b>, partners sit opposite.</li><li>13 cards each.</li><li>The team shares <b>one score</b>. The first team to <b>31</b> wins.</li></ul>`],
+    ['Bidding', `<p>Players bid how many tricks their <b>team</b> will take, from <b>7 to 13</b>. The highest bid wins, and that player chooses the <b>trump suit</b> (the tarneeb).</p>`],
+    ['Playing a hand', `<ul><li>Follow the suit that was led if you can.</li><li>If you can't, you can play a trump.</li><li>The highest trump wins the trick. With no trump, the highest card of the suit led wins.</li></ul>`],
+    ['Scoring a round', `<ul><li><b>Bidding team makes its bid:</b> it scores the tricks it took. The other team scores nothing.</li><li><b>Bidding team fails:</b> it loses the amount it bid, and the other team scores the tricks it took.</li><li>There is no bonus for bidding 13.</li></ul>
+      <div class="ex"><b>Example</b> Team A bids 9 and takes 10: Team A <b>+10</b>, Team B 0.<br>Team B bids 8 and takes 7: Team B <b>−8</b>, Team A <b>+6</b>.</div>`],
+    ['Winning', `<p>The first team to reach <b>31 or more</b> wins the game.</p>`],
+  ],
+  app:[
+    ['Start a game', `<p>Go to <b>Tables</b> and tap <b>New game</b>. Choose the card game, then tap 4 players. In teams, the first two players you tap are <b>Team A</b> (blue) and the next two are <b>Team B</b> (orange).</p>`],
+    ['Score a round', `<ul><li><b>Leekha:</b> after the hand, give each player their hearts and tap who took the Q♠ and the 10♦. <b>Take the rest</b> gives a player everything not yet given out.</li><li><b>400:</b> enter everyone's bids before the hand, then the tricks after it.</li><li><b>Tarneeb:</b> enter who won the bidding, the bid and the trump, then the tricks the bidding team took.</li></ul><p>Made a mistake? Tap <b>✎</b> next to any round to fix it.</p>`],
+    ['Several games at once', `<p>Leave a game at any time with <b>← All tables</b>. It waits there until you continue it. If a player leaves, use <b>Substitute a player</b>: the new player continues from that seat's score.</p>`],
+    ['Playing as a group', `<ul><li>Join your group with its 6-letter code under <b>Players → Online sync</b>.</li><li>Pick yourself under <b>This phone belongs to</b>. Only your phone can edit your profile.</li><li>The phone that starts a game keeps its score. Everyone else watches it live as <b>view only</b>.</li><li>Keep your <b>personal key</b>. On a new phone, tap your locked name and enter it to get your profile and games back.</li></ul>`],
+  ],
+},
+ar: {
+  title:'كتاب القواعد', back:'→ رجوع', tabs:{leekha:'ليخة','400':'400',tarneeb:'طرنيب',app:'استعمال التطبيق'},
+  leekha:[
+    ['نظرة سريعة', `<ul><li>4 لاعبين، شدّة كاملة من 52 ورقة، 13 ورقة لكلّ لاعب.</li><li>اللعب <b>كلّ لاعب لحاله</b> أو <b>فرق من لاعبَين</b> (الشريكان متقابلان).</li><li>أوراق العقوبة: كلّ <b>♥ بنقطة</b>، <b>الـ10♦ بـ10</b>، <b>الـQ♠ بـ13</b>. أي <b>36 نقطة</b> في كلّ جولة.</li><li>الهدف هو <b>البقاء تحت 101</b>.</li></ul>`],
+    ['التوزيع', `<p>الموزّع الأوّل يُختار عشوائياً. بعد ذلك <b>من يأخذ الـQ♠ يوزّع الجولة التالية</b>. وإذا أخذ لاعب كلّ أوراق الكبّة الـ13، يوزّع هو.</p>`],
+    ['اللعب', `<ul><li>لا يوجد طرنيب.</li><li>يجب أن تلعب من نفس النوع المطروح إذا كان معك.</li><li>أعلى ورقة من النوع المطروح تأكل، ومن يأكل يبدأ الأكلة التالية.</li><li>حاول ألّا تأكل أكلات فيها كبّة أو الـ10♦ أو الـQ♠.</li></ul>`],
+    ['حساب الجولة', `<p>بعد الأكلات الـ13، يحسب كلّ لاعب أوراق العقوبة التي أخذها. مجموع النقاط دائماً 36.</p><div class="ex"><b>مثال</b> مايا أخذت 4 كبّات والـQ♠: ‏4 + 13 = <b>17</b>. رامي أخذ الـ10♦ وكبّتين: <b>12</b>. كريم أخذ 7 كبّات: <b>7</b>. نيكو لم يأخذ شيئاً: <b>0</b>.</div>`],
+    ['أخذ الـ36 كلّها (كلّ لاعب لحاله)', `<p>إذا أخذ لاعب <b>كلّ الكبّات والـ10♦ والـQ♠</b>، يسجّل <b>0</b> ويسجّل كلّ واحد من الثلاثة الآخرين <b>36</b>.</p><p>في الفرق لا تُطبَّق هذه القاعدة، وتُحسب الـ36 عادياً.</p>`],
+    ['نهاية اللعبة', `<ul><li><b>كلّ لاعب لحاله:</b> تنتهي اللعبة عندما يصل أحدهم إلى 101 أو أكثر، ويربح صاحب <b>أقلّ نتيجة</b>.</li><li><b>فرق من لاعبَين:</b> لكلّ لاعب نتيجته. <b>أوّل لاعب يصل إلى 101 يخسر اللعبة لفريقه</b>.</li></ul>`],
+  ],
+  '400':[
+    ['نظرة سريعة', `<ul><li>4 لاعبين في <b>فرق من لاعبَين</b>، الشريكان متقابلان.</li><li>13 ورقة لكلّ لاعب. <b>الكبّة دائماً طرنيب.</b></li><li>لكلّ لاعب <b>نتيجته الخاصة</b>.</li><li>يربح الفريق عندما يصل أحد لاعبيه إلى <b>41 أو أكثر</b> وشريكه <b>فوق الصفر</b>.</li></ul>`],
+    ['الطلب', `<p>قبل اللعب، يطلب كلّ لاعب عدد الأكلات التي سيأكلها <b>هو</b> وحده. أقلّ طلب هو <b>2</b>.</p><p>يجب أن يصل مجموع الطلبات الأربعة إلى حدّ أدنى، وإلّا تُوزَّع الأوراق من جديد:</p><table class="rt"><tr><td>عادةً</td><td><b>11</b></td></tr><tr><td>أحدهم بين 30 و39</td><td><b>12</b></td></tr><tr><td>أحدهم 40 أو أكثر</td><td><b>13</b></td></tr></table>`],
+    ['اللعب', `<ul><li>العب من نفس النوع المطروح إذا كان معك.</li><li>إذا لم يكن معك، يمكنك أن تقطع بكبّة.</li><li>أعلى كبّة تأكل. وإذا لم تُلعب كبّة، تأكل أعلى ورقة من النوع المطروح.</li></ul>`],
+    ['حساب الجولة', `<p>إذا أكلت <b>على الأقل</b> ما طلبته، <b>تُضاف</b> قيمة طلبك. وإذا أكلت أقلّ، <b>تُطرح</b>. الأكلات الزائدة لا تُحسب.</p><p>القيمة تعتمد على <b>نتيجتك قبل الجولة</b>:</p>
+      <div class="tablewrap"><table class="rt"><thead><tr><th>الطلب</th><th>تحت 30</th><th>30 وما فوق</th></tr></thead><tbody>
+      <tr><td>2، 3، 4</td><td>2، 3، 4</td><td>2، 3، 4</td></tr><tr><td>5</td><td>10</td><td>5</td></tr><tr><td>6</td><td>12</td><td>6</td></tr><tr><td>7</td><td>14</td><td>7</td></tr><tr><td>8</td><td>24</td><td>16</td></tr><tr><td>9</td><td>27</td><td>27</td></tr><tr><td>10</td><td>40</td><td>40</td></tr><tr><td>11</td><td>44</td><td>44</td></tr><tr><td>12</td><td>48</td><td>48</td></tr><tr><td>13</td><td colspan="2">ربح اللعبة، أو −52</td></tr></tbody></table></div>
+      <div class="ex"><b>مثال</b> رامي معه 12 نقطة، طلب 6 وأكل 7: <b>+12</b>. في الجولة التالية معه 34، طلب 6 وأكل 5: <b>−6</b>. مايا طلبت 4 وأكلت 6: <b>+4</b>.</div>`],
+    ['الربح', `<ul><li>يربح الفريق عندما يصل أحد لاعبيه إلى <b>41 أو أكثر</b> ونتيجة شريكه <b>فوق الصفر</b>. إذا كان الشريك على الصفر أو تحته، يستمرّ اللعب.</li><li>من يطلب <b>13 ويأكل كلّ الأكلات</b> يربح اللعبة لفريقه فوراً. وإذا فشل تُطرح منه <b>52</b>.</li></ul>`],
+  ],
+  tarneeb:[
+    ['نظرة سريعة', `<ul><li>4 لاعبين في <b>فرق من لاعبَين</b>، الشريكان متقابلان.</li><li>13 ورقة لكلّ لاعب.</li><li>للفريق <b>نتيجة واحدة</b>. أوّل فريق يصل إلى <b>31</b> يربح.</li></ul>`],
+    ['الطلب', `<p>يطلب اللاعبون عدد الأكلات التي سيأكلها <b>فريقهم</b>، من <b>7 إلى 13</b>. أعلى طلب يربح، وصاحبه يختار <b>الطرنيب</b>.</p>`],
+    ['اللعب', `<ul><li>العب من نفس النوع المطروح إذا كان معك.</li><li>إذا لم يكن معك، يمكنك أن تقطع بالطرنيب.</li><li>أعلى طرنيب يأكل. وإذا لم يُلعب طرنيب، تأكل أعلى ورقة من النوع المطروح.</li></ul>`],
+    ['حساب الجولة', `<ul><li><b>الفريق الطالب يحقّق طلبه:</b> يسجّل عدد الأكلات التي أكلها، والفريق الآخر لا يسجّل شيئاً.</li><li><b>الفريق الطالب يفشل:</b> يُطرح منه طلبه، والفريق الآخر يسجّل أكلاته.</li><li>لا توجد مكافأة لطلب 13.</li></ul>
+      <div class="ex"><b>مثال</b> الفريق أ طلب 9 وأكل 10: الفريق أ <b>+10</b>، الفريق ب 0.<br>الفريق ب طلب 8 وأكل 7: الفريق ب <b>−8</b>، الفريق أ <b>+6</b>.</div>`],
+    ['الربح', `<p>أوّل فريق يصل إلى <b>31 أو أكثر</b> يربح اللعبة.</p>`],
+  ],
+  app:[
+    ['بدء لعبة', `<p>اذهب إلى <b>الطاولات</b> واضغط <b>لعبة جديدة</b>. اختر لعبة الورق ثمّ 4 لاعبين. في الفرق، أوّل لاعبَين تختارهما هما <b>الفريق أ</b> (أزرق) والاثنان التاليان <b>الفريق ب</b> (برتقالي).</p>`],
+    ['تسجيل جولة', `<ul><li><b>ليخة:</b> بعد اللعب، أعطِ كلّ لاعب كبّاته واضغط على من أخذ الـQ♠ والـ10♦. زرّ <b>ياخد الباقي</b> يعطي اللاعب كلّ ما لم يُوزَّع بعد.</li><li><b>400:</b> سجّل طلبات الجميع قبل اللعب، ثمّ الأكلات بعده.</li><li><b>طرنيب:</b> سجّل من ربح الطلب والطلب والطرنيب، ثمّ أكلات الفريق الطالب.</li></ul><p>أخطأت؟ اضغط <b>✎</b> بجانب أيّ جولة لتصحيحها.</p>`],
+    ['عدّة ألعاب في وقت واحد', `<p>اترك اللعبة متى شئت بزرّ <b>كلّ الطاولات</b>. تنتظرك هناك حتى تكملها. إذا غادر لاعب، استعمل <b>استبدال لاعب</b>: اللاعب الجديد يكمل من نتيجة ذلك المقعد.</p>`],
+    ['اللعب كمجموعة', `<ul><li>انضمّ إلى مجموعتك برمزها المؤلّف من 6 أحرف في <b>اللاعبون ← المزامنة</b>.</li><li>اختر نفسك في <b>هذا الهاتف لـ</b>. هاتفك وحده يعدّل ملفّك.</li><li>الهاتف الذي يبدأ اللعبة يسجّل نتائجها، والباقون يشاهدونها مباشرةً <b>للمشاهدة فقط</b>.</li><li>احتفظ <b>بمفتاحك الشخصي</b>. على هاتف جديد، اضغط على اسمك المقفل وأدخله لاستعادة ملفّك وألعابك.</li></ul>`],
+  ],
+}};
+function viewRules(){
+  const L = RB[lang==='ar'?'ar':'en'], k = rulesOpen;
+  return `<div data-raw class="rules">
+    <section class="row between"><button class="btn sm ghost" data-act="rules-close">${L.back}</button><span class="eyebrow">سجّل عندك · Sajjel 3endak</span></section>
+    <h2 class="rb-title">${L.title}</h2>
+    <div class="seg">${['leekha','400','tarneeb','app'].map(x=>`<button data-rules="${x}" aria-pressed="${k===x}">${L.tabs[x]}</button>`).join('')}</div>
+    ${L[k].map(([h,body],i)=>`<section class="panel rb"><h3><span class="rb-n">${k==='app'?'•':i+1}</span>${h}</h3>${body}</section>`).join('')}
+  </div>`;
+}
 
 /* ---------- player names ---------- */
 function nameForm(id, p, label){
@@ -1083,7 +1417,7 @@ function checkName(first, last, alias, exceptId){
 }
 
 /* ---------- events ---------- */
-function goTab(t){ if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
+function goTab(t){ rulesOpen=null; if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
 $('#langBtn').addEventListener('click', ()=>{ lang = lang==='ar'?'en':'ar'; try{ localStorage.setItem('sajjel-lang', lang); }catch(e){} render(); });
 document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; goTab(b.dataset.tab); confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
 $('#view').addEventListener('submit', e=>{
@@ -1103,21 +1437,25 @@ $('#view').addEventListener('click', e=>{
   if(b.dataset.avact==='shuffle'){ avDraft.face=randomFace(Date.now()^Math.floor(Math.random()*1e9)); refreshAvatar(); return; }
   if(b.dataset.avact==='nophoto'){ avDraft.photo=null; refreshAvatar(); return; }
   const g = cur(); const act = b.dataset.act;
+  if(b.dataset.rules){ rulesOpen=b.dataset.rules; window.scrollTo(0,0); }
+  if(act==='rules-close'){ rulesOpen=null; window.scrollTo(0,0); }
   if(b.dataset.go){ goTab(b.dataset.go); window.scrollTo(0,0); }
   if(b.dataset.open){ setOpen(b.dataset.open); window.scrollTo(0,0); }
   if(act==='close-game'){ setOpen(null); }
   if(b.dataset.hmode) histMode=b.dataset.hmode;
+  if(b.dataset.sgame) statsGame=b.dataset.sgame;
   if(b.dataset.hplayer) histPlayer = histPlayer===b.dataset.hplayer ? null : b.dataset.hplayer;
   const locked = g && !canScore(g);
-  if(locked && (['add-round','undo','sub-open','sub-yes','rand-dealer','del-game','del-yes','save-round'].includes(act) || b.dataset.editround || b.dataset.firstdealer)) { render(); return; }
+  if(locked && (['add-round','undo','sub-open','sub-yes','rand-dealer','del-game','del-yes','save-round','save-bids','edit-bids'].includes(act) || b.dataset.editround || b.dataset.firstdealer)) { render(); return; }
   if(act==='take-over') confirmTake=true;
   if(act==='take-no') confirmTake=false;
   if(act==='take-yes'){ g.owner=DEVICE; g.ownerPlayer=ME; g.updated=Date.now(); confirmTake=false; save(); }
-  if(b.dataset.me){ const pick=S.players.find(x=>x.id===b.dataset.me); const prev=S.players.find(x=>x.id===ME);
-    if(pick && !(pick.claimed && pick.owner!==DEVICE)){
-      if(prev && prev.owner===DEVICE) prev.claimed=false;
-      if(ME===pick.id){ ME=null; } else { ME=pick.id; pick.owner=DEVICE; pick.claimed=true; }
-      try{ ME?localStorage.setItem('sajjel-me',ME):localStorage.removeItem('sajjel-me'); }catch(e){} save(); } }
+  if(b.dataset.me){ const pick=S.players.find(x=>x.id===b.dataset.me); claimMsg='';
+    if(pick && pick.claimed && pick.owner!==DEVICE){ claimFor = claimFor===pick.id ? null : pick.id; }
+    else if(pick && ME!==pick.id){ claimFor=null; claimSelf(pick); return; } }
+  if(act==='claim-cancel'){ claimFor=null; claimMsg=''; }
+  if(act==='claim-key'){ recoverWithKey(claimFor, ($('#claimKey')||{}).value||''); return; }
+  if(act==='key-copy'){ const k=myKey(); try{ navigator.clipboard.writeText(k).then(()=>{ syncMsg='Key copied. Keep it somewhere safe.'; render(); }).catch(()=>{}); }catch(err){} }
   if(b.dataset.clear){ const p=b.dataset.clear; draft.hearts[p]=0; if(draft.queen===p) draft.queen=null; if(draft.ten===p) draft.ten=null; }
   if(b.dataset.rest){ const p=b.dataset.rest; const used=Object.values(draft.hearts).reduce((x,y)=>x+y,0); draft.hearts[p]=(draft.hearts[p]||0)+Math.max(0,HEARTS-used); if(!draft.queen) draft.queen=p; if(!draft.ten) draft.ten=p; }
   if(act==='sub-open') subState={out:null,in:null};
@@ -1132,36 +1470,55 @@ $('#view').addEventListener('click', e=>{
   if(act==='del-game') confirmDel=true;
   if(act==='del-no') confirmDel=false;
   if(act==='del-yes'){ S.games=S.games.filter(x=>x!==g); setOpen(null); save(); }
-  if(act==='rematch'){ const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
+  if(act==='rematch'){ const ng={id:uid(),type:typeOf(g),date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
     S.games.push(ng); tab='game'; openG=ng.id; openH=null; shareMsg=''; save(); window.scrollTo(0,0); }
   if(act==='share'){ const r=result(g), t=totals(g); const w=r.winners.flatMap(x=>x.members).map(pname).join(' & ');
-    const txt=`سجّل عندك · Sajjel 3endak\nLeekha · ${g.date} · ${g.mode==='teams'?'Teams':'Solo'}\n🏆 ${w}\n${r.loser.who?pname(r.loser.who):r.loser.label} hit ${r.loser.score}\n\n${g.seats.slice().sort((a,b)=>t[a]-t[b]).map(p=>`${pname(p)}: ${t[p]}`).join('\n')}\n(${g.rounds.length} rounds)`;
+    const txt=`سجّل عندك · Sajjel 3endak\n${gameName(g)} · ${g.date} · ${g.mode==='teams'?'Teams':'Solo'}\n🏆 ${w}\n${resultNote(g,r)}\n\n${g.seats.slice().sort((a,b)=>typeOf(g)==='leekha'?t[a]-t[b]:t[b]-t[a]).map(p=>`${pname(p)}: ${t[p]}`).join('\n')}\n(${g.rounds.length} rounds)`;
     const done=m=>{ shareMsg=m; render(); };
     if(navigator.share){ navigator.share({text:txt}).catch(()=>{}); }
     else { try{ navigator.clipboard.writeText(txt).then(()=>done('Result copied. Paste it in your WhatsApp group.')).catch(()=>done('Sharing is not available here.')); }catch(err){ shareMsg='Sharing is not available here.'; } } }
-  if(b.dataset.editround){ const rd=g.rounds[+b.dataset.editround]; draft={hearts:{...rd.hearts},queen:rd.queen,ten:rd.ten,index:+b.dataset.editround}; window.scrollTo(0,0); }
-  if(act==='new-game'){ setup={mode:'solo',seats:[]}; draft=null; }
+  if(b.dataset.editround){ const i=+b.dataset.editround, rd=g.rounds[i], ty=typeOf(g);
+    draft = ty==='leekha' ? {hearts:{...rd.hearts},queen:rd.queen,ten:rd.ten,index:i}
+      : ty==='400' ? {phase:'both',bids:{...rd.bids},tricks:{...rd.tricks},index:i}
+      : {phase:'both',bidder:rd.bidder,bid:rd.bid,trump:rd.trump||null,taken:rd.taken,index:i};
+    window.scrollTo(0,0); }
+  if(act==='edit-bids' && g && g.pending){ draft = typeOf(g)==='400' ? {phase:'bids',bids:{...g.pending.bids},tricks:{}} : {phase:'bid',bidder:g.pending.bidder,bid:g.pending.bid,trump:g.pending.trump||null,taken:0}; window.scrollTo(0,0); }
+  if(b.dataset.bid4){ const p=b.dataset.bid4; draft.bids[p]=Math.max(2,Math.min(13,(draft.bids[p]||2)+Number(b.dataset.d))); }
+  if(b.dataset.trick4){ const p=b.dataset.trick4; const sum=Object.values(draft.tricks).reduce((x,y)=>x+y,0), d=Number(b.dataset.d); if(!(d>0&&sum>=13)) draft.tricks[p]=Math.max(0,Math.min(13,(draft.tricks[p]||0)+d)); }
+  if(b.dataset.tbidder) draft.bidder=b.dataset.tbidder;
+  if(b.dataset.tbid) draft.bid=Math.max(7,Math.min(13,draft.bid+Number(b.dataset.tbid)));
+  if(b.dataset.trump) draft.trump = draft.trump===b.dataset.trump ? null : b.dataset.trump;
+  if(b.dataset.ttaken) draft.taken=Math.max(0,Math.min(13,draft.taken+Number(b.dataset.ttaken)));
+  if(act==='save-bids' && g){ g.pending = typeOf(g)==='400' ? {bids:{...draft.bids}} : {bidder:draft.bidder,bid:draft.bid,trump:draft.trump}; g.updated=Date.now(); draft=null; save(); window.scrollTo(0,0); }
+  if(act==='new-game'){ setup={type:'leekha',mode:'solo',seats:[]}; draft=null; }
+  if(b.dataset.gtype){ setup.type=b.dataset.gtype; if(GAME[setup.type].teamsOnly) setup.mode='teams'; setup.seats=setup.seats.filter(Boolean); }
   if(act==='cancel-setup') setup=null;
   if(b.dataset.mode) setup.mode=b.dataset.mode;
   if(b.dataset.seat){ const id=b.dataset.seat, i=setup.seats.indexOf(id);
     if(i>=0){ if(setup.mode==='teams') setup.seats[i]=null; else setup.seats.splice(i,1); }
     else { const h=setup.seats.indexOf(null); if(h>=0) setup.seats[h]=id; else if(setup.seats.length<4) setup.seats.push(id); } }
   if(b.dataset.mode) setup.seats=setup.seats.filter(Boolean);
-  if(act==='start'){ const s=setup.seats.filter(Boolean); if(s.length!==4){ render(); return; } const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),mode:setup.mode,seats:s.slice(),teams:setup.mode==='teams'?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
+  if(act==='start'){ const s=setup.seats.filter(Boolean); if(s.length!==4){ render(); return; } const ng={id:uid(),type:setup.type||'leekha',date:new Date().toISOString().slice(0,10),mode:GAME[setup.type||'leekha'].teamsOnly?'teams':setup.mode,seats:s.slice(),teams:(setup.mode==='teams'||GAME[setup.type||'leekha'].teamsOnly)?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
     ng.updated=Date.now(); ng.owner=DEVICE; ng.ownerPlayer=ME; ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
-  if(act==='add-round'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
+  if(act==='add-round'){ const ty=typeOf(g);
+    if(ty==='leekha'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
+    else if(ty==='400'){ const bids={}, tricks={}; g.seats.forEach(p=>{ bids[p]=g.pending?g.pending.bids[p]:2; tricks[p]=0; }); draft={phase:g.pending?'tricks':'bids',bids,tricks}; }
+    else draft = g.pending ? {phase:'tricks',bidder:g.pending.bidder,bid:g.pending.bid,trump:g.pending.trump||null,taken:g.pending.bid} : {phase:'bid',bidder:null,bid:7,trump:null,taken:7};
+    window.scrollTo(0,0); }
   if(act==='cancel-round') draft=null;
   if(b.dataset.h){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
-  if(b.dataset.sp){ const k=b.dataset.sp; draft[k] = draft[k]===b.dataset.p ? null : b.dataset.p; }
-  if(act==='save-round'){ const before=totals(g), wasOver=!!result(g); const idx=draft.index; delete draft.index; delete draft.moon;
-    if(g.mode==='solo'){ const m=Object.keys(draft.hearts).find(p=>rawPts(draft,p)===TOTAL); if(m) draft.moon=m; }
-    if(idx!=null) g.rounds[idx]=draft; else { g.rounds.push(draft); g.updated=Date.now(); }
+  if(b.dataset.sp){ const k=b.dataset.sp; if(!draft[k]) draft[k]=b.dataset.p; else if(draft[k]===b.dataset.p) draft[k]=null; }
+  if(act==='save-round'){ const before=totals(g), wasOver=!!result(g); const idx=draft.index, ty=typeOf(g); let rd;
+    if(ty==='leekha'){ rd=draft; delete rd.index; delete rd.moon; delete rd.phase; if(g.mode==='solo'){ const m=Object.keys(rd.hearts).find(p=>rawPts(rd,p)===TOTAL); if(m) rd.moon=m; } }
+    else if(ty==='400') rd={bids:{...draft.bids},tricks:{...draft.tricks}};
+    else rd={bidder:draft.bidder,bid:draft.bid,trump:draft.trump||null,taken:draft.taken};
+    if(idx!=null) g.rounds[idx]=rd; else { g.rounds.push(rd); delete g.pending; g.updated=Date.now(); }
     draft=null; save(); window.scrollTo(0,0);
-    const after=totals(g); try{ if(!wasOver && result(g)) navigator.vibrate&&navigator.vibrate([120,60,120,60,300]); else if(g.seats.some(p=>before[p]<80&&after[p]>=80)) navigator.vibrate&&navigator.vibrate(150); }catch(err){} }
-  if(act==='undo'){ g.rounds.pop(); g.updated=Date.now(); save(); }
+    const after=totals(g); try{ if(!wasOver && result(g)) navigator.vibrate&&navigator.vibrate([120,60,120,60,300]); else if(typeOf(g)==='leekha' && g.seats.some(p=>before[p]<80&&after[p]>=80)) navigator.vibrate&&navigator.vibrate(150); }catch(err){} }
+  if(act==='undo'){ if(g.pending) delete g.pending; else g.rounds.pop(); g.updated=Date.now(); save(); }
   if(act==='load-sample'){ S=sample(); openG=openH=null; save(); }
   if(act==='clear-sample'){ const keep=S.players.filter(p=>!p.sample); const ids=new Set(keep.map(p=>p.id)); S={players:keep,games:S.games.filter(x=>!x.sample && x.seats.every(p=>ids.has(p))),current:null,sample:false}; openG=openH=null; histPlayer=null; save(); }
-  if(b.dataset.del && !canEditPlayer(S.players.find(x=>x.id===b.dataset.del)||{})){ render(); return; }
+  if(b.dataset.del){ const x=S.players.find(q=>q.id===b.dataset.del)||{}; if(SY.code && !(ownsPlayer(x)&&(!x.claimed||x.id===ME))){ render(); return; } }
   if(act==='edit-player' && profile && !canEditPlayer(S.players.find(x=>x.id===profile)||{})){ render(); return; }
   if(b.dataset.del){ S.players=S.players.filter(p=>p.id!==b.dataset.del); save(); }
   if(b.dataset.prof){ profile=b.dataset.prof; window.scrollTo(0,0); }
@@ -1200,7 +1557,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState=
 window.addEventListener('online', ()=>syncNow());
 setInterval(()=>{ if(document.visibilityState==='visible') syncNow(); }, 20000);
 document.addEventListener('focusout', ()=>{ if(pendingRender) setTimeout(()=>{ if(pendingRender) safeRender(); }, 50); });
-render(); syncNow();
+render(); syncNow().then(ensureKey); ensureKey();
 })();
 </script>
 
