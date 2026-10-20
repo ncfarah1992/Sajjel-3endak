@@ -18,7 +18,7 @@
 /* Layout: one-column phone app on green felt; scoreboard is a card table with players seated N/E/S/W; gold for actions, ivory for cards */
 :root{
   color-scheme:dark; padding-top:env(safe-area-inset-top,0px);
-  --felt-hi:#2d7a5f; --felt:#1c5241; --felt-lo:#0f3127; --bg:#164535;
+  --felt-hi:#2d7a5f; --felt:#1c5241; --felt-lo:#0f3127; --bg:#164535; --glass:rgba(15,49,39,.92); --bar:rgba(10,36,28,.96);
   --surface:rgba(4,22,17,.34); --card:rgba(255,255,255,.07); --line:rgba(231,196,106,.24);
   --ink:#F6F1E3; --muted:#B3C3B9; --gold:#E7C46A; --gold-ink:#173a2e; --ivory:#FBF8EF;
   --red:#C0262D; --black:#1a1a1a; --warn:#F4B860; --bad:#FF8A7A; --good:#8EE0A8;
@@ -29,6 +29,15 @@
   --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 html{background:var(--felt-lo)}
+/* table color per game: Leekha green felt, 400 burgundy, Tarneeb navy */
+:root[data-table="400"]{--felt-hi:#83334a;--felt:#56182c;--felt-lo:#2c0b16;--bg:#4a1527;--glass:rgba(44,11,22,.92);--bar:rgba(34,8,17,.96)}
+:root[data-table="tarneeb"]{--felt-hi:#2f5487;--felt:#1b3159;--felt-lo:#0b1630;--bg:#172a4b;--glass:rgba(11,22,48,.92);--bar:rgba(8,16,36,.96)}
+/* fabric grain and a darker table edge */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.38) 100%);opacity:.55;mix-blend-mode:soft-light}
+.app,nav.tabs{position:relative;z-index:1}
+nav.tabs{position:fixed}
+body.patterned .app{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' font-family='Georgia,serif' font-size='26' fill='%23E7C46A' fill-opacity='.06'%3E%3Ctext x='10' y='34'%3E%E2%99%A0%3C/text%3E%3Ctext x='70' y='34'%3E%E2%99%A5%3C/text%3E%3Ctext x='40' y='94'%3E%E2%99%A6%3C/text%3E%3Ctext x='100' y='94'%3E%E2%99%A3%3C/text%3E%3C/svg%3E")}
+@media (prefers-reduced-motion:no-preference){body{transition:background-color .4s}}
 body{margin:0;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;min-height:100%;
   background:var(--bg) radial-gradient(130% 70% at 50% 30%,var(--felt-hi) 0%,var(--felt) 50%,var(--felt-lo) 100%) fixed}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--felt-lo)}
@@ -40,7 +49,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-bottom:92px}
 
 /* header */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(15,49,39,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;margin:0;font-weight:400}
@@ -132,7 +141,7 @@ input::placeholder,textarea::placeholder{color:rgba(246,241,227,.4)}
 .tog{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:rgba(0,0,0,.22);border-radius:10px;padding:4px 9px 4px 4px;font-size:13px;font-weight:600;color:var(--ink)}
 .tog[aria-pressed="true"]{border-color:var(--gold);background:rgba(231,196,106,.18);box-shadow:0 0 0 1px var(--gold)}
 .tog .pc{width:24px;height:32px;font-size:10px}
-.total-bar{position:sticky;bottom:84px;background:rgba(15,49,39,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px}
+.total-bar{position:sticky;bottom:84px;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px}
 .total-bar .meter{flex:1;height:8px}
 
 /* tables */
@@ -322,8 +331,74 @@ td.was{color:var(--muted);font-style:italic}
 .rt td:not(:first-child),.rt th:not(:first-child){text-align:center}
 :root[lang="ar"] .rb .ex>b:first-child{letter-spacing:0}
 
+/* game tints on list cards */
+.gcard.tint-400,.hcard.tint-400{background:linear-gradient(160deg,rgba(131,51,74,.55),rgba(44,11,22,.6));border-color:rgba(231,196,106,.3)}
+.gcard.tint-tarneeb,.hcard.tint-tarneeb{background:linear-gradient(160deg,rgba(47,84,135,.55),rgba(11,22,48,.6));border-color:rgba(231,196,106,.3)}
+.gcard.tint-leekha,.hcard.tint-leekha{background:linear-gradient(160deg,rgba(45,122,95,.45),rgba(4,22,17,.45))}
+
+/* Leekha card fan */
+.givebar{display:flex;flex-direction:column;gap:6px}
+.givebar .chip{padding:4px 10px 4px 4px;font-size:13px}
+.fan{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;padding:10px 8px 14px;border-radius:16px;background:rgba(0,0,0,.2);border:1px solid var(--line)}
+.fc{position:relative;aspect-ratio:5/7;max-width:100%;border-radius:7px;border:1px solid rgba(0,0,0,.15);background:var(--ivory);padding:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 2px 5px rgba(0,0,0,.35);transition:transform .15s,opacity .15s}
+.fc.r{color:var(--red)} .fc.k{color:var(--black)}
+.fc .fr{font:700 clamp(11px,3.4vw,15px) var(--f-mono);line-height:1}
+.fc .fs{font-size:clamp(13px,4vw,18px);line-height:1}
+.fc .fv{position:absolute;top:2px;inset-inline-end:3px;font:700 8px var(--f-mono);color:#777}
+.fc.sp{grid-column:span 1;box-shadow:0 0 0 2px var(--gold),0 2px 5px rgba(0,0,0,.35)}
+.fc:not(.taken):active{transform:translateY(-3px)}
+.fc.taken{opacity:.5;transform:scale(.92)}
+.fc .fo{position:absolute;inset:auto 0 -6px 0;display:flex;justify-content:center}
+.fc .fo .avatar{width:20px;height:20px;border-width:1px}
+.prow.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.prow .who.plink{display:flex;align-items:center;gap:10px}
+@media (prefers-reduced-motion:no-preference){
+  .fan.dealing .fc{animation:deal .38s cubic-bezier(.2,.8,.3,1.2) both;animation-delay:calc(var(--i)*28ms)}
+  @keyframes deal{from{opacity:0;transform:translateY(-26px) rotate(-14deg) scale(.8)}to{opacity:1;transform:none}}
+}
+
+/* animations */
+.score.bump{animation:none}
+@media (prefers-reduced-motion:no-preference){ .score.bump{animation:bump .7s ease} @keyframes bump{30%{transform:scale(1.18);color:var(--gold)}} }
+.celebrate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.celebrate.out{opacity:0;transition:opacity .3s}
+.cel-card{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;background:linear-gradient(165deg,var(--felt-hi),var(--felt-lo));border:2px solid var(--gold);border-radius:22px;padding:22px 24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.cel-crown{font-size:44px;color:var(--gold);line-height:1;text-shadow:0 0 24px rgba(231,196,106,.7)}
+.cel-title{font-family:var(--f-display);font-weight:800;font-size:30px;color:var(--gold)}
+.drop{position:absolute;top:-40px;color:var(--ivory);z-index:1;animation:fall linear forwards;text-shadow:0 2px 6px rgba(0,0,0,.4)}
+.drop.r{color:#ff6b6b}
+@media (prefers-reduced-motion:no-preference){
+  .cel-card{animation:pop .5s cubic-bezier(.2,.9,.3,1.3)} @keyframes pop{from{transform:scale(.6);opacity:0}}
+  .cel-card .avatar{animation:glow 1.6s ease-in-out infinite alternate} @keyframes glow{to{box-shadow:0 0 0 3px var(--gold),0 0 30px rgba(231,196,106,.8)}}
+  @keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
+}
+
+/* badges + head to head */
+.streak{display:inline-flex;gap:4px;align-items:center;font-size:13px;color:var(--warn);font-weight:600}
+.badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.badge{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;padding:8px 4px;border-radius:12px;background:rgba(0,0,0,.18);border:1px solid var(--line);position:relative;min-width:0}
+.badge .bic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 13px var(--f-mono);background:rgba(255,255,255,.08);color:var(--muted);border:2px dashed rgba(255,255,255,.2)}
+.badge b{font-size:11.5px;line-height:1.2}
+.badge .bw{font-size:10px;color:var(--muted);line-height:1.25}
+.badge .bx{position:absolute;top:6px;inset-inline-end:6px;font:700 10px var(--f-mono);color:var(--gold-ink);background:var(--gold);border-radius:99px;padding:1px 5px}
+.badge:not(.on){opacity:.55}
+.badge.on{border-color:var(--gold)}
+.badge.on .bic{background:radial-gradient(circle at 35% 30%,#f6dc8e,#c9a24e);color:var(--gold-ink);border:2px solid #f6dc8e;box-shadow:0 0 14px rgba(231,196,106,.35)}
+.h2h{gap:10px}
+.h2top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.h2who{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;text-align:center}
+.h2who b{font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h2big{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:800;font-size:40px;color:var(--gold)}
+.h2big i{font-style:normal;color:var(--muted);font-size:24px}
+.h2row{display:grid;grid-template-columns:80px auto 1fr;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:8px;font-size:14px}
+.h2s{font-family:var(--f-mono)} .h2p{font-size:12px;text-align:end}
+
+/* keep Latin names readable inside Arabic layout */
+:root[dir="rtl"] b,:root[dir="rtl"] .name,:root[dir="rtl"] .nm,:root[dir="rtl"] .hwin,:root[dir="rtl"] .chip,:root[dir="rtl"] td,:root[dir="rtl"] h2{unicode-bidi:plaintext}
+
 /* tab bar */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(10,36,28,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bar);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
 nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
 nav.tabs button{border:0;background:none;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
@@ -572,7 +647,13 @@ const AR = {
 "Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.":'حذف كلّ اللاعبين والألعاب على هذا الهاتف؟ سيغادر الهاتف المجموعة، وتبقى بيانات المجموعة محفوظة.',
 "Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.":'استعادة نسخة احتياطية تجعل هذا الهاتف يغادر المجموعة أوّلاً، حتى لا تُستبدل بيانات المجموعة.',
 'No internet connection. Try again when you are online.':'لا يوجد اتصال بالإنترنت. حاول مجدّداً عند الاتصال.','Type the group code first.':'اكتب رمز المجموعة أوّلاً.','No group has this code. Check it and try again.':'لا توجد مجموعة بهذا الرمز. تحقّق منه وحاول مجدّداً.',
-'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Rule book':'كتاب القواعد','Rules':'القواعد','How to play and score Leekha, 400 and Tarneeb':'كيف تلعب وتحسب الليخة والـ400 والطرنيب','Tarneeb':'طرنيب','Card game':'لعبة الورق',
+'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Share picture':'مشاركة صورة','Share as text':'مشاركة كنص','Making the picture…':'جارٍ تحضير الصورة…','Could not make the picture on this phone.':'تعذّر تحضير الصورة على هذا الهاتف.',
+'Long-press the picture to save or share it.':'اضغط مطوّلاً على الصورة لحفظها أو مشاركتها.','Save picture':'حفظ الصورة','won,':'فوز،','lost.':'خسارة.','Head to head':'وجهاً لوجه','Pick any two players and see who wins':'اختر لاعبَين وشاهد من يربح','← Stats':'→ الإحصاءات','First player':'اللاعب الأوّل','Second player':'اللاعب الثاني',
+'Games won against each other, in all card games':'الألعاب التي ربحها كلّ منهما ضدّ الآخر، في كلّ الألعاب','Games together':'ألعاب معاً','These two have not finished a game together yet.':'لم ينهِ هذان اللاعبان أيّ لعبة معاً بعد.',
+'Took all 36':'أخذ الـ36 كلّها','Under 50':'تحت الـ50','Queen magnet':'مغناطيس البنت','Perfect 13':'13 كاملة','Big bidder':'طلب كبير','Grand slam':'كبّوت','Comeback':'العودة','Hot streak':'سلسلة ساخنة','On fire':'نار','Player of the month':'لاعب الشهر','Regular':'من أهل البيت',
+'Leekha: take every heart, the 10♦ and the Q♠ in one round':'ليخة: خذ كلّ الكبّات والـ10♦ والـQ♠ في جولة واحدة','Leekha: win a solo game finishing under 50':'ليخة: اربح لعبة فردية بأقلّ من 50','Leekha: take the Q♠ 10 times':'ليخة: خذ الـQ♠ عشر مرّات',
+'400: bid 13 and take every trick':'400: اطلب 13 وكُل كلّ الأكلات','400: make a bid of 8 or more':'400: حقّق طلباً من 8 أو أكثر','Tarneeb: bid 13 and make it':'طرنيب: اطلب 13 وحقّقها','400 or Tarneeb: win after being below zero':'400 أو طرنيب: اربح بعد أن كنت تحت الصفر',
+'Win 3 games in a row':'اربح 3 ألعاب متتالية','Win 5 games in a row':'اربح 5 ألعاب متتالية','Win Player of the month in any game':'اربح لقب لاعب الشهر في أيّ لعبة','Finish 25 games':'أنهِ 25 لعبة','Close':'إغلاق','Giving cards to':'الأوراق إلى','Tap a card to give it to':'اضغط على ورقة لإعطائها لـ','Rule book':'كتاب القواعد','Rules':'القواعد','How to play and score Leekha, 400 and Tarneeb':'كيف تلعب وتحسب الليخة والـ400 والطرنيب','Tarneeb':'طرنيب','Card game':'لعبة الورق',
 'Stay under 101. Every ♥ is 1, the 10♦ is 10, the Q♠ is 13.':'ابقَ تحت 101. كلّ ♥ بنقطة، الـ10♦ بـ10، والـQ♠ بـ13.',
 'Teams of 2, hearts are trump. Each player bids, and a team wins when one player reaches 41 with a partner above 0.':'فرق من لاعبَين والكبّة طرنيب. كلّ لاعب يطلب، ويربح الفريق عندما يصل أحد لاعبيه إلى 41 وشريكه فوق الصفر.',
 'Teams of 2. The highest bidder picks trump. First team to 31 wins.':'فرق من لاعبَين. صاحب أعلى طلب يختار الطرنيب. أوّل فريق يصل إلى 31 يربح.',
@@ -647,6 +728,9 @@ const ARX = [
 [/^Team (A|B) makes it: \+(\d+)\. Team (A|B) scores nothing\.$/,(m,a,n,b)=>`الفريق ${a==='A'?'أ':'ب'} حقّق طلبه: +${n}. الفريق ${b==='A'?'أ':'ب'} لا يسجّل شيئاً.`],
 [/^Team (A|B) goes down: −(\d+)\. Team (A|B) scores \+(\d+)\.$/,(m,a,n,b,v)=>`الفريق ${a==='A'?'أ':'ب'} فشل: −${n}. الفريق ${b==='A'?'أ':'ب'} يسجّل +${v}.`],
 [/^(\d+)(?: (.))? · took (\d+)$/,(m,b,t,k)=>`${b}${t?' '+t:''} · أكل ${k}`],
+[/^Tap a card to give it to (.+)\. Tap a given card to put it back\.$/,'اضغط على ورقة لإعطائها لـ$1. اضغط على ورقة معطاة لإرجاعها.'],[/^(\d+) pts left$/,'باقي $1 نقطة'],
+[/^Badges · (\d+)\/(\d+)$/,'الشارات · $1/$2'],[/^Best streak: (\d+)$/,'أفضل سلسلة: $1'],[/^(\d+) wins in a row$/,'$1 انتصارات متتالية'],[/^as partners (\d+)–(\d+)$/,'كشريكين $1–$2'],
+[/^(\d+\/\d+) · (.+)$/,(m,a,b)=>a+' · '+tr(b)],[/^Together as partners:$/,'معاً كشريكين:'],
 [/^Synced (\d+) min ago$/,'تمّت المزامنة منذ $1 دقيقة'],[/^Synced (.+)$/,(m,x)=>'تمّت المزامنة '+tr(x)],[/^Sync problem: (.+)$/,(m,x)=>'مشكلة في المزامنة: '+tr(x)],
 [/^Group created\. Share the code (\w+) with your friends\.$/,'تمّ إنشاء المجموعة. شارك الرمز $1 مع أصدقائك.'],[/^You joined (.+)\.$/,'انضممت إلى $1.'],
 [/^Could not create the group: (.+)$/,'تعذّر إنشاء المجموعة: $1'],[/^Could not join: (.+)$/,'تعذّر الانضمام: $1'],[/^Copy blocked\. The code is (\w+)\.$/,'النسخ ممنوع. الرمز هو $1.'],[/^The code is (\w+)\.$/,'الرمز هو $1.'],
@@ -676,6 +760,8 @@ const canEditPlayer = p => !SY.code || p.sample || (p.id===ME && ownsPlayer(p));
 let claimFor = null, claimMsg = '';
 const scorerName = g => g.ownerPlayer && S.players.some(p=>p.id===g.ownerPlayer) ? pname(g.ownerPlayer) : null;
 let confirmTake = false;
+const shownScores = {};   // last score drawn for each seat, so new points can count up
+let celebrate = null;     // game id that just finished on this phone
 
 /* ---------- card glyphs ---------- */
 const card = (rank,suit,cls='') => `<span class="pc ${suit==='♥'||suit==='♦'?'r':'k'} ${cls}" aria-label="${rank} of ${suit}"><span>${rank}</span><span>${suit}</span></span>`;
@@ -693,12 +779,19 @@ function render(){
   if(tab==='game') v.innerHTML = draft ? viewRound() : (setup ? viewSetup() : (cur() ? viewGame() : viewHome()));
   if(tab==='history') v.innerHTML = draft ? viewRound() : (cur() ? viewGame() : viewHistory());
   if(tab==='players') v.innerHTML = profile ? viewProfile(profile) : viewPlayers();
-  if(tab==='stats') v.innerHTML = profile ? viewProfile(profile) : viewStats();
+  if(tab==='stats') v.innerHTML = profile ? viewProfile(profile) : (h2h ? viewH2H() : viewStats());
   }
   applyLang();
+  { const gg=cur(); const tbl = rulesOpen ? (rulesOpen==='app'?'leekha':rulesOpen) : gg ? typeOf(gg) : (setup ? setup.type : 'leekha');
+    document.documentElement.setAttribute('data-table', tbl);
+    const mc=document.querySelector('meta[name=theme-color]'); if(mc) mc.setAttribute('content', {leekha:'#0F3127','400':'#2C0B16',tarneeb:'#0B1630'}[tbl]);
+    document.body.classList.toggle('patterned', !!rulesOpen || (!gg && !setup && !draft && (tab==='game'||tab==='history'))); }
   const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `Round ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : '';
   $('#hdrSub').hidden = !g || !!rulesOpen;
   localize(document.querySelector('.app')); localize(document.querySelector('nav.tabs')); pendingRender=false; paintSync();
+  if(draft && draft._anim) setTimeout(()=>{ if(draft) draft._anim=false; }, 50);
+  countUp();
+  if(celebrate){ const cg=S.games.find(x=>x.id===celebrate); celebrate=null; if(cg && result(cg)) showCelebration(cg); }
 }
 
 function sampleNote(){ if(!S.players.length && !S.games.length) return `<div class="notice">New here? Register your players below, or <button class="btn sm ghost" data-act="load-sample">try it with example data</button> first.</div>`; return S.sample ? `<div class="notice">Example players and games are loaded so you can see how it works. <button class="btn sm ghost" data-act="clear-sample">Clear examples</button></div>` : ''; }
@@ -730,10 +823,11 @@ function viewGame(){
      <div class="row between"><span class="crown">${winners.length>1?'Winners':'Winner'}</span><span class="pill ${type==='leekha'?'lose':'win'}">${esc(resultNote(g,res))}</span></div>
      <div class="winrow">${winners.map(p=>`<span class="winner">${avatar(p,'xl')}<b>${esc(pname(p))}</b></span>`).join('')}</div>
      <p class="muted" style="margin:0;font-size:13px">${g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+tgt(g)} · ${g.rounds.length} rounds</p>
-     <div class="row" style="flex-wrap:wrap"><button class="btn primary" data-act="rematch">Rematch</button><button class="btn" data-act="share">Share result</button></div>
+     <div class="row" style="flex-wrap:wrap"><button class="btn primary" data-act="rematch">Rematch</button><button class="btn" data-act="share-pic">Share picture</button><button class="btn sm ghost" data-act="share">Share as text</button></div>
      ${shareMsg?`<div style="font-size:13px">${esc(shareMsg)}</div>`:''}</section>` : '';
   const backTo = tab==='history' ? 'History' : 'All tables';
-  return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><button class="btn sm ghost" data-rules="${typeOf(g)}">Rules</button><span class="eyebrow">${gameName(g)} · ${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</span></section>
+  return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><button class="btn sm ghost" data-rules="${typeOf(g)}">Rules</button></section>
+  <div class="eyebrow" style="margin-top:-8px">${gameName(g)} · ${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</div>
   ${banner}
   <div class="tablebox"><div class="oval"></div>
     <div class="center"><div class="pile">${type==='leekha'?card('1','♥','big')+card('Q','♠','big')+card('10','♦','big'):type==='400'?card('Q','♥','big')+card('A','♥','big')+card('K','♥','big'):(pend&&pend.trump?card('A',pend.trump,'big'):card('A','♠','big')+card('A','♥','big')+card('A','♦','big'))}</div>
@@ -763,7 +857,7 @@ function seat(pid, score, team, res, spot, dealer, g, extra){
   const teamTag = team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:'';
   const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':teamTag)) : (extra || (leekha && score>=80&&score<T ? `<span class="pill hot">${T-score} left</span>` : teamTag));
   return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?'<span class="dealer">Deals</span>':''}</span><span class="name">${esc(pname(pid))}</span>
-    <span class="score">${score}<small>/${T}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
+    <span class="score"><b class="cnt" data-key="${g?g.id:''}:${pid}" data-to="${score}">${shownScores[(g?g.id:'')+':'+pid]!=null?shownScores[(g?g.id:'')+':'+pid]:score}</b><small>/${T}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
 }
 function historyTable(g){
   if(typeOf(g)==='400') return historyTable400(g);
@@ -804,7 +898,7 @@ function lastRoundCards(g){
 function tableCard(g){
   const t = totals(g); const order = g.mode==='teams' ? [g.teams[0][0],g.teams[0][1],g.teams[1][0],g.teams[1][1]] : g.seats.slice().sort((a,b)=>t[a]-t[b]);
   const hot = typeOf(g)==='leekha' ? g.seats.filter(p=>t[p]>=80).sort((a,b)=>t[b]-t[a])[0] : null;
-  return `<button class="gcard" data-open="${g.id}">
+  return `<button class="gcard tint-${typeOf(g)}" data-open="${g.id}">
     <div class="row between"><span class="eyebrow">${gameName(g)} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${canScore(g)?'':'<span class="vo">View only</span> '}${ago(lastPlayed(g))}</span></div>
     <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${typeOf(g)==='leekha'&&t[p]>=80?'hot':''} ${g.mode==='teams'?(g.teams[0].includes(p)?'ga':'gb'):''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
     ${hot?`<div class="gwarn">${esc(pname(hot))} is ${LIMIT-t[hot]} away from ${LIMIT}</div>`:''}
@@ -813,7 +907,7 @@ function tableCard(g){
 }
 function resultCard(g){
   const r = result(g); const t = totals(g); const winners = r.winners.flatMap(w=>w.members);
-  return `<button class="hcard" data-open="${g.id}">
+  return `<button class="hcard tint-${typeOf(g)}" data-open="${g.id}">
     <div class="hav">${winners.map(p=>avatar(p)).join('')}</div>
     <div style="min-width:0"><div class="hwin">${winners.map(pname).map(esc).join(' & ')}</div>
       <div class="muted" style="font-size:12px">${esc(g.date)} · ${gameName(g)} · ${g.rounds.length} rounds · ${esc(resultNote(g,r))}</div></div>
@@ -871,27 +965,37 @@ function viewSetup(){
 
 /* round entry */
 function allocated(){ let n = Object.values(draft.hearts).reduce((a,b)=>a+b,0); return {hearts:n, total:n+(draft.queen?13:0)+(draft.ten?10:0)}; }
+/* Leekha: tap cards from the fan to give them to the selected player */
+const FAN = ['A','K','Q','J','10','9','8','7','6','5','4','3','2'].map(r=>'h'+r).concat(['QS','TD']);
+function leekhaDraft(seats, rd){ const d={hearts:{},queen:null,ten:null,own:{},active:seats[0],_anim:true};
+  seats.forEach(p=>d.hearts[p]=0);
+  if(rd){ let i=0; seats.forEach(p=>{ for(let n=0;n<(rd.hearts[p]||0);n++) d.own[FAN[i++]]=p; }); if(rd.queen) d.own.QS=rd.queen; if(rd.ten) d.own.TD=rd.ten; }
+  syncLeekha(d, seats); return d; }
+function syncLeekha(d, seats){ seats.forEach(p=>d.hearts[p]=0); d.queen=null; d.ten=null;
+  Object.entries(d.own).forEach(([k,p])=>{ if(k==='QS') d.queen=p; else if(k==='TD') d.ten=p; else d.hearts[p]=(d.hearts[p]||0)+1; }); }
+function fanCard(k, i){
+  const owner = draft.own[k], red = k!=='QS', rank = k==='QS'?'Q':k==='TD'?'10':k.slice(1), suit = k==='QS'?'♠':k==='TD'?'♦':'♥';
+  const special = k==='QS'||k==='TD';
+  return `<button class="fc ${red?'r':'k'} ${special?'sp':''} ${owner?'taken':''}" style="--i:${i}" data-card="${k}" aria-pressed="${!!owner}" aria-label="${rank} ${suit}${owner?' · '+esc(pname(owner)):''}">
+    <span class="fr">${rank}</span><span class="fs">${suit}</span>${special?`<span class="fv">${k==='QS'?13:10}</span>`:''}${owner?`<span class="fo">${avatar(owner)}</span>`:''}</button>`;
+}
 function viewRound(){
   if(typeOf(cur())==='400') return viewRound400();
   if(typeOf(cur())==='tarneeb') return viewRoundTarneeb();
   const g = cur(); const a = allocated(); const seatsR = draft.index!=null ? occAt(g,draft.index) : g.seats;
-  const heartsLeft = HEARTS - a.hearts;
-  const done = a.total===TOTAL;
-  const left = TOTAL - a.total;
+  if(!draft.own){ const d=leekhaDraft(seatsR, draft); d.index=draft.index; draft=d; }
+  const done = a.total===TOTAL, left = TOTAL - a.total;
   const moon = g.mode==='solo' ? seatsR.find(p=>rawPts(draft,p)===TOTAL) : null;
-  const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left · ${heartsLeft} ♥${!draft.queen?' · Q♠':''}${!draft.ten?' · 10♦':''}</span>`;
+  const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left</span>`;
+  const act = draft.active;
   return `<section class="row between"><div><div class="eyebrow">${draft.index!=null?`Fixing round ${draft.index+1}`:`Round ${g.rounds.length+1}`}</div><h2>Who took what?</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
-  <div class="notice">Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36.${g.mode==='solo'?' If one player takes all 36, they score 0 and the other three get 36 each.':''}</div>
-  <div class="alloc">${seatsR.map(p=>{const h=draft.hearts[p]||0;const pts=h+(draft.queen===p?13:0)+(draft.ten===p?10:0);
-    return `<div class="prow"><div class="head"><span class="who">${avatar(p)}<b>${esc(pname(p))}</b></span><span class="pts">${pts}<span class="muted" style="font-size:12px;font-family:var(--f-mono)"> pts</span></span></div>
-      <div class="row between" style="flex-wrap:wrap">
-        <div class="step"><button data-h="${p}" data-d="-1" aria-label="One less heart for ${esc(pname(p))}" ${h?'':'disabled'}>−</button><span class="num">${h}</span><button data-h="${p}" data-d="1" aria-label="One more heart for ${esc(pname(p))}" ${heartsLeft?'':'disabled'}>+</button><span class="muted" style="font-size:13px">♥</span></div>
-        <div class="specials">
-          <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}" ${draft.queen&&draft.queen!==p?'disabled title="Already given to '+esc(pname(draft.queen))+'"':''}>${card('Q','♠')}13</button>
-          <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}" ${draft.ten&&draft.ten!==p?'disabled title="Already given to '+esc(pname(draft.ten))+'"':''}>${card('10','♦')}10</button>
-        </div></div>
-      <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div>
-      <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
+  <div class="givebar"><span class="muted" style="font-size:12px">Giving cards to</span><div class="chips">${seatsR.map(p=>`<button class="chip" data-active="${p}" aria-pressed="${act===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div></div>
+  <div class="fan ${draft._anim?'dealing':''}">${FAN.map(fanCard).join('')}</div>
+  <div class="muted" style="font-size:12px;margin-top:-6px">Tap a card to give it to ${esc(pname(act))}. Tap a given card to put it back.</div>
+  <div class="alloc">${seatsR.map(p=>{const pts=(draft.hearts[p]||0)+(draft.queen===p?13:0)+(draft.ten===p?10:0);
+    return `<div class="prow ${act===p?'active':''}"><div class="head"><button class="who plink" data-active="${p}">${avatar(p)}<b>${esc(pname(p))}</b></button><span class="pts">${pts}<span class="muted" style="font-size:12px;font-family:var(--f-mono)"> pts</span></span></div>
+      ${pts?`<div class="hand">${handFor(draft,p)}</div>`:''}
+      <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div></div>`}).join('')}</div>
   <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
   <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>${draft.index!=null?'Save changes':'Save round'}</button></div>`;
 }
@@ -1022,6 +1126,7 @@ function viewStats(){
   ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Higher is better')}
   ${bars('Bid 13 and made it', s=>s.thirteen, v=>v)}`;
   return `${sampleNote()}${gamePicker()}<div class="kpis"><div class="kpi"><b class="num">${finished}</b><span>games finished</span></div><div class="kpi"><b class="num">${rounds}</b><span>rounds played</span></div><div class="kpi"><b class="num">${S.players.length}</b><span>players</span></div></div>
+  <button class="rbook" data-act="h2h-open"><span class="rbook-ic" aria-hidden="true">⚔</span><span><b>Head to head</b><span class="muted">Pick any two players and see who wins</span></span><span class="muted">›</span></button>
   ${potmPanel()}
   <div class="notice">Tap a player's name to open their dashboard.</div>
   ${bars('Win rate', s=>s.games?s.wins/s.games:0, v=>Math.round(v*100)+'%', 'Finished games only')}
@@ -1078,7 +1183,7 @@ function viewProfile(id){
   const form = hist.slice(-10).map(h=>`<span class="f ${h.won?'w':h.lost?'l':''}" title="${esc(h.g.date)}">${h.won?'W':h.lost?'L':'–'}</span>`).join('');
   return `<section class="row"><button class="btn sm ghost" data-act="back">← Back</button></section>
   <section class="row" style="gap:14px">${avatar(p.id,'xl')}
-    <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2><div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
+    <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2>${streaks(id).cur>=2?`<div class="streak">🔥 <span>${streaks(id).cur} wins in a row</span></div>`:''}<div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
     ${editing||!canEditPlayer(p)?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
   ${canEditPlayer(p)?'':`<div class="notice">${p.claimed?`Only ${esc(p.name)} can edit this profile, on their own phone.`:`Only ${esc(p.name)} can edit this profile. They can do it once they install the app and pick themselves under “This phone belongs to”.`}</div>`}
   ${editing?`<section class="panel"><h2>Edit player</h2>${nameForm('editForm', p, 'Save changes')}<button class="btn sm ghost" data-act="cancel-edit">Cancel</button></section>`:''}
@@ -1087,6 +1192,7 @@ function viewProfile(id){
   <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
   ${statsGame==='leekha'?`<div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>`
    :`<div class="kpis"><div class="kpi"><b class="num">${pct(s.made,s.bids)}</b><span>bids made</span></div><div class="kpi"><b class="num">${s.bids?(s.bidSum/s.bids).toFixed(1):'–'}</b><span>average bid</span></div><div class="kpi"><b class="num">${s.thirteen}</b><span>bid 13 and made it</span></div></div>`}
+  ${badgePanel(id)}
   <section class="panel"><div class="eyebrow">Record (won–lost)</div>
     ${statsGame==='leekha'?`<div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>`:''}
     <div class="row between"><span>Teams of 2</span><b class="num">${rec('teams')}</b></div>
@@ -1391,6 +1497,136 @@ function viewRules(){
   </div>`;
 }
 
+/* ---------- animations ---------- */
+const reduceMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(){
+  document.querySelectorAll('.cnt[data-to]').forEach(el=>{
+    const to=+el.dataset.to, from=+el.textContent, key=el.dataset.key; shownScores[key]=to;
+    if(from===to || reduceMotion()){ el.textContent=to; return; }
+    const t0=performance.now(), dur=700; el.parentElement.classList.add('bump');
+    const step=t=>{ const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3); el.textContent=Math.round(from+(to-from)*e); if(k<1) requestAnimationFrame(step); else el.parentElement.classList.remove('bump'); };
+    requestAnimationFrame(step);
+  });
+}
+function showCelebration(g){
+  const r=result(g); if(!r) return; const old=document.querySelector('.celebrate'); if(old) old.remove();
+  const winners=r.winners.flatMap(w=>w.members);
+  const suits=['♠','♥','♦','♣']; let rain='';
+  if(!reduceMotion()) for(let i=0;i<26;i++){ const s=suits[i%4]; rain+=`<span class="drop ${s==='♥'||s==='♦'?'r':''}" style="left:${Math.round(Math.random()*100)}%;animation-delay:${(Math.random()*1.2).toFixed(2)}s;animation-duration:${(2.2+Math.random()*1.6).toFixed(2)}s;font-size:${18+Math.round(Math.random()*18)}px">${s}</span>`; }
+  const el=document.createElement('div'); el.className='celebrate'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Game over');
+  el.innerHTML=`${rain}<div class="cel-card"><div class="cel-crown" aria-hidden="true">♛</div><div class="cel-title">${winners.length>1?'Winners':'Winner'}</div>
+    <div class="winrow" style="justify-content:center">${winners.map(p=>`<span class="winner">${avatar(p,'xl')}<b>${esc(pname(p))}</b></span>`).join('')}</div>
+    <div class="muted" style="font-size:13px">${esc(gameName(g))} · ${esc(resultNote(g,r))}</div><button class="btn primary" data-close>Close</button></div>`;
+  document.body.appendChild(el); localize(el);
+  const close=()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),300); };
+  el.addEventListener('click', close); setTimeout(close, 6000);
+}
+
+
+/* ---------- badges, streaks, head to head ---------- */
+let h2h = null;   // {a,b} while the head-to-head page is open
+function finishedGames(){ return S.games.filter(g=>result(g)).sort((a,b)=>(a.date||'').localeCompare(b.date||'') || lastPlayed(a)-lastPlayed(b)); }
+function streaks(id){ let cur=0, best=0; finishedGames().filter(g=>g.seats.includes(id)).forEach(g=>{ if(result(g).winners.some(w=>w.members.includes(id))){ cur++; best=Math.max(best,cur); } else cur=0; }); return {cur,best}; }
+function potmCount(id){ const keep=statsGame; let n=0; ['leekha','400','tarneeb'].forEach(t=>{ statsGame=t; n+=(potmTitles()[id]||[]).length; }); statsGame=keep; return n; }
+function badgeList(id){
+  let moons=0, queens=0, under50=0, perfect13=0, big=0, slam=0, comeback=0, games=0;
+  S.games.forEach(g=>{ const r=result(g), ty=typeOf(g), won = r && r.winners.some(w=>w.members.includes(id));
+    if(r && g.seats.includes(id)) games++;
+    if(ty==='leekha'){ g.rounds.forEach(rd=>{ if(rd.moon===id) moons++; if(rd.queen===id) queens++; }); if(won && g.mode==='solo' && totals(g)[id]<50) under50++; }
+    else if(ty==='400') g.rounds.forEach(rd=>{ const b=rd.bids[id]; if(b!=null && (rd.tricks[id]||0)>=b){ if(b===13) perfect13++; if(b>=8) big++; } });
+    else g.rounds.forEach(rd=>{ if(rd.bidder===id && rd.bid===13 && rd.taken>=13) slam++; });
+    if(won && ty!=='leekha'){ const run=[0,0,0,0]; let low=false; deltas(g).forEach((d,i)=>{ const o=occAt(g,i); o.forEach((p,k)=>run[k]+=d[p]); const k=o.indexOf(id); if(k>=0 && run[k]<0) low=true; }); if(low) comeback++; }
+  });
+  const st=streaks(id), potm=potmCount(id);
+  // [icon, name, what it takes, times earned, progress towards the first one]
+  return [
+    ['36','Took all 36','Leekha: take every heart, the 10♦ and the Q♠ in one round', moons],
+    ['50','Under 50','Leekha: win a solo game finishing under 50', under50],
+    ['Q♠','Queen magnet','Leekha: take the Q♠ 10 times', Math.floor(queens/10), `${queens%10}/10`],
+    ['13','Perfect 13','400: bid 13 and take every trick', perfect13],
+    ['8+','Big bidder','400: make a bid of 8 or more', big],
+    ['♛13','Grand slam','Tarneeb: bid 13 and make it', slam],
+    ['↗','Comeback','400 or Tarneeb: win after being below zero', comeback],
+    ['3×','Hot streak','Win 3 games in a row', st.best>=3?1:0, `${Math.min(st.best,3)}/3`],
+    ['5×','On fire','Win 5 games in a row', st.best>=5?1:0, `${Math.min(st.best,5)}/5`],
+    ['♛','Player of the month','Win Player of the month in any game', potm],
+    ['25','Regular','Finish 25 games', Math.floor(games/25), `${games%25}/25`],
+  ];
+}
+function badgePanel(id){
+  const st=streaks(id), list=badgeList(id), got=list.filter(b=>b[3]>0).length;
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Badges · ${got}/${list.length}</div><span class="muted" style="font-size:12px">Best streak: ${st.best}</span></div>
+    <div class="badges">${list.map(([ic,name,what,n,prog])=>`<div class="badge ${n>0?'on':''}" title="${esc(what)}"><span class="bic">${ic}</span><b>${name}</b>${n>1?`<span class="bx">×${n}</span>`:''}<span class="bw">${n>0?what:(prog?prog+' · '+what:what)}</span></div>`).join('')}</div></section>`;
+}
+function h2hData(a,b){
+  const out={}; ['leekha','400','tarneeb'].forEach(t=>out[t]={a:0,b:0,pw:0,pl:0,n:0});
+  const games=[];
+  finishedGames().forEach(g=>{ if(!g.seats.includes(a)||!g.seats.includes(b)) return; const r=result(g), x=out[typeOf(g)]; x.n++; games.push(g);
+    const aw=r.winners.some(w=>w.members.includes(a)), bw=r.winners.some(w=>w.members.includes(b));
+    const same = g.teams && g.teams.some(m=>m.includes(a)&&m.includes(b));
+    if(same){ if(aw) x.pw++; else x.pl++; }
+    else if(aw&&!bw) x.a++; else if(bw&&!aw) x.b++;
+    else if(typeOf(g)==='leekha' && g.mode==='solo'){ const t=totals(g); if(t[a]<t[b]) x.a++; else if(t[b]<t[a]) x.b++; } });
+  return {out, games:games.reverse()};
+}
+function viewH2H(){
+  const {a,b}=h2h; const ps=S.players.filter(p=>!p.sample||S.sample);
+  const pick=(key,sel,other)=>`<div class="chips">${ps.map(p=>`<button class="chip" data-${key}="${p.id}" aria-pressed="${sel===p.id}" ${other===p.id?'disabled':''}>${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>`;
+  let body='';
+  if(a&&b){ const {out,games}=h2hData(a,b); const tot={a:0,b:0,pw:0,pl:0}; Object.values(out).forEach(x=>{ tot.a+=x.a; tot.b+=x.b; tot.pw+=x.pw; tot.pl+=x.pl; });
+    const row=(label,x)=>`<div class="h2row"><span class="h2g">${label}</span><span class="h2s"><b class="${x.a>x.b?'ok':''}">${x.a}</b> – <b class="${x.b>x.a?'ok':''}">${x.b}</b></span><span class="muted h2p">${x.pw+x.pl?`as partners ${x.pw}–${x.pl}`:''}</span></div>`;
+    body = `<section class="panel h2h"><div class="h2top"><span class="h2who">${avatar(a,'xl')}<b>${esc(pname(a))}</b></span><span class="h2big"><b>${tot.a}</b><i>–</i><b>${tot.b}</b></span><span class="h2who">${avatar(b,'xl')}<b>${esc(pname(b))}</b></span></div>
+      <div class="muted" style="font-size:12px;text-align:center">Games won against each other, in all card games</div>
+      ${GAME_LIST().map(([k,v])=>row(v,out[k])).join('')}
+      ${tot.pw+tot.pl?`<div class="notice">Together as partners: <b>${tot.pw}</b> won, <b>${tot.pl}</b> lost.</div>`:''}</section>
+      ${games.length?`<section class="panel"><div class="eyebrow">Games together</div><div class="hlist">${games.slice(0,8).map(resultCard).join('')}</div></section>`:`<section class="panel"><p class="muted" style="margin:0">These two have not finished a game together yet.</p></section>`}`;
+  }
+  return `<section class="row between"><button class="btn sm ghost" data-act="h2h-close">← Stats</button></section><h2>Head to head</h2>
+    <section class="panel"><div class="eyebrow">First player</div>${pick('h2ha',a,b)}<div class="eyebrow">Second player</div>${pick('h2hb',b,a)}</section>${body}`;
+}
+
+
+/* ---------- result picture for WhatsApp ---------- */
+function avatarImg(id){ return new Promise(ok=>{ const p=S.players.find(x=>x.id===id); const img=new Image(); img.onload=()=>ok(img); img.onerror=()=>ok(null);
+  if(p && p.photo){ img.src=p.photo; return; }
+  const f=faceSVG(p?faceOf(p):randomFace(1)).replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" ').replace(/(<svg[^>]*>)/,'$1<rect width="64" height="64" fill="'+colorOf(id)+'"/>');
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(f); }); }
+async function resultImage(g){
+  const r=result(g), t=totals(g), W=1080, H=1350, c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  const cs=getComputedStyle(document.documentElement), hi=cs.getPropertyValue('--felt-hi').trim()||'#2d7a5f', lo=cs.getPropertyValue('--felt-lo').trim()||'#0f3127';
+  const GOLD='#E7C46A', IVORY='#FBF8EF', AR=lang==='ar', T=v=>AR?tr(v):v; x.direction = AR ? 'rtl' : 'ltr';
+  try{ await Promise.all(['800 64px Fraunces','700 64px "Reem Kufi"','600 40px "IBM Plex Sans"','600 40px "IBM Plex Sans Arabic"'].map(f=>document.fonts.load(f))); }catch(e){}
+  const body = AR ? '"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif' : '"IBM Plex Sans",sans-serif', disp = AR ? '"Reem Kufi",serif' : 'Fraunces,Georgia,serif';
+  const bg=x.createRadialGradient(W/2,H*.35,80,W/2,H*.4,H*.8); bg.addColorStop(0,hi); bg.addColorStop(1,lo); x.fillStyle=bg; x.fillRect(0,0,W,H);
+  x.strokeStyle=GOLD; x.lineWidth=6; x.globalAlpha=.6; x.beginPath(); x.roundRect(30,30,W-60,H-60,40); x.stroke(); x.globalAlpha=1;
+  x.textAlign='center'; x.fillStyle=GOLD; x.font='700 92px "Reem Kufi",serif'; x.fillText('سجّل عندك',W/2,150);
+  x.fillStyle='rgba(246,241,227,.75)'; x.font=`600 30px ${body}`; x.fillText(`${T(gameName(g))}  ·  ${T(g.rounds.length+' rounds')}  ·  \u2066${g.date}\u2069`,W/2,205);
+  const winners=r.winners.flatMap(w=>w.members);
+  x.fillStyle=GOLD; x.font=`800 64px ${disp}`; x.fillText(T(winners.length>1?'Winners':'Winner'),W/2,300);
+  const imgs={}; await Promise.all(g.seats.map(async p=>imgs[p]=await avatarImg(p)));
+  const circ=(img,cx,cy,rad,ring)=>{ x.save(); x.beginPath(); x.arc(cx,cy,rad,0,Math.PI*2); x.closePath(); x.fillStyle='#ccc'; x.fill(); x.clip(); if(img) x.drawImage(img,cx-rad,cy-rad,rad*2,rad*2); x.restore(); x.lineWidth=ring?8:4; x.strokeStyle=ring||GOLD; x.beginPath(); x.arc(cx,cy,rad,0,Math.PI*2); x.stroke(); };
+  const gap=W/(winners.length+1); winners.forEach((p,i)=>{ const cx=gap*(i+1); x.shadowColor='rgba(231,196,106,.7)'; x.shadowBlur=40; circ(imgs[p],cx,440,105,GOLD); x.shadowBlur=0; x.fillStyle=IVORY; x.font=`700 40px ${body}`; x.direction='ltr'; x.fillText(pname(p),cx,600); x.direction=AR?'rtl':'ltr'; });
+  x.fillStyle='rgba(0,0,0,.28)'; x.beginPath(); x.roundRect(90,660,W-180,560,30); x.fill();
+  const order=g.seats.slice().sort((a,b)=>typeOf(g)==='leekha'?t[a]-t[b]:t[b]-t[a]);
+  order.forEach((p,i)=>{ const y=740+i*125, won=winners.includes(p), team=g.teams?(g.teams[0].includes(p)?'#7CC6F2':'#F2A65A'):null;
+    if(team){ x.fillStyle=team; x.fillRect(AR?W-128:120,y-45,8,90); }
+    circ(imgs[p],AR?W-210:210,y,45,won?GOLD:'rgba(255,255,255,.3)');
+    x.textAlign=AR?'right':'left'; x.fillStyle=IVORY; x.font=`600 42px ${body}`; x.direction='ltr'; x.textAlign=AR?'right':'left'; x.fillText(pname(p), AR?W-285:285, y+14); x.direction=AR?'rtl':'ltr';
+    x.direction='ltr'; x.textAlign=AR?'left':'right'; x.fillStyle=won?GOLD:IVORY; x.font=`800 58px ${disp}`; x.fillText(String(t[p]), AR?130:W-130, y+20); x.direction=AR?'rtl':'ltr'; });
+  x.textAlign='center'; x.fillStyle='rgba(246,241,227,.8)'; x.font=`600 34px ${body}`; x.fillText(T(resultNote(g,r)),W/2,1270);
+  return new Promise(ok=>c.toBlob(ok,'image/png'));
+}
+async function sharePicture(g){
+  shareMsg='Making the picture…'; render();
+  let blob; try{ blob=await resultImage(g); }catch(e){ blob=null; }
+  if(!blob){ shareMsg='Could not make the picture on this phone.'; render(); return; }
+  const file=new File([blob],'sajjel-3endak-'+g.date+'.png',{type:'image/png'});
+  if(navigator.canShare && navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file]}); shareMsg=''; }catch(e){ shareMsg=''; } render(); return; }
+  const url=URL.createObjectURL(blob); shareMsg=''; render();
+  const el=document.createElement('div'); el.className='celebrate'; el.innerHTML=`<div class="cel-card"><img src="${url}" alt="Result picture" style="width:100%;border-radius:12px"><div class="muted" style="font-size:13px">Long-press the picture to save or share it.</div><a class="btn primary" href="${url}" download="${file.name}">Save picture</a><button class="btn sm ghost" data-close>Close</button></div>`;
+  document.body.appendChild(el); localize(el); el.addEventListener('click',e=>{ if(e.target.closest('[data-close]')||e.target===el){ el.remove(); URL.revokeObjectURL(url); } });
+}
+
 /* ---------- player names ---------- */
 function nameForm(id, p, label){
   const forId = id==='editForm' ? p.id : 'new';
@@ -1417,7 +1653,7 @@ function checkName(first, last, alias, exceptId){
 }
 
 /* ---------- events ---------- */
-function goTab(t){ rulesOpen=null; if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
+function goTab(t){ rulesOpen=null; h2h=null; if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
 $('#langBtn').addEventListener('click', ()=>{ lang = lang==='ar'?'en':'ar'; try{ localStorage.setItem('sajjel-lang', lang); }catch(e){} render(); });
 document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; goTab(b.dataset.tab); confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
 $('#view').addEventListener('submit', e=>{
@@ -1438,6 +1674,10 @@ $('#view').addEventListener('click', e=>{
   if(b.dataset.avact==='nophoto'){ avDraft.photo=null; refreshAvatar(); return; }
   const g = cur(); const act = b.dataset.act;
   if(b.dataset.rules){ rulesOpen=b.dataset.rules; window.scrollTo(0,0); }
+  if(act==='h2h-open'){ h2h={a:ME||null,b:null}; window.scrollTo(0,0); }
+  if(act==='h2h-close') h2h=null;
+  if(b.dataset.h2ha) h2h.a=b.dataset.h2ha;
+  if(b.dataset.h2hb) h2h.b=b.dataset.h2hb;
   if(act==='rules-close'){ rulesOpen=null; window.scrollTo(0,0); }
   if(b.dataset.go){ goTab(b.dataset.go); window.scrollTo(0,0); }
   if(b.dataset.open){ setOpen(b.dataset.open); window.scrollTo(0,0); }
@@ -1456,8 +1696,10 @@ $('#view').addEventListener('click', e=>{
   if(act==='claim-cancel'){ claimFor=null; claimMsg=''; }
   if(act==='claim-key'){ recoverWithKey(claimFor, ($('#claimKey')||{}).value||''); return; }
   if(act==='key-copy'){ const k=myKey(); try{ navigator.clipboard.writeText(k).then(()=>{ syncMsg='Key copied. Keep it somewhere safe.'; render(); }).catch(()=>{}); }catch(err){} }
-  if(b.dataset.clear){ const p=b.dataset.clear; draft.hearts[p]=0; if(draft.queen===p) draft.queen=null; if(draft.ten===p) draft.ten=null; }
-  if(b.dataset.rest){ const p=b.dataset.rest; const used=Object.values(draft.hearts).reduce((x,y)=>x+y,0); draft.hearts[p]=(draft.hearts[p]||0)+Math.max(0,HEARTS-used); if(!draft.queen) draft.queen=p; if(!draft.ten) draft.ten=p; }
+  if(b.dataset.clear && draft && draft.own){ const p=b.dataset.clear; Object.keys(draft.own).forEach(k=>{ if(draft.own[k]===p) delete draft.own[k]; }); syncLeekha(draft, Object.keys(draft.hearts)); }
+  if(b.dataset.rest && draft && draft.own){ const p=b.dataset.rest; FAN.forEach(k=>{ if(!draft.own[k]) draft.own[k]=p; }); syncLeekha(draft, Object.keys(draft.hearts)); }
+  if(b.dataset.active && draft) draft.active=b.dataset.active;
+  if(b.dataset.card && draft && draft.own){ const k=b.dataset.card; if(draft.own[k]) delete draft.own[k]; else if(draft.active) draft.own[k]=draft.active; syncLeekha(draft, Object.keys(draft.hearts)); }
   if(act==='sub-open') subState={out:null,in:null};
   if(act==='sub-cancel') subState=null;
   if(b.dataset.subout) subState.out=b.dataset.subout;
@@ -1472,13 +1714,14 @@ $('#view').addEventListener('click', e=>{
   if(act==='del-yes'){ S.games=S.games.filter(x=>x!==g); setOpen(null); save(); }
   if(act==='rematch'){ const ng={id:uid(),type:typeOf(g),date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
     S.games.push(ng); tab='game'; openG=ng.id; openH=null; shareMsg=''; save(); window.scrollTo(0,0); }
+  if(act==='share-pic'){ sharePicture(g); return; }
   if(act==='share'){ const r=result(g), t=totals(g); const w=r.winners.flatMap(x=>x.members).map(pname).join(' & ');
     const txt=`سجّل عندك · Sajjel 3endak\n${gameName(g)} · ${g.date} · ${g.mode==='teams'?'Teams':'Solo'}\n🏆 ${w}\n${resultNote(g,r)}\n\n${g.seats.slice().sort((a,b)=>typeOf(g)==='leekha'?t[a]-t[b]:t[b]-t[a]).map(p=>`${pname(p)}: ${t[p]}`).join('\n')}\n(${g.rounds.length} rounds)`;
     const done=m=>{ shareMsg=m; render(); };
     if(navigator.share){ navigator.share({text:txt}).catch(()=>{}); }
     else { try{ navigator.clipboard.writeText(txt).then(()=>done('Result copied. Paste it in your WhatsApp group.')).catch(()=>done('Sharing is not available here.')); }catch(err){ shareMsg='Sharing is not available here.'; } } }
   if(b.dataset.editround){ const i=+b.dataset.editround, rd=g.rounds[i], ty=typeOf(g);
-    draft = ty==='leekha' ? {hearts:{...rd.hearts},queen:rd.queen,ten:rd.ten,index:i}
+    draft = ty==='leekha' ? Object.assign(leekhaDraft(occAt(g,i), rd), {index:i})
       : ty==='400' ? {phase:'both',bids:{...rd.bids},tricks:{...rd.tricks},index:i}
       : {phase:'both',bidder:rd.bidder,bid:rd.bid,trump:rd.trump||null,taken:rd.taken,index:i};
     window.scrollTo(0,0); }
@@ -1501,19 +1744,17 @@ $('#view').addEventListener('click', e=>{
   if(act==='start'){ const s=setup.seats.filter(Boolean); if(s.length!==4){ render(); return; } const ng={id:uid(),type:setup.type||'leekha',date:new Date().toISOString().slice(0,10),mode:GAME[setup.type||'leekha'].teamsOnly?'teams':setup.mode,seats:s.slice(),teams:(setup.mode==='teams'||GAME[setup.type||'leekha'].teamsOnly)?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
     ng.updated=Date.now(); ng.owner=DEVICE; ng.ownerPlayer=ME; ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
   if(act==='add-round'){ const ty=typeOf(g);
-    if(ty==='leekha'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
+    if(ty==='leekha'){ draft=leekhaDraft(g.seats); }
     else if(ty==='400'){ const bids={}, tricks={}; g.seats.forEach(p=>{ bids[p]=g.pending?g.pending.bids[p]:2; tricks[p]=0; }); draft={phase:g.pending?'tricks':'bids',bids,tricks}; }
     else draft = g.pending ? {phase:'tricks',bidder:g.pending.bidder,bid:g.pending.bid,trump:g.pending.trump||null,taken:g.pending.bid} : {phase:'bid',bidder:null,bid:7,trump:null,taken:7};
     window.scrollTo(0,0); }
   if(act==='cancel-round') draft=null;
-  if(b.dataset.h){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
-  if(b.dataset.sp){ const k=b.dataset.sp; if(!draft[k]) draft[k]=b.dataset.p; else if(draft[k]===b.dataset.p) draft[k]=null; }
   if(act==='save-round'){ const before=totals(g), wasOver=!!result(g); const idx=draft.index, ty=typeOf(g); let rd;
-    if(ty==='leekha'){ rd=draft; delete rd.index; delete rd.moon; delete rd.phase; if(g.mode==='solo'){ const m=Object.keys(rd.hearts).find(p=>rawPts(rd,p)===TOTAL); if(m) rd.moon=m; } }
+    if(ty==='leekha'){ rd={hearts:{...draft.hearts},queen:draft.queen,ten:draft.ten}; if(g.mode==='solo'){ const m=Object.keys(rd.hearts).find(p=>rawPts(rd,p)===TOTAL); if(m) rd.moon=m; } }
     else if(ty==='400') rd={bids:{...draft.bids},tricks:{...draft.tricks}};
     else rd={bidder:draft.bidder,bid:draft.bid,trump:draft.trump||null,taken:draft.taken};
     if(idx!=null) g.rounds[idx]=rd; else { g.rounds.push(rd); delete g.pending; g.updated=Date.now(); }
-    draft=null; save(); window.scrollTo(0,0);
+    draft=null; save(); window.scrollTo(0,0); if(!wasOver && result(g)) celebrate=g.id;
     const after=totals(g); try{ if(!wasOver && result(g)) navigator.vibrate&&navigator.vibrate([120,60,120,60,300]); else if(typeOf(g)==='leekha' && g.seats.some(p=>before[p]<80&&after[p]>=80)) navigator.vibrate&&navigator.vibrate(150); }catch(err){} }
   if(act==='undo'){ if(g.pending) delete g.pending; else g.rounds.pop(); g.updated=Date.now(); save(); }
   if(act==='load-sample'){ S=sample(); openG=openH=null; save(); }
