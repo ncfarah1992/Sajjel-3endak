@@ -241,6 +241,7 @@ td.was{color:var(--muted);font-style:italic}
 .langbtn{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--gold);font:700 14px var(--f-logo-ar);display:grid;place-items:center;padding:0}
 .langbtn.en{font:700 11px var(--f-mono)}
 @media (max-width:440px){.logo .lat span{display:none}.logo .ar{font-size:23px}.brand small{padding:3px 8px}}
+@media (max-width:400px){.logo .lat{display:none}}
 :root[lang="ar"]{--f-body:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;--f-display:"Reem Kufi","IBM Plex Sans Arabic",serif}
 :root[lang="ar"] .eyebrow,:root[lang="ar"] th,:root[lang="ar"] .seat .team,:root[lang="ar"] nav.tabs button{letter-spacing:0;text-transform:none}
 :root[lang="ar"] .brand small{letter-spacing:0;font-family:var(--f-body)}
@@ -258,6 +259,32 @@ td.was{color:var(--muted);font-style:italic}
 .codebox b{font-size:24px;letter-spacing:.18em;color:var(--gold);flex:1}
 .check{display:flex;gap:8px;align-items:flex-start;font-size:13px}
 .check input{margin-top:3px;accent-color:var(--gold)}
+
+/* scoring helpers + view only */
+.quick{display:flex;gap:8px;justify-content:flex-end}
+.viewonly{border-style:dashed}
+.viewonly .eye{width:24px;height:24px;color:var(--gold);flex:none;margin-top:2px}
+.vo{font:600 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
+
+/* team colors */
+:root{--team-a:#7CC6F2;--team-b:#F2A65A}
+.ta{color:var(--team-a)} .tb{color:var(--team-b)}
+.seat .team.ta{color:var(--team-a)} .seat .team.tb{color:var(--team-b)}
+.chip.team-a[aria-pressed="true"]{background:var(--team-a);border-color:var(--team-a);color:#10283a}
+.chip.team-b[aria-pressed="true"]{background:var(--team-b);border-color:var(--team-b);color:#3a2410}
+.teampick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tp{display:flex;flex-direction:column;gap:6px;border-radius:12px;padding:8px;border:1px solid;min-width:0}
+.tp.a{border-color:var(--team-a);background:rgba(124,198,242,.1)} .tp.b{border-color:var(--team-b);background:rgba(242,166,90,.1)}
+.tp>b{font-size:12px;letter-spacing:.06em;text-transform:uppercase} .tp.a>b{color:var(--team-a)} .tp.b>b{color:var(--team-b)}
+.slot{display:flex;align-items:center;gap:6px;min-height:36px;border-radius:10px;padding:4px 6px;font-size:13px;min-width:0}
+.slot.filled{border:0;background:rgba(0,0,0,.25);color:var(--ink);text-align:start}
+.slot.filled span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot.filled i{font-style:normal;color:var(--muted)}
+.slot .avatar{width:26px;height:26px;border-width:1px}
+.slot.empty{border:1px dashed var(--line);color:var(--muted);justify-content:center}
+.slot.next{border-color:var(--gold);color:var(--gold)}
+.gs.ga{border-bottom:2px solid var(--team-a);padding-bottom:3px} .gs.gb{border-bottom:2px solid var(--team-b);padding-bottom:3px}
+:root[lang="ar"] .tp>b{letter-spacing:0}
 
 /* tab bar */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(10,36,28,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
@@ -384,7 +411,7 @@ function result(g){
 const pname = id => (S.players.find(p=>p.id===id)||{name:'?'}).name;
 const openId = () => tab==='history' ? openH : openG;
 const cur = () => S.games.find(g=>g.id===openId());
-const setOpen = id => { if(tab==='history') openH=id; else openG=id; confirmDel=false; shareMsg=''; subState=null; };
+const setOpen = id => { if(tab==='history') openH=id; else openG=id; confirmDel=false; confirmTake=false; shareMsg=''; subState=null; };
 const lastPlayed = g => g.updated || Date.parse(g.date) || 0;
 function ago(ts){ const d=Math.floor((Date.now()-ts)/864e5); if(d<=0) return 'today'; if(d===1) return 'yesterday'; if(d<7) return d+' days ago'; return new Date(ts).toISOString().slice(0,10); }
 S = load();
@@ -459,7 +486,14 @@ const AR = {
 "Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.":'حذف كلّ اللاعبين والألعاب على هذا الهاتف؟ سيغادر الهاتف المجموعة، وتبقى بيانات المجموعة محفوظة.',
 "Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.":'استعادة نسخة احتياطية تجعل هذا الهاتف يغادر المجموعة أوّلاً، حتى لا تُستبدل بيانات المجموعة.',
 'No internet connection. Try again when you are online.':'لا يوجد اتصال بالإنترنت. حاول مجدّداً عند الاتصال.','Type the group code first.':'اكتب رمز المجموعة أوّلاً.','No group has this code. Check it and try again.':'لا توجد مجموعة بهذا الرمز. تحقّق منه وحاول مجدّداً.',
-'Code copied.':'تمّ نسخ الرمز.','This group no longer exists online.':'هذه المجموعة لم تعد موجودة على الإنترنت.',
+'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Next pick':'الاختيار التالي','Empty':'فارغ',
+'Tap players in order: the first two are':'اختر اللاعبين بالترتيب: أوّل اثنين هما',', the next two are':'، والاثنان التاليان هما',
+'. Partners sit opposite each other. Scores stay individual: the first player to reach 101 loses the game for their team. Tap a player in a team to take them out.':'. كلّ شريكين يجلسان متقابلين. النتائج فردية: أوّل لاعب يصل إلى 101 يخسر اللعبة لفريقه. اضغط على لاعب في فريق لإخراجه.','Take the rest':'ياخد الباقي','View only':'للمشاهدة فقط',
+'Another phone is keeping score for this game.':'هاتف آخر يسجّل نتائج هذه اللعبة.','Scores update here by themselves.':'النتائج تتحدّث هنا تلقائياً.',
+'Take over scoring':'تولَّ التسجيل','Take over':'تولَّ',
+"Take over scoring? Only do this if the scorer's phone is not available. Rounds it scored but has not synced yet will be lost.":'تولّي التسجيل؟ افعل ذلك فقط إذا كان هاتف المسجّل غير متاح. الجولات التي سجّلها ولم تُزامَن بعد ستضيع.',
+'This phone belongs to':'هذا الهاتف لـ','Pick yourself. Only this phone can then edit your profile, and games you start are scored here. Friends see them as view only.':'اختر نفسك. بعدها هذا الهاتف وحده يستطيع تعديل ملفّك، والألعاب التي تبدأها تُسجَّل هنا. يراها أصدقاؤك للمشاهدة فقط.',
+'Only the phone that registered this player can edit this profile.':'فقط الهاتف الذي سجّل هذا اللاعب يستطيع تعديل ملفّه.','Own phone':'هاتفه','You':'أنت','This group no longer exists online.':'هذه المجموعة لم تعد موجودة على الإنترنت.',
 };
 const MODE = {'Solo':'فردي','Teams':'فرق','Teams of 2':'فرق من لاعبَين'};
 const ARX = [
@@ -490,6 +524,9 @@ const ARX = [
 [/^The alias “(.+)” is already taken\. Pick another one\.$/,'اللقب «$1» مستعمل. اختر لقباً آخر.'],
 [/^Backup copied: (\d+) players, (\d+) games\.$/,'تمّ نسخ النسخة الاحتياطية: $1 لاعبين، $2 ألعاب.'],
 [/^Restored (\d+) players and (\d+) games\.$/,'تمّت استعادة $1 لاعبين و$2 ألعاب.'],
+[/^(.+)'s phone is keeping score for this game\.$/,'هاتف $1 يسجّل نتائج هذه اللعبة.'],
+[/^Only (.+) can edit this profile, on their own phone\.$/,'فقط $1 يستطيع تعديل هذا الملف من هاتفه.'],
+[/^Remove (.+)$/,'إزالة $1'],
 [/^Synced (\d+) min ago$/,'تمّت المزامنة منذ $1 دقيقة'],[/^Synced (.+)$/,(m,x)=>'تمّت المزامنة '+tr(x)],[/^Sync problem: (.+)$/,(m,x)=>'مشكلة في المزامنة: '+tr(x)],
 [/^Group created\. Share the code (\w+) with your friends\.$/,'تمّ إنشاء المجموعة. شارك الرمز $1 مع أصدقائك.'],[/^You joined (.+)\.$/,'انضممت إلى $1.'],
 [/^Could not create the group: (.+)$/,'تعذّر إنشاء المجموعة: $1'],[/^Could not join: (.+)$/,'تعذّر الانضمام: $1'],[/^Copy blocked\. The code is (\w+)\.$/,'النسخ ممنوع. الرمز هو $1.'],[/^The code is (\w+)\.$/,'الرمز هو $1.'],
@@ -505,6 +542,17 @@ function localize(root){
 }
 function applyLang(){ const r=document.documentElement; r.lang = lang==='ar'?'ar':'en'; r.dir = lang==='ar'?'rtl':'ltr';
   const b=$('#langBtn'); if(b){ b.textContent = lang==='ar'?'EN':'ع'; b.className='langbtn'+(lang==='ar'?' en':''); b.setAttribute('aria-label', lang==='ar'?'English':'العربية'); } }
+
+/* ---------- who scores a game ---------- */
+// Each phone gets a private id. The phone that starts a game keeps its score; other phones in the group watch.
+const DEVICE = (()=>{ try{ let d=localStorage.getItem('sajjel-device'); if(!d){ d='d'+Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('sajjel-device',d); } return d; }catch(e){ return 'd-local'; } })();
+let ME = (()=>{ try{ return localStorage.getItem('sajjel-me')||null; }catch(e){ return null; } })();
+const canScore = g => !g.owner || g.owner===DEVICE;
+// A player profile can be edited only by its owner phone: the phone that registered it, until the player
+// claims it with "This phone belongs to"; after that only the player's own phone can edit it.
+const canEditPlayer = p => !p.owner || p.owner===DEVICE;
+const scorerName = g => g.ownerPlayer && S.players.some(p=>p.id===g.ownerPlayer) ? pname(g.ownerPlayer) : null;
+let confirmTake = false;
 
 /* ---------- card glyphs ---------- */
 const card = (rank,suit,cls='') => `<span class="pc ${suit==='♥'||suit==='♦'?'r':'k'} ${cls}" aria-label="${rank} of ${suit}"><span>${rank}</span><span>${suit}</span></span>`;
@@ -544,7 +592,8 @@ function viewGame(){
      <div class="eyebrow">Who takes the seat?</div>${others.length?`<div class="chips">${others.map(p=>`<button class="chip" data-subin="${p.id}" aria-pressed="${subState.in===p.id}">${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>`:`<p class="muted" style="margin:0;font-size:13px">Everyone registered is already at this table. Add the new player in the Players tab first.</p>`}
      ${subState.out&&subState.in?`<div class="notice"><b>${esc(pname(subState.in))}</b> takes <b>${esc(pname(subState.out))}</b>'s seat and continues from <b>${t[subState.out]}</b> points. Past rounds stay in ${esc(pname(subState.out))}'s own stats.</div>`:''}
      <button class="btn primary" data-act="sub-yes" ${subState.out&&subState.in?'':'disabled'}>Confirm substitution</button></section>` : '';
-  const firstDeal = !res && !g.rounds.length ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
+  const mine = canScore(g);
+  const firstDeal = mine && !res && !g.rounds.length ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
      <div class="chips">${g.seats.map(p=>`<button class="chip" data-firstdealer="${p}" aria-pressed="${dl===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
      <div class="muted" style="font-size:12px">After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.</div></section>` : '';
   const winners = res ? res.winners.flatMap(w=>w.members) : [];
@@ -562,28 +611,31 @@ function viewGame(){
     ${board}</div>
   ${dl&&!res?`<div class="dealnote">${card('Q','♠')} <span><b>${esc(pname(dl))}</b> deals ${g.rounds.length?'next':'first'}</span></div>`:''}
   ${firstDeal}
-  ${res?'':`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`}
+  ${res?'':(mine?`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`
+    :`<section class="panel viewonly"><div class="row" style="align-items:flex-start"><svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      <div><b>View only</b><div class="muted" style="font-size:13px">${scorerName(g)?`${esc(scorerName(g))}'s phone is keeping score for this game.`:'Another phone is keeping score for this game.'} Scores update here by themselves.</div></div></div></section>`)}
   ${subNotes?`<ul class="subnotes">${subNotes}</ul>`:''}
   ${subPanel}
   ${historyTable(g)}
   ${lastRoundCards(g)}
-  <div class="row" style="justify-content:flex-end;flex-wrap:wrap">${res?'':`${subState?'':`<button class="btn sm ghost" data-act="sub-open">Substitute a player</button>`}<button class="btn sm ghost" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button>`}
-    ${confirmDel?`<span style="font-size:13px">Delete this game for good?</span><button class="btn sm danger" data-act="del-yes">Delete</button><button class="btn sm" data-act="del-no">Keep</button>`:`<button class="btn sm ghost danger" data-act="del-game">Delete game</button>`}</div>`;
+  ${mine?`<div class="row" style="justify-content:flex-end;flex-wrap:wrap">${res?'':`${subState?'':`<button class="btn sm ghost" data-act="sub-open">Substitute a player</button>`}<button class="btn sm ghost" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button>`}
+    ${confirmDel?`<span style="font-size:13px">Delete this game for good?</span><button class="btn sm danger" data-act="del-yes">Delete</button><button class="btn sm" data-act="del-no">Keep</button>`:`<button class="btn sm ghost danger" data-act="del-game">Delete game</button>`}</div>`
+  : (res?'':`<div class="row" style="justify-content:flex-end;flex-wrap:wrap">${confirmTake?`<span style="font-size:13px">Take over scoring? Only do this if the scorer's phone is not available. Rounds it scored but has not synced yet will be lost.</span><button class="btn sm danger" data-act="take-yes">Take over</button><button class="btn sm" data-act="take-no">Cancel</button>`:`<button class="btn sm ghost" data-act="take-over">Take over scoring</button>`}</div>`)}`;
 }
 function seat(pid, score, team, res, spot, dealer){
   const pct = Math.min(100, score/LIMIT*100);
   const won = res && res.winners.some(w=>w.members.includes(pid)), lost = res && res.loser.members.includes(pid);
   const cls = [spot, score>=LIMIT?'bad':(score>=80?'warn':''), won?'won':'', lost?'lost':''].join(' ');
-  const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':(team?`<span class="team">${team}</span>`:''))) : (score>=80&&score<LIMIT?`<span class="pill hot">${LIMIT-score} left</span>`:(team?`<span class="team">${team}</span>`:''));
+  const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':(team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:''))) : (score>=80&&score<LIMIT?`<span class="pill hot">${LIMIT-score} left</span>`:(team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:''));
   return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?'<span class="dealer">Deals</span>':''}</span><span class="name">${esc(pname(pid))}</span>
     <span class="score">${score}<small>/${LIMIT}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
 }
 function historyTable(g){
   if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Tap “Score the first round” after the first hand is played.</p></section>`;
   const t = totals(g);
-  return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div><span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span></div><div class="tablewrap"><table>
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div>${canScore(g)?'<span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span>':''}</div><div class="tablewrap"><table>
     <thead><tr><th>#</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead>
-    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num"><button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button></td>${occAt(g,i).map((p,k)=>{const v=roundPts(rd,p);return `<td class="num${p!==g.seats[k]?' was':''}" ${p!==g.seats[k]?`title="${esc(pname(p))}"`:''}>${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
+    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${canScore(g)?`<button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button>`:i+1}</td>${occAt(g,i).map((p,k)=>{const v=roundPts(rd,p);return `<td class="num${p!==g.seats[k]?' was':''}" ${p!==g.seats[k]?`title="${esc(pname(p))}"`:''}>${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
     <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
 }
 function lastRoundCards(g){
@@ -596,8 +648,8 @@ function tableCard(g){
   const t = totals(g); const order = g.mode==='teams' ? [g.teams[0][0],g.teams[0][1],g.teams[1][0],g.teams[1][1]] : g.seats.slice().sort((a,b)=>t[a]-t[b]);
   const hot = g.seats.filter(p=>t[p]>=80).sort((a,b)=>t[b]-t[a])[0];
   return `<button class="gcard" data-open="${g.id}">
-    <div class="row between"><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${ago(lastPlayed(g))}</span></div>
-    <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${t[p]>=80?'hot':''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
+    <div class="row between"><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${canScore(g)?'':'<span class="vo">View only</span> '}${ago(lastPlayed(g))}</span></div>
+    <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${t[p]>=80?'hot':''} ${g.mode==='teams'?(g.teams[0].includes(p)?'ga':'gb'):''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
     ${hot?`<div class="gwarn">${esc(pname(hot))} is ${LIMIT-t[hot]} away from ${LIMIT}</div>`:''}
     ${dealerOf(g)?`<div class="muted" style="font-size:12px">${esc(pname(dealerOf(g)))} deals ${g.rounds.length?'next':'first'}</div>`:''}
     <span class="go">Continue →</span></button>`;
@@ -639,7 +691,11 @@ function viewHistory(){
 /* new game setup */
 function viewSetup(){
   const enough = S.players.length>=4;
-  const ok = setup.seats.length===4;
+  const picked = setup.seats.filter(Boolean).length, ok = picked===4, teams = setup.mode==='teams';
+  const teamOf = id => { const i=setup.seats.indexOf(id); return i<0 ? '' : (i<2 ? 'a' : 'b'); };
+  const nextSlot = setup.seats.indexOf(null)>=0 ? setup.seats.indexOf(null) : setup.seats.length;
+  const slot = i => { const id=setup.seats[i]; return id ? `<button class="slot filled" data-seat="${id}" aria-label="Remove ${esc(pname(id))}">${avatar(id)}<span>${esc(pname(id))}</span><i aria-hidden="true">×</i></button>`
+    : `<span class="slot empty${i===nextSlot?' next':''}">${i===nextSlot?'Next pick':'Empty'}</span>`; };
   return `<section class="row between"><h2>New game</h2><button class="btn sm ghost" data-act="cancel-setup">Cancel</button></section>
   ${enough?'':`<div class="notice">You need 4 registered players. Add them in the Players tab.</div>`}
   <section class="panel"><div class="eyebrow">Card game</div>
@@ -647,9 +703,10 @@ function viewSetup(){
     <div class="muted" style="font-size:12px">More card games will be added here.</div></section>
   <section class="panel"><div class="eyebrow">Format</div>
     <div class="seg"><button data-mode="solo" aria-pressed="${setup.mode==='solo'}">Every player for themselves</button><button data-mode="teams" aria-pressed="${setup.mode==='teams'}">Teams of 2</button></div></section>
-  <section class="panel"><div class="row between"><div class="eyebrow">Pick 4 players</div><span class="num muted">${setup.seats.length}/4</span></div>
-    <div class="chips">${S.players.map(p=>{const on=setup.seats.includes(p.id);return `<button class="chip" data-seat="${p.id}" aria-pressed="${on}" ${!on&&setup.seats.length>=4?'disabled':''}>${avatar(p.id)}${esc(p.name)}${on?` <span class="order">${setup.seats.indexOf(p.id)+1}</span>`:''}</button>`}).join('')}</div>
-    ${setup.mode==='teams'&&ok?`<div class="notice">Team A: <b>${esc(pname(setup.seats[0]))} & ${esc(pname(setup.seats[1]))}</b> · Team B: <b>${esc(pname(setup.seats[2]))} & ${esc(pname(setup.seats[3]))}</b><br>Teams follow the order you tap players. Scores stay individual: the first player to reach ${LIMIT} loses the game for their team.</div>`:''}
+  <section class="panel"><div class="row between"><div class="eyebrow">Pick 4 players</div><span class="num muted">${picked}/4</span></div>
+    ${teams?`<div class="notice">Tap players in order: the first two are <b class="ta">Team A</b>, the next two are <b class="tb">Team B</b>. Partners sit opposite each other. Scores stay individual: the first player to reach ${LIMIT} loses the game for their team. Tap a player in a team to take them out.</div>
+    <div class="teampick"><div class="tp a"><b>Team A</b>${slot(0)}${slot(1)}</div><div class="tp b"><b>Team B</b>${slot(2)}${slot(3)}</div></div>`:''}
+    <div class="chips">${S.players.map(p=>{const on=setup.seats.includes(p.id);return `<button class="chip${teams&&on?' team-'+teamOf(p.id):''}" data-seat="${p.id}" aria-pressed="${on}" ${!on&&picked>=4?'disabled':''}>${avatar(p.id)}${esc(p.name)}${on?` <span class="order">${teams?teamOf(p.id).toUpperCase():setup.seats.indexOf(p.id)+1}</span>`:''}</button>`}).join('')}</div>
   </section>
   <button class="btn primary big" data-act="start" ${ok?'':'disabled'}>Sit down and deal</button>`;
 }
@@ -673,6 +730,7 @@ function viewRound(){
           <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}">${card('Q','♠')}13</button>
           <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}">${card('10','♦')}10</button>
         </div></div>
+      <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div>
       <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
   <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
   <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>${draft.index!=null?'Save changes':'Save round'}</button></div>`;
@@ -686,7 +744,7 @@ function viewPlayers(){
   <section class="panel"><div class="row between"><div class="eyebrow">${S.players.length} registered</div></div>
   <div class="plist">${S.players.map(p=>{const s=st[p.id];return `<div class="pitem">${avatar(p.id)}
     <button class="grow plink" data-prof="${p.id}"><b>${esc(p.name)}</b> <span class="muted">›</span><div class="muted" style="font-size:13px">${esc(fullName(p))}</div><div class="muted" style="font-size:13px">${s.games} games · ${s.wins} wins · ${s.losses} losses</div></button>
-    <button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button></div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
+    ${canEditPlayer(p)?`<button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button>`:(p.claimed&&p.owner!==DEVICE?'<span class="vo">Own phone</span>':'')}${p.id===ME?'<span class="vo">You</span>':''}</div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
   ${syncPanel()}
   <section class="panel"><div><div class="eyebrow">Backup</div><div class="muted" style="font-size:13px">${SY.code?'Your group is also saved online. A backup file is still a good extra copy.':'Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.'}</div></div>
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="copy-backup">Copy backup</button><button class="btn sm" data-act="download-backup">Save backup file</button><button class="btn sm ghost" data-act="show-restore">Restore from backup</button><label class="btn sm ghost" style="cursor:pointer">Open backup file<input type="file" id="backupFile" accept=".json,application/json" hidden></label></div>
@@ -806,7 +864,8 @@ function viewProfile(id){
   return `<section class="row"><button class="btn sm ghost" data-act="back">← Back</button></section>
   <section class="row" style="gap:14px">${avatar(p.id,'xl')}
     <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2><div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
-    ${editing?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
+    ${editing||!canEditPlayer(p)?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
+  ${canEditPlayer(p)?'':`<div class="notice">${p.claimed?`Only ${esc(p.name)} can edit this profile, on their own phone.`:'Only the phone that registered this player can edit this profile.'}</div>`}
   ${editing?`<section class="panel"><h2>Edit player</h2>${nameForm('editForm', p, 'Save changes')}<button class="btn sm ghost" data-act="cancel-edit">Cancel</button></section>`:''}
   ${titles.length?`<div class="notice potm-badge">♛ Player of the month${titles.length>1?` ${titles.length} times`:''}: ${titles.map(monthName).join(', ')}</div>`:''}
   <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
@@ -929,7 +988,8 @@ function syncNow(){
       const local = localRecords(); let maxTs = SY.cursor||0;
       for(const r of rows){
         maxTs = Math.max(maxTs, +r.server_ts||0); const k=recKey(r.kind,r.id), loc=local[k];
-        const dirty = loc ? strHash(JSON.stringify(loc.data))!==SY.hashes[k] : SY.hashes[k]!=null;   // changed or deleted here, not sent yet
+        const watching = loc && (r.kind==='game' ? !canScore(loc.data) : !canEditPlayer(loc.data));
+        const dirty = watching ? false : loc ? strHash(JSON.stringify(loc.data))!==SY.hashes[k] : SY.hashes[k]!=null;   // changed or deleted here, not sent yet
         if(dirty) continue;                       // this phone's newer change is sent below and wins
         if(r.deleted){ if(loc){ removeLocal(r.kind,r.id); changed=true; } delete SY.hashes[k]; continue; }
         if(loc && strHash(JSON.stringify(r.data))===SY.hashes[k]) continue;
@@ -938,7 +998,7 @@ function syncNow(){
       if(changed) saveLocal();
       // 2. send what changed on this phone
       const now=Date.now(), mine=localRecords(), out=[];
-      for(const k in mine){ const h=strHash(JSON.stringify(mine[k].data)); if(h!==SY.hashes[k]) out.push({row:{kind:mine[k].kind,id:mine[k].id,data:mine[k].data,updated_at:now,deleted:false},k,h}); }
+      for(const k in mine){ if(mine[k].kind==='game' ? !canScore(mine[k].data) : !canEditPlayer(mine[k].data)) continue; const h=strHash(JSON.stringify(mine[k].data)); if(h!==SY.hashes[k]) out.push({row:{kind:mine[k].kind,id:mine[k].id,data:mine[k].data,updated_at:now,deleted:false},k,h}); }
       for(const k in SY.hashes){ if(!mine[k]){ const i=k.indexOf(':'); out.push({row:{kind:k.slice(0,i),id:k.slice(i+1),data:null,updated_at:now,deleted:true},k,h:null}); } }
       for(let i=0;i<out.length;i+=100){ const part=out.slice(i,i+100); await rpc('sj_push', {p_code:SY.code, p_rows:part.map(x=>x.row)});
         part.forEach(x=>{ if(x.h==null) delete SY.hashes[x.k]; else SY.hashes[x.k]=x.h; }); }
@@ -975,6 +1035,9 @@ function syncPanel(){
     <div class="codebox"><span class="muted" style="font-size:12px">Group code</span><b class="num" data-raw>${esc(SY.code)}</b><button class="btn sm" data-act="sync-copy">Copy</button></div>
     <div class="muted" style="font-size:12.5px">Send this code to your friends. Anyone with it can see and change this group's games, so share it only with your card group.</div>
     <div id="syncLabel" style="font-size:13px">${esc(syncLabel())}</div>
+    <div><div class="eyebrow" style="margin-bottom:6px">This phone belongs to</div>
+      <div class="chips">${S.players.filter(p=>!p.sample).map(p=>`<button class="chip" data-me="${p.id}" aria-pressed="${ME===p.id}" ${p.claimed&&p.owner!==DEVICE?'disabled':''}>${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>
+      <div class="muted" style="font-size:12px;margin-top:6px">Pick yourself. Only this phone can then edit your profile, and games you start are scored here. Friends see them as view only.</div></div>
     ${syncMsg?`<div style="font-size:13px">${esc(syncMsg)}</div>`:''}
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="sync-now">Sync now</button>
       ${confirmLeave?`<span style="font-size:13px">Stop syncing on this phone? Your data stays here and online.</span><button class="btn sm danger" data-act="sync-leave-yes">Leave group</button><button class="btn sm" data-act="sync-leave-no">Stay</button>`:`<button class="btn sm ghost danger" data-act="sync-leave">Leave group</button>`}</div></section>`;
@@ -1029,8 +1092,8 @@ $('#view').addEventListener('submit', e=>{
   const editId = id==='editForm' ? profile : null;
   const problem = checkName(first, last, alias, editId);
   if(problem){ err.textContent=problem; err.hidden=false; localize(err); return; }
-  if(editId){ const p=S.players.find(x=>x.id===editId); Object.assign(p,{first,last,alias,face:avDraft.face,photo:avDraft.photo}); p.name=display(p); editing=false; avDraft=null; save(); render(); return; }
-  const p={id:uid(),first,last,alias,face:avDraft.face,photo:avDraft.photo,color:avDraft.color,joined:new Date().toISOString().slice(0,10)}; p.name=display(p);
+  if(editId){ const p=S.players.find(x=>x.id===editId); if(!canEditPlayer(p)){ editing=false; render(); return; } Object.assign(p,{first,last,alias,face:avDraft.face,photo:avDraft.photo}); p.name=display(p); editing=false; avDraft=null; save(); render(); return; }
+  const p={id:uid(),owner:DEVICE,first,last,alias,face:avDraft.face,photo:avDraft.photo,color:avDraft.color,joined:new Date().toISOString().slice(0,10)}; p.name=display(p);
   avDraft=null; S.players.push(p); if(!save()){ S.players.pop(); err.textContent='The phone is out of storage space for this app. Remove some player photos and try again.'; err.hidden=false; localize(err); return; } render(); $('#addForm-first').focus();
 });
 $('#view').addEventListener('click', e=>{
@@ -1045,6 +1108,18 @@ $('#view').addEventListener('click', e=>{
   if(act==='close-game'){ setOpen(null); }
   if(b.dataset.hmode) histMode=b.dataset.hmode;
   if(b.dataset.hplayer) histPlayer = histPlayer===b.dataset.hplayer ? null : b.dataset.hplayer;
+  const locked = g && !canScore(g);
+  if(locked && (['add-round','undo','sub-open','sub-yes','rand-dealer','del-game','del-yes','save-round'].includes(act) || b.dataset.editround || b.dataset.firstdealer)) { render(); return; }
+  if(act==='take-over') confirmTake=true;
+  if(act==='take-no') confirmTake=false;
+  if(act==='take-yes'){ g.owner=DEVICE; g.ownerPlayer=ME; g.updated=Date.now(); confirmTake=false; save(); }
+  if(b.dataset.me){ const pick=S.players.find(x=>x.id===b.dataset.me); const prev=S.players.find(x=>x.id===ME);
+    if(pick && !(pick.claimed && pick.owner!==DEVICE)){
+      if(prev && prev.owner===DEVICE) prev.claimed=false;
+      if(ME===pick.id){ ME=null; } else { ME=pick.id; pick.owner=DEVICE; pick.claimed=true; }
+      try{ ME?localStorage.setItem('sajjel-me',ME):localStorage.removeItem('sajjel-me'); }catch(e){} save(); } }
+  if(b.dataset.clear){ const p=b.dataset.clear; draft.hearts[p]=0; if(draft.queen===p) draft.queen=null; if(draft.ten===p) draft.ten=null; }
+  if(b.dataset.rest){ const p=b.dataset.rest; const used=Object.values(draft.hearts).reduce((x,y)=>x+y,0); draft.hearts[p]=(draft.hearts[p]||0)+Math.max(0,HEARTS-used); if(!draft.queen) draft.queen=p; if(!draft.ten) draft.ten=p; }
   if(act==='sub-open') subState={out:null,in:null};
   if(act==='sub-cancel') subState=null;
   if(b.dataset.subout) subState.out=b.dataset.subout;
@@ -1057,7 +1132,7 @@ $('#view').addEventListener('click', e=>{
   if(act==='del-game') confirmDel=true;
   if(act==='del-no') confirmDel=false;
   if(act==='del-yes'){ S.games=S.games.filter(x=>x!==g); setOpen(null); save(); }
-  if(act==='rematch'){ const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],firstDealer:g.seats[Math.floor(Math.random()*4)]};
+  if(act==='rematch'){ const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
     S.games.push(ng); tab='game'; openG=ng.id; openH=null; shareMsg=''; save(); window.scrollTo(0,0); }
   if(act==='share'){ const r=result(g), t=totals(g); const w=r.winners.flatMap(x=>x.members).map(pname).join(' & ');
     const txt=`سجّل عندك · Sajjel 3endak\nLeekha · ${g.date} · ${g.mode==='teams'?'Teams':'Solo'}\n🏆 ${w}\n${r.loser.who?pname(r.loser.who):r.loser.label} hit ${r.loser.score}\n\n${g.seats.slice().sort((a,b)=>t[a]-t[b]).map(p=>`${pname(p)}: ${t[p]}`).join('\n')}\n(${g.rounds.length} rounds)`;
@@ -1068,9 +1143,12 @@ $('#view').addEventListener('click', e=>{
   if(act==='new-game'){ setup={mode:'solo',seats:[]}; draft=null; }
   if(act==='cancel-setup') setup=null;
   if(b.dataset.mode) setup.mode=b.dataset.mode;
-  if(b.dataset.seat){ const i=setup.seats.indexOf(b.dataset.seat); i>=0?setup.seats.splice(i,1):setup.seats.push(b.dataset.seat); }
-  if(act==='start'){ const s=setup.seats; const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),mode:setup.mode,seats:s.slice(),teams:setup.mode==='teams'?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
-    ng.updated=Date.now(); ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
+  if(b.dataset.seat){ const id=b.dataset.seat, i=setup.seats.indexOf(id);
+    if(i>=0){ if(setup.mode==='teams') setup.seats[i]=null; else setup.seats.splice(i,1); }
+    else { const h=setup.seats.indexOf(null); if(h>=0) setup.seats[h]=id; else if(setup.seats.length<4) setup.seats.push(id); } }
+  if(b.dataset.mode) setup.seats=setup.seats.filter(Boolean);
+  if(act==='start'){ const s=setup.seats.filter(Boolean); if(s.length!==4){ render(); return; } const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),mode:setup.mode,seats:s.slice(),teams:setup.mode==='teams'?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
+    ng.updated=Date.now(); ng.owner=DEVICE; ng.ownerPlayer=ME; ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
   if(act==='add-round'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
   if(act==='cancel-round') draft=null;
   if(b.dataset.h){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
@@ -1083,6 +1161,8 @@ $('#view').addEventListener('click', e=>{
   if(act==='undo'){ g.rounds.pop(); g.updated=Date.now(); save(); }
   if(act==='load-sample'){ S=sample(); openG=openH=null; save(); }
   if(act==='clear-sample'){ const keep=S.players.filter(p=>!p.sample); const ids=new Set(keep.map(p=>p.id)); S={players:keep,games:S.games.filter(x=>!x.sample && x.seats.every(p=>ids.has(p))),current:null,sample:false}; openG=openH=null; histPlayer=null; save(); }
+  if(b.dataset.del && !canEditPlayer(S.players.find(x=>x.id===b.dataset.del)||{})){ render(); return; }
+  if(act==='edit-player' && profile && !canEditPlayer(S.players.find(x=>x.id===profile)||{})){ render(); return; }
   if(b.dataset.del){ S.players=S.players.filter(p=>p.id!==b.dataset.del); save(); }
   if(b.dataset.prof){ profile=b.dataset.prof; window.scrollTo(0,0); }
   if(act==='back'){ profile=null; editing=false; }
