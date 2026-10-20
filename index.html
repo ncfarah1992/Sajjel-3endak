@@ -408,11 +408,11 @@ td.was{color:var(--muted);font-style:italic}
 #tablebg .felt{position:absolute;inset:12px;border-radius:36px;overflow:hidden;
   background:radial-gradient(110% 75% at 50% 40%,var(--felt-hi) 0%,var(--felt) 52%,var(--felt-lo) 100%);
   box-shadow:inset 0 0 0 2px rgba(231,196,106,.28),inset 0 0 70px rgba(0,0,0,.55);transition:background .5s}
-#tablebg .emblem{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(78vw,420px);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:.2}
+#tablebg .emblem{position:absolute;left:50%;top:calc(50% - 6px);transform:translate(-50%,-50%);width:min(78vw,420px);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:.2}
 #tablebg .em-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--gold);box-shadow:inset 0 0 0 10px transparent,inset 0 0 0 12px var(--gold)}
-#tablebg .em-game{font-family:var(--f-logo-ar);font-weight:700;font-size:min(22vw,120px);line-height:1.1;color:var(--gold)}
-#tablebg .em-sub{font:700 13px var(--f-mono);letter-spacing:.35em;color:var(--gold)}
-#tablebg .em-suits{font-size:22px;letter-spacing:.4em;color:var(--gold);margin-top:6px}
+#tablebg .em-game{font-family:var(--f-logo-ar);font-weight:700;font-size:min(13vw,70px);line-height:1.2;color:var(--gold);white-space:nowrap;text-align:center;direction:rtl}
+#tablebg .em-sub{font:700 13px var(--f-mono);letter-spacing:.35em;margin-inline-end:-.35em;color:var(--gold);text-align:center;white-space:nowrap;direction:ltr}
+#tablebg .em-suits{font-size:22px;letter-spacing:.4em;margin-inline-end:-.4em;color:var(--gold);margin-top:6px;direction:ltr}
 body::after{z-index:0}
 
 /* at a game the table itself carries the game's name; hide the printed emblem behind it */
