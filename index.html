@@ -31,15 +31,15 @@
 html{background:var(--felt-lo)}
 /* table color per game: Leekha green felt, 400 burgundy, Tarneeb navy */
 :root[data-table="400"]{--felt-hi:#83334a;--felt:#56182c;--felt-lo:#2c0b16;--bg:#4a1527;--glass:rgba(44,11,22,.92);--bar:rgba(34,8,17,.96)}
+:root[data-table="trex"]{--felt-hi:#3d4250;--felt:#272b35;--felt-lo:#111318;--bg:#1d2028;--glass:rgba(17,19,24,.92);--bar:rgba(12,13,17,.96)}
 :root[data-table="tarneeb"]{--felt-hi:#2f5487;--felt:#1b3159;--felt-lo:#0b1630;--bg:#172a4b;--glass:rgba(11,22,48,.92);--bar:rgba(8,16,36,.96)}
 /* fabric grain and a darker table edge */
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.38) 100%);opacity:.55;mix-blend-mode:soft-light}
 .app,nav.tabs{position:relative;z-index:1}
 nav.tabs{position:fixed}
-body.patterned .app{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' font-family='Georgia,serif' font-size='26' fill='%23E7C46A' fill-opacity='.06'%3E%3Ctext x='10' y='34'%3E%E2%99%A0%3C/text%3E%3Ctext x='70' y='34'%3E%E2%99%A5%3C/text%3E%3Ctext x='40' y='94'%3E%E2%99%A6%3C/text%3E%3Ctext x='100' y='94'%3E%E2%99%A3%3C/text%3E%3C/svg%3E")}
 @media (prefers-reduced-motion:no-preference){body{transition:background-color .4s}}
 body{margin:0;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;min-height:100%;
-  background:var(--bg) radial-gradient(130% 70% at 50% 30%,var(--felt-hi) 0%,var(--felt) 50%,var(--felt-lo) 100%) fixed}
+  background:#1a0f08}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--felt-lo)}
 img{max-width:100%}
 [hidden]{display:none!important}
@@ -49,7 +49,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-bottom:92px}
 
 /* header */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:linear-gradient(180deg,#3a2213,#24140a);border-bottom-color:rgba(231,196,106,.35)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;margin:0;font-weight:400}
@@ -63,7 +63,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .logo .lat span{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .brand small{font:600 11px var(--f-mono);letter-spacing:.02em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(231,196,106,.6);border-radius:99px;padding:3px 10px;white-space:nowrap}
 
-main{flex:1;display:flex;flex-direction:column;gap:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+main{flex:1;display:flex;flex-direction:column;gap:16px;padding-left:max(26px,calc(env(safe-area-inset-left,0px) + 20px));padding-right:max(26px,calc(env(safe-area-inset-right,0px) + 20px));padding-block:16px}
 h2{font-family:var(--f-display);font-weight:800;font-size:21px;margin:0;text-wrap:balance;letter-spacing:.005em}
 .eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;opacity:.9}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:12px}
@@ -87,8 +87,9 @@ input::placeholder,textarea::placeholder{color:rgba(246,241,227,.4)}
 
 /* the card table */
 .tablebox{position:relative;width:100%;max-width:420px;margin:0 auto;aspect-ratio:1/1.06}
-.tablebox .oval{position:absolute;inset:19% 17%;border-radius:50%;border:2px solid rgba(231,196,106,.38);background:radial-gradient(closest-side,rgba(255,255,255,.06),rgba(0,0,0,.18));box-shadow:inset 0 0 40px rgba(0,0,0,.35),0 0 0 6px rgba(0,0,0,.08)}
-.tablebox .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.tablebox{--shift:39px}
+.tablebox .oval{position:absolute;inset:calc(13% - var(--shift)) 15% calc(13% + var(--shift));border-radius:50%;border:2px solid rgba(231,196,106,.38);background:radial-gradient(closest-side,rgba(255,255,255,.06),rgba(0,0,0,.18));box-shadow:inset 0 0 40px rgba(0,0,0,.35),0 0 0 6px rgba(0,0,0,.08)}
+.tablebox .center{position:absolute;left:50%;top:calc(50% - var(--shift));transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
 .tablebox .pile{display:flex}
 .tablebox .pile .pc{box-shadow:0 3px 8px rgba(0,0,0,.4)}
 .tablebox .pile .pc:nth-child(1){transform:rotate(-14deg) translate(9px,3px)}
@@ -96,8 +97,9 @@ input::placeholder,textarea::placeholder{color:rgba(246,241,227,.4)}
 .tablebox .pile .pc:nth-child(3){transform:rotate(17deg) translate(-9px,4px)}
 .tablebox .rlabel{font:600 10px var(--f-mono);letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
 .seat{position:absolute;width:31%;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
-.seat.n{top:0;left:50%;transform:translateX(-50%)} .seat.s{bottom:0;left:50%;transform:translateX(-50%)}
-.seat.w{left:0;top:50%;transform:translateY(-50%)} .seat.e{right:0;top:50%;transform:translateY(-50%)}
+.seat{transform:translate(-50%,-50%)}
+.seat.n{left:50%;top:17%} .seat.s{left:50%;top:83%}
+.seat.w{left:16%;top:50%} .seat.e{left:84%;top:50%}
 .seat .name{font-size:13px;font-weight:600;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .seat .score{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1}
 .seat .score small{font:500 10px var(--f-mono);color:var(--muted);margin-left:2px}
@@ -397,8 +399,53 @@ td.was{color:var(--muted);font-style:italic}
 /* keep Latin names readable inside Arabic layout */
 :root[dir="rtl"] b,:root[dir="rtl"] .name,:root[dir="rtl"] .nm,:root[dir="rtl"] .hwin,:root[dir="rtl"] .chip,:root[dir="rtl"] td,:root[dir="rtl"] h2{unicode-bidi:plaintext}
 
+/* the card table behind every screen: wooden rail, felt, and the game's name printed in the felt */
+#tablebg{position:fixed;inset:0;z-index:0;pointer-events:none;padding:calc(env(safe-area-inset-top,0px) + 6px) 6px calc(env(safe-area-inset-bottom,0px) + 6px);
+  background:repeating-linear-gradient(92deg,rgba(255,255,255,.025) 0 2px,transparent 2px 9px),radial-gradient(120% 80% at 50% 20%,#4a2b17,#1a0f08 70%)}
+#tablebg .rail{position:absolute;inset:calc(env(safe-area-inset-top,0px) + 4px) 4px calc(env(safe-area-inset-bottom,0px) + 4px);border-radius:46px;padding:12px;
+  background:repeating-linear-gradient(88deg,rgba(0,0,0,.12) 0 3px,transparent 3px 11px),linear-gradient(160deg,#7a4a28,#4a2a15 45%,#2e190c);
+  box-shadow:0 0 0 1px rgba(255,220,160,.15) inset,0 10px 30px rgba(0,0,0,.6)}
+#tablebg .felt{position:absolute;inset:12px;border-radius:36px;overflow:hidden;
+  background:radial-gradient(110% 75% at 50% 40%,var(--felt-hi) 0%,var(--felt) 52%,var(--felt-lo) 100%);
+  box-shadow:inset 0 0 0 2px rgba(231,196,106,.28),inset 0 0 70px rgba(0,0,0,.55);transition:background .5s}
+#tablebg .emblem{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(78vw,420px);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:.2}
+#tablebg .em-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--gold);box-shadow:inset 0 0 0 10px transparent,inset 0 0 0 12px var(--gold)}
+#tablebg .em-game{font-family:var(--f-logo-ar);font-weight:700;font-size:min(22vw,120px);line-height:1.1;color:var(--gold)}
+#tablebg .em-sub{font:700 13px var(--f-mono);letter-spacing:.35em;color:var(--gold)}
+#tablebg .em-suits{font-size:22px;letter-spacing:.4em;color:var(--gold);margin-top:6px}
+body::after{z-index:0}
+
+/* at a game the table itself carries the game's name; hide the printed emblem behind it */
+body.at-table #tablebg .emblem{display:none}
+.tablebox .oval::after{content:attr(data-name);position:absolute;left:0;right:0;bottom:16%;text-align:center;font-family:var(--f-logo-ar);font-weight:700;font-size:clamp(22px,7vw,34px);color:var(--gold);opacity:.16;pointer-events:none}
+.tablebox .oval::before{content:"";position:absolute;inset:7px;border-radius:50%;border:1px solid rgba(231,196,106,.18)}
+
+/* Trex */
+.kingdom{display:flex;flex-direction:column;gap:8px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:14px}
+.cchip{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid var(--gold);color:var(--gold)}
+.cchip.done{border-color:var(--line);color:var(--muted);text-decoration:line-through;opacity:.7}
+.qrow{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.qrow .pc{width:34px;height:48px;font-size:13px}
+.qcol{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.avrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.avrow.dbl{gap:5px;font-size:12px}
+.avbtn{border:0;background:none;padding:2px;border-radius:50%;opacity:.55}
+.avbtn[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 3px var(--gold)}
+.avbtn .avatar{width:36px;height:36px}
+.avbtn.sm .avatar{width:26px;height:26px;border-width:1px}
+.avbtn.none{width:30px;height:30px;border:1px solid var(--line);color:var(--muted);font-weight:700}
+.places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.place{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.2);color:var(--ink)}
+.place[aria-pressed="true"]{border-color:var(--gold);background:rgba(231,196,106,.15)}
+.place .pl{font:600 12px var(--f-mono);color:var(--gold)}
+.preview{display:flex;justify-content:space-around;gap:6px;flex-wrap:wrap}
+.preview span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.preview b{font-family:var(--f-mono)}
+tr.kgrow td{text-align:start!important;font:600 11px var(--f-mono);letter-spacing:.06em;color:var(--gold);text-transform:uppercase;padding-top:12px}
+:root[lang="ar"] tr.kgrow td{letter-spacing:0}
+
 /* tab bar */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bar);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:linear-gradient(0deg,#24140a,#3a2213);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
 nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
 nav.tabs button{border:0;background:none;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
@@ -409,6 +456,7 @@ nav.tabs svg{width:22px;height:22px}
 </head>
 <body>
 
+<div id="tablebg" aria-hidden="true"><div class="rail"><div class="felt"><div class="emblem"><div class="em-ring"></div><span class="em-game" id="emGame">سجّل عندك</span><span class="em-sub" id="emSub">SAJJEL 3ENDAK</span><span class="em-suits">♠ ♥ ♦ ♣</span></div></div></div></div>
 <div class="app">
   <header class="top">
     <div class="brand"><h1 class="logo" aria-label="Sajjel 3endak"><span class="ar" lang="ar">سجّل عندك</span><span class="lat"><b>Sajjel <i>3endak</i></b><span>Card scorebook</span></span></h1><span class="hdr-r"><span id="syncDot" class="syncdot" hidden></span><small id="hdrSub">Leekha</small><button id="langBtn" class="langbtn" type="button" aria-label="العربية">ع</button></span></div>
@@ -426,12 +474,13 @@ nav.tabs svg{width:22px;height:22px}
 (function(){
 const LIMIT = 101, TOTAL = 36, HEARTS = 13;
 const KEY = 'sajjel-3endak-v1', OLDKEYS = ['leekha-scorebook-v2','leekha-scorebook-v1'];
-const GAMES = {leekha:'Leekha','400':'400',tarneeb:'Tarneeb'};
-const GAME_LIST = () => ['leekha','400','tarneeb'].map(k=>[k,GAMES[k]]);   // fixed order (number-like keys would sort first)
+const GAMES = {leekha:'Leekha','400':'400',tarneeb:'Tarneeb',trex:'Trex'};
+const GAME_LIST = () => ['leekha','400','tarneeb','trex'].map(k=>[k,GAMES[k]]);   // fixed order (number-like keys would sort first)
 const GAME = {
   leekha:  {target:101, teamsOnly:false},   // stay under 101; reaching it loses
   '400':   {target:41,  teamsOnly:true},    // a player reaches 41 with a partner above 0
   tarneeb: {target:31,  teamsOnly:true},    // first team to 31
+  trex:    {target:null, teamsOnly:false, soloOnly:true},  // 4 kingdoms, highest total wins
 };
 const typeOf = g => (g && g.type) || 'leekha';
 const tgt = g => GAME[typeOf(g)].target;
@@ -508,12 +557,34 @@ const roundPts = (rd,pid) => rd.moon ? (rd.moon===pid?0:TOTAL) : rawPts(rd,pid);
 /* Substitutes: a new player can take over a seat. Each round is scored to whoever sat there at the time,
    and the seat's running total carries over to the newcomer. */
 function occAt(g,i){ const s=(g.seats0||g.seats).slice(); (g.subs||[]).forEach(x=>{ if(x.at<=i) s[x.seat]=x.in; }); return s; }
+/* Trex: every player is king once (4 kingdoms). Classic: 5 contracts per kingdom. Complex: one hand with all
+   four penalties, then Trex. Doubling the K♥ or a queen: whoever takes it loses double, and the doubler gains the normal value. */
+const TREX = { classic:['king','queens','diamonds','tricks','trex'], complex:['complex','trex'] };
+const TREX_NAME = {king:'King of Hearts', queens:'Queens', diamonds:'Diamonds', tricks:'Tricks', trex:'Trex', complex:'Complex'};
+const QSUITS = ['♠','♥','♦','♣'];
+const trexPer = g => TREX[g.variant||'classic'].length;
+const trexHands = g => 4*trexPer(g);
+const trexKingSeat = (g,h) => ((Math.max(0,g.seats.indexOf(g.firstDealer))) + Math.floor(h/trexPer(g))) % 4;
+const kingAt = (g,h) => occAt(g,h)[trexKingSeat(g,h)];
+function contractsLeft(g){ const per=trexPer(g), start=Math.floor(g.rounds.length/per)*per; const played=g.rounds.slice(start).map(r=>r.contract); return TREX[g.variant||'classic'].filter(c=>!played.includes(c)); }
+function trexPoints(rd){ const d={}; const add=(p,v)=>{ if(p) d[p]=(d[p]||0)+v; };
+  const kingPart=(t,db)=>{ if(!t) return; if(db){ add(t,-150); if(db!==t) add(db,75); } else add(t,-75); };
+  const queenPart=(qs,qd)=>QSUITS.forEach(x=>{ const t=qs&&qs[x]; if(!t) return; const db=qd&&qd[x]; if(db){ add(t,-50); if(db!==t) add(db,25); } else add(t,-25); });
+  const count=(m,v)=>Object.entries(m||{}).forEach(([p,n])=>add(p,n*v));
+  const c=rd.contract;
+  if(c==='king'||c==='complex') kingPart(rd.kingTaker, rd.kingDouble);
+  if(c==='queens'||c==='complex') queenPart(rd.queens, rd.qDouble);
+  if(c==='diamonds'||c==='complex') count(rd.diamonds,-10);
+  if(c==='tricks'||c==='complex') count(rd.tricks,-15);
+  if(c==='trex') (rd.order||[]).forEach((p,i)=>add(p,[200,150,100,50][i]));
+  return d; }
 /* Points each player got in each round, keyed by the player who sat in the seat at the time. */
 function deltas(g){
   const type=typeOf(g), out=[], run=[0,0,0,0];
   g.rounds.forEach((rd,i)=>{ const o=occAt(g,i), d={};
     if(type==='leekha') o.forEach(p=>d[p]=roundPts(rd,p));
     else if(type==='400') o.forEach((p,k)=>{ const bid=rd.bids[p]||0, v=val400(bid,run[k]); d[p] = (rd.tricks[p]||0)>=bid ? v : -v; });
+    else if(type==='trex'){ const pts=trexPoints(rd); o.forEach(p=>d[p]=pts[p]||0); }
     else { const bk=o.indexOf(rd.bidder), bt=bk<2?0:1, made=rd.taken>=rd.bid;
       o.forEach((p,k)=>{ const tk=k<2?0:1; d[p] = tk===bt ? (made ? rd.taken : -rd.bid) : (made ? 0 : 13-rd.taken); }); }
     o.forEach((p,k)=>run[k]+=d[p]); out.push(d); });
@@ -523,6 +594,7 @@ function deltas(g){
 function scoresBefore(g,i){ const run=[0,0,0,0]; deltas(g).slice(0,i).forEach((d,j)=>{ const o=occAt(g,j); o.forEach((p,k)=>run[k]+=d[p]); }); return run; }
 function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); deltas(g).forEach((d,i)=>{ const o=occAt(g,i); g.seats.forEach((p,k)=>t[p]+=d[o[k]]); }); return t; }
 /* Dealer: whoever took the Q♠ last round deals next, unless one player took all 13 hearts (then they deal). First deal is random. */
+function kingOf(g){ return typeOf(g)==='trex' && g.firstDealer && g.rounds.length<trexHands(g) ? g.seats[trexKingSeat(g,g.rounds.length)] : null; }
 function dealerOf(g){
   if(typeOf(g)!=='leekha') return null;
   if(!g.rounds.length) return g.firstDealer && g.seats.includes(g.firstDealer) ? g.firstDealer : null;
@@ -551,11 +623,18 @@ function resultScan(g){
   return null;
 }
 function resultNote(g,r){ const type=typeOf(g);
+  if(type==='trex') return `${pname(r.why.who)} won with ${r.why.score}`;
   if(type==='leekha') return `${r.loser.who?pname(r.loser.who):r.loser.label} hit ${r.loser.score}`;
   if(r.why.kind==='13') return `${pname(r.why.who)} made 13`;
   if(type==='400') return `${pname(r.why.who)} reached ${r.why.score}`;
   return `${r.winners[0].label} reached ${r.winners[0].score}`; }
+function resultTrex(g){
+  if(g.rounds.length < trexHands(g)) return null;
+  const t=totals(g), hi=Math.max(...g.seats.map(p=>t[p])), win=g.seats.filter(p=>t[p]===hi), rest=g.seats.filter(p=>t[p]!==hi);
+  return {winners:win.map(p=>({label:pname(p),members:[p],score:t[p]})), loser:{label:'',members:rest,score:Math.min(...g.seats.map(p=>t[p]))}, why:{kind:'trex',who:win[0],score:hi}};
+}
 function result(g){
+  if(typeOf(g)==='trex') return resultTrex(g);
   if(typeOf(g)!=='leekha') return resultScan(g);
   if(g.mode==='teams'){ // individual scores; the first player to reach 101 loses for their team
     const t = totals(g); const over = g.seats.filter(p=>t[p]>=LIMIT); if(!over.length) return null;
@@ -647,7 +726,21 @@ const AR = {
 "Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.":'حذف كلّ اللاعبين والألعاب على هذا الهاتف؟ سيغادر الهاتف المجموعة، وتبقى بيانات المجموعة محفوظة.',
 "Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.":'استعادة نسخة احتياطية تجعل هذا الهاتف يغادر المجموعة أوّلاً، حتى لا تُستبدل بيانات المجموعة.',
 'No internet connection. Try again when you are online.':'لا يوجد اتصال بالإنترنت. حاول مجدّداً عند الاتصال.','Type the group code first.':'اكتب رمز المجموعة أوّلاً.','No group has this code. Check it and try again.':'لا توجد مجموعة بهذا الرمز. تحقّق منه وحاول مجدّداً.',
-'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Share picture':'مشاركة صورة','Share as text':'مشاركة كنص','Making the picture…':'جارٍ تحضير الصورة…','Could not make the picture on this phone.':'تعذّر تحضير الصورة على هذا الهاتف.',
+'Code copied.':'تمّ نسخ الرمز.','Clear':'مسح','Trex':'تركس','Classic':'كلاسيك','Complex':'كومبلكس','King of Hearts':'الشايب','Queens':'البنات','Diamonds':'الديناري','Tricks':'اللطوش','King':'الملك',
+'First king':'الملك الأوّل','The kingdom then passes to the next player around the table, until everyone has been king once.':'ثمّ تنتقل المملكة إلى اللاعب التالي حول الطاولة حتى يصبح كلّ لاعب ملكاً مرّة.',
+'is king. Contracts left in this kingdom:':'هو الملك. العقود الباقية في هذه المملكة:','Score the next hand':'سجّل اليد التالية','Highest total after 4 kingdoms':'أعلى مجموع بعد 4 ممالك','4 kingdoms played':'انتهت الممالك الأربع',
+'Hand by hand':'يداً بيد','Tap ✎ to fix a hand':'اضغط ✎ لتصحيح يد','Contract':'العقد','Contract chosen by the king':'العقد الذي اختاره الملك',
+'No hands yet. The king picks a contract, then you score each hand after it is played.':'لا أيدٍ بعد. الملك يختار العقد، ثمّ تسجّل كلّ يد بعد لعبها.',
+'−75, or −150 if it was doubled':'−75، أو −150 إذا كان مدبّلاً','Who took it?':'مين أخده؟','Doubled by':'دبّله','Not doubled':'بلا دبل',
+'−25 each, or −50 if doubled. Tap who took each queen, then who doubled it.':'−25 لكلّ بنت، أو −50 إذا كانت مدبّلة. اضغط على من أخذ كلّ بنت، ثمّ من دبّلها.',
+'−10 for each diamond taken':'−10 لكلّ ديناري','−15 for each trick taken':'−15 لكلّ أكلة',
+'Tap the players in the order they ran out of cards: +200, +150, +100, +50.':'اضغط على اللاعبين بترتيب خروجهم: +200، +150، +100، +50.','Tap':'اضغط','This hand':'هذه اليد','Save hand':'حفظ اليد',
+'Every player for themselves. Each king plays 5 contracts: King of Hearts, Queens, Diamonds, Tricks and Trex. 4 kingdoms, highest total wins.':'كلّ لاعب لحاله. كلّ ملك يلعب 5 عقود: الشايب، البنات، الديناري، اللطوش والتركس. 4 ممالك، وأعلى مجموع يربح.',
+'Every player for themselves. Each king plays Complex (all penalties in one hand) and Trex. 4 kingdoms, highest total wins.':'كلّ لاعب لحاله. كلّ ملك يلعب الكومبلكس (كلّ العقوبات في يد واحدة) والتركس. 4 ممالك، وأعلى مجموع يربح.',
+'Average points per hand':'معدّل النقاط في اليد','First out in Trex':'أوّل من يخرج في التركس','Trex hands where the player ran out of cards first':'أيدي التركس التي خرج فيها اللاعب أوّلاً','King of Hearts taken':'مرّات أخذ الشايب','Queens taken':'البنات المأخوذة','Lower is better':'الأقلّ أفضل',
+'first out in Trex':'أوّل من يخرج','K♥ taken':'مرّات الشايب','queens taken':'بنات مأخوذة','Trex master':'سيّد التركس','Doubler':'المدبّل',
+'Trex: be first out in a Trex hand 5 times':'تركس: اخرج أوّلاً في 5 أيدي تركس','Trex: double the K♥ and make someone else take it':'تركس: دبّل الشايب واجعل غيرك يأخذه',
+'Leekha · 400 · Tarneeb · Trex':'ليخة · 400 · طرنيب · تركس','How to play and score Leekha, 400, Tarneeb and Trex':'كيف تلعب وتحسب الليخة والـ400 والطرنيب والتركس','About':'حول التطبيق','Privacy policy':'سياسة الخصوصية','Share picture':'مشاركة صورة','Share as text':'مشاركة كنص','Making the picture…':'جارٍ تحضير الصورة…','Could not make the picture on this phone.':'تعذّر تحضير الصورة على هذا الهاتف.',
 'Long-press the picture to save or share it.':'اضغط مطوّلاً على الصورة لحفظها أو مشاركتها.','Save picture':'حفظ الصورة','won,':'فوز،','lost.':'خسارة.','Head to head':'وجهاً لوجه','Pick any two players and see who wins':'اختر لاعبَين وشاهد من يربح','← Stats':'→ الإحصاءات','First player':'اللاعب الأوّل','Second player':'اللاعب الثاني',
 'Games won against each other, in all card games':'الألعاب التي ربحها كلّ منهما ضدّ الآخر، في كلّ الألعاب','Games together':'ألعاب معاً','These two have not finished a game together yet.':'لم ينهِ هذان اللاعبان أيّ لعبة معاً بعد.',
 'Took all 36':'أخذ الـ36 كلّها','Under 50':'تحت الـ50','Queen magnet':'مغناطيس البنت','Perfect 13':'13 كاملة','Big bidder':'طلب كبير','Grand slam':'كبّوت','Comeback':'العودة','Hot streak':'سلسلة ساخنة','On fire':'نار','Player of the month':'لاعب الشهر','Regular':'من أهل البيت',
@@ -731,6 +824,9 @@ const ARX = [
 [/^Tap a card to give it to (.+)\. Tap a given card to put it back\.$/,'اضغط على ورقة لإعطائها لـ$1. اضغط على ورقة معطاة لإرجاعها.'],[/^(\d+) pts left$/,'باقي $1 نقطة'],
 [/^Badges · (\d+)\/(\d+)$/,'الشارات · $1/$2'],[/^Best streak: (\d+)$/,'أفضل سلسلة: $1'],[/^(\d+) wins in a row$/,'$1 انتصارات متتالية'],[/^as partners (\d+)–(\d+)$/,'كشريكين $1–$2'],
 [/^(\d+\/\d+) · (.+)$/,(m,a,b)=>a+' · '+tr(b)],[/^Together as partners:$/,'معاً كشريكين:'],
+[/^Kingdom (\d+) of 4$/,'المملكة $1 من 4'],[/^Hand (\d+)$/,'اليد $1'],[/^Hand (\d+) of (\d+)$/,'اليد $1 من $2'],[/^Kingdom (\d+)$/,'المملكة $1'],[/^Fixing hand (\d+)$/,'تصحيح اليد $1'],
+[/^(.+)'s kingdom$/,'مملكة $1'],[/^Kingdom (\d+) · (.+)$/,'المملكة $1 · $2'],[/^([^·]+) won with (-?\d+)$/,'$1 ربح بـ$2'],[/^Still needed: (.+)$/,(m,x)=>'باقي: '+x.split(', ').map(y=>y.replace('who took the K♥','من أخذ الشايب').replace('who took each queen','من أخذ كلّ بنت').replace(/^diamonds/,'الديناري').replace(/^tricks/,'اللطوش').replace('the finishing order','ترتيب الخروج')).join('، ')],
+[/^(1st|2nd|3rd|4th) · \+(\d+)$/,(m,o,v)=>({'1st':'الأوّل','2nd':'الثاني','3rd':'الثالث','4th':'الرابع'}[o])+' · +'+v],[/^Doubled by (.+)$/,'دبّلها $1'],
 [/^Synced (\d+) min ago$/,'تمّت المزامنة منذ $1 دقيقة'],[/^Synced (.+)$/,(m,x)=>'تمّت المزامنة '+tr(x)],[/^Sync problem: (.+)$/,(m,x)=>'مشكلة في المزامنة: '+tr(x)],
 [/^Group created\. Share the code (\w+) with your friends\.$/,'تمّ إنشاء المجموعة. شارك الرمز $1 مع أصدقائك.'],[/^You joined (.+)\.$/,'انضممت إلى $1.'],
 [/^Could not create the group: (.+)$/,'تعذّر إنشاء المجموعة: $1'],[/^Could not join: (.+)$/,'تعذّر الانضمام: $1'],[/^Copy blocked\. The code is (\w+)\.$/,'النسخ ممنوع. الرمز هو $1.'],[/^The code is (\w+)\.$/,'الرمز هو $1.'],
@@ -784,9 +880,12 @@ function render(){
   applyLang();
   { const gg=cur(); const tbl = rulesOpen ? (rulesOpen==='app'?'leekha':rulesOpen) : gg ? typeOf(gg) : (setup ? setup.type : 'leekha');
     document.documentElement.setAttribute('data-table', tbl);
-    const mc=document.querySelector('meta[name=theme-color]'); if(mc) mc.setAttribute('content', {leekha:'#0F3127','400':'#2C0B16',tarneeb:'#0B1630'}[tbl]);
-    document.body.classList.toggle('patterned', !!rulesOpen || (!gg && !setup && !draft && (tab==='game'||tab==='history'))); }
-  const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `Round ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : '';
+    const mc=document.querySelector('meta[name=theme-color]'); if(mc) mc.setAttribute('content', {leekha:'#0F3127','400':'#2C0B16',tarneeb:'#0B1630',trex:'#111318'}[tbl]);
+    const EM={leekha:['ليخة','LEEKHA'],'400':['٤٠٠','FOUR HUNDRED'],tarneeb:['طرنيب','TARNEEB'],trex:['تركس','TREX']}, home=!gg && !setup && !rulesOpen;
+    const em = home ? ['سجّل عندك','SAJJEL 3ENDAK'] : EM[tbl];
+    const eg=$('#emGame'), es=$('#emSub'); if(eg && eg.textContent!==em[0]){ eg.textContent=em[0]; es.textContent=em[1]; }
+    document.body.classList.toggle('at-table', !!(gg || draft) && !rulesOpen); }
+  const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `${typeOf(g)==='trex'?'Hand':'Round'} ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : '';
   $('#hdrSub').hidden = !g || !!rulesOpen;
   localize(document.querySelector('.app')); localize(document.querySelector('nav.tabs')); pendingRender=false; paintSync();
   if(draft && draft._anim) setTimeout(()=>{ if(draft) draft._anim=false; }, 50);
@@ -806,7 +905,8 @@ function viewGame(){
   const dl = dealerOf(g);
   const type = typeOf(g), pend = !res && g.pending;
   const extraOf = p => type==='400' && pend ? `<span class="bidtag">Bid ${pend.bids[p]}</span>` : type==='tarneeb' && pend && pend.bidder===p ? `<span class="bidtag">Bid ${pend.bid}${pend.trump?' '+pend.trump:''}</span>` : '';
-  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i], p===dl, g, extraOf(p))).join('');
+  const kg = kingOf(g);
+  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i], p===dl ? true : (p===kg ? 'King' : ''), g, extraOf(p))).join('');
   const subNotes = (g.subs||[]).map(x=>`<li>${esc(pname(x.in))} took ${esc(pname(x.out))}'s seat ${x.at?`after round ${x.at}`:'before the first round'}</li>`).join('');
   const others = S.players.filter(p=>!g.seats.includes(p.id));
   const subPanel = !res && subState ? `<section class="panel"><div class="row between"><h2>Substitute a player</h2><button class="btn sm ghost" data-act="sub-cancel">Cancel</button></div>
@@ -817,27 +917,34 @@ function viewGame(){
   const mine = canScore(g);
   const firstDeal = mine && !res && !g.rounds.length && typeOf(g)==='leekha' ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
      <div class="chips">${g.seats.map(p=>`<button class="chip" data-firstdealer="${p}" aria-pressed="${dl===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
-     <div class="muted" style="font-size:12px">After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.</div></section>` : '';
+     <div class="muted" style="font-size:12px">After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.</div></section>`
+   : mine && !res && !g.rounds.length && type==='trex' ? `<section class="panel"><div class="row between"><div class="eyebrow">First king</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
+     <div class="chips">${g.seats.map(p=>`<button class="chip" data-firstdealer="${p}" aria-pressed="${kg===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
+     <div class="muted" style="font-size:12px">The kingdom then passes to the next player around the table, until everyone has been king once.</div></section>` : '';
+  const trexNote = type==='trex' && !res ? (()=>{ const k=Math.floor(g.rounds.length/trexPer(g)); const left=contractsLeft(g);
+     return `<div class="kingdom"><div class="row between"><span class="eyebrow">Kingdom ${k+1} of 4</span><span class="muted" style="font-size:12px">Hand ${g.rounds.length+1} of ${trexHands(g)}</span></div>
+       <div><b>${esc(pname(kg))}</b> <span>is king. Contracts left in this kingdom:</span></div><div class="chips">${TREX[g.variant||'classic'].map(c=>`<span class="cchip ${left.includes(c)?'':'done'}">${TREX_NAME[c]}</span>`).join('')}</div></div>`; })() : '';
   const winners = res ? res.winners.flatMap(w=>w.members) : [];
   const banner = res ? `<section class="panel result">
      <div class="row between"><span class="crown">${winners.length>1?'Winners':'Winner'}</span><span class="pill ${type==='leekha'?'lose':'win'}">${esc(resultNote(g,res))}</span></div>
      <div class="winrow">${winners.map(p=>`<span class="winner">${avatar(p,'xl')}<b>${esc(pname(p))}</b></span>`).join('')}</div>
-     <p class="muted" style="margin:0;font-size:13px">${g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+tgt(g)} · ${g.rounds.length} rounds</p>
+     <p class="muted" style="margin:0;font-size:13px">${type==='trex'?'Highest total after 4 kingdoms':g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+tgt(g)} · ${g.rounds.length} rounds</p>
      <div class="row" style="flex-wrap:wrap"><button class="btn primary" data-act="rematch">Rematch</button><button class="btn" data-act="share-pic">Share picture</button><button class="btn sm ghost" data-act="share">Share as text</button></div>
      ${shareMsg?`<div style="font-size:13px">${esc(shareMsg)}</div>`:''}</section>` : '';
   const backTo = tab==='history' ? 'History' : 'All tables';
   return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><button class="btn sm ghost" data-rules="${typeOf(g)}">Rules</button></section>
-  <div class="eyebrow" style="margin-top:-8px">${gameName(g)} · ${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</div>
+  <div class="eyebrow" style="margin-top:-8px">${gameName(g)}${type==='trex'?' · '+(g.variant==='complex'?'Complex':'Classic'):''} · ${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</div>
   ${banner}
-  <div class="tablebox"><div class="oval"></div>
-    <div class="center"><div class="pile">${type==='leekha'?card('1','♥','big')+card('Q','♠','big')+card('10','♦','big'):type==='400'?card('Q','♥','big')+card('A','♥','big')+card('K','♥','big'):(pend&&pend.trump?card('A',pend.trump,'big'):card('A','♠','big')+card('A','♥','big')+card('A','♦','big'))}</div>
-      <div class="rlabel">${type==='400'?'Hearts are trump':type==='tarneeb'&&pend&&pend.trump?'Trump '+pend.trump:g.rounds.length?`Round ${g.rounds.length} played`:'First deal'}</div></div>
+  <div class="tablebox"><div class="oval" data-name="${{leekha:'ليخة','400':'٤٠٠',tarneeb:'طرنيب',trex:'تركس'}[typeOf(g)]}"></div>
+    <div class="center"><div class="pile">${type==='trex'?card('K','♥','big')+card('Q','♠','big')+card('A','♦','big'):type==='leekha'?card('1','♥','big')+card('Q','♠','big')+card('10','♦','big'):type==='400'?card('Q','♥','big')+card('A','♥','big')+card('K','♥','big'):(pend&&pend.trump?card('A',pend.trump,'big'):card('A','♠','big')+card('A','♥','big')+card('A','♦','big'))}</div>
+      <div class="rlabel">${type==='trex'?(res?'4 kingdoms played':`Kingdom ${Math.floor(g.rounds.length/trexPer(g))+1} of 4`):type==='400'?'Hearts are trump':type==='tarneeb'&&pend&&pend.trump?'Trump '+pend.trump:g.rounds.length?`Round ${g.rounds.length} played`:'First deal'}</div></div>
     ${board}</div>
   ${dl&&!res?`<div class="dealnote">${card('Q','♠')} <span><b>${esc(pname(dl))}</b> deals ${g.rounds.length?'next':'first'}</span></div>`:''}
   ${firstDeal}
+  ${trexNote}
   ${pend&&type==='400'?`<div class="dealnote"><span><span>Bids:</span> <b>${g.seats.reduce((a,p)=>a+(pend.bids[p]||0),0)}</b> <span>in total. Playing the hand…</span></span></div>`:''}
   ${pend&&type==='tarneeb'?`<div class="dealnote"><span><b>${esc(pname(pend.bidder))}</b> <span>bid</span> <b>${pend.bid}</b>${pend.trump?` <span>· trump ${pend.trump}</span>`:''} <span>Playing the hand…</span></span></div>`:''}
-  ${res?'':(mine?(type==='leekha'?`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`
+  ${res?'':(mine?(type==='trex'?`<button class="btn primary big" data-act="add-round" ${g.firstDealer?'':'disabled'}>Score the next hand</button>`:type==='leekha'?`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`
       : pend ? `<button class="btn primary big" data-act="add-round">Enter tricks</button><button class="btn sm ghost" data-act="edit-bids" style="align-self:center">Change bids</button>` : `<button class="btn primary big" data-act="add-round">${type==='400'?'Enter bids':'Enter the winning bid'}</button>`)
     :`<section class="panel viewonly"><div class="row" style="align-items:flex-start"><svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
       <div><b>View only</b><div class="muted" style="font-size:13px">${scorerName(g)?`${esc(scorerName(g))}'s phone is keeping score for this game.`:'Another phone is keeping score for this game.'} Scores update here by themselves.</div></div></div></section>`)}
@@ -851,15 +958,16 @@ function viewGame(){
 }
 function seat(pid, score, team, res, spot, dealer, g, extra){
   const T = g ? tgt(g) : LIMIT, leekha = !g || typeOf(g)==='leekha';
-  const pct = Math.max(0, Math.min(100, score/T*100));
+  const pct = T ? Math.max(0, Math.min(100, score/T*100)) : 0;
   const won = res && res.winners.some(w=>w.members.includes(pid)), lost = res && res.loser.members.includes(pid);
   const cls = [spot, leekha?(score>=T?'bad':(score>=80?'warn':'')):(score<0?'neg':''), won?'won':'', lost?'lost':''].join(' ');
   const teamTag = team?`<span class="team ${team==='TEAM A'?'ta':'tb'}">${team}</span>`:'';
   const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':teamTag)) : (extra || (leekha && score>=80&&score<T ? `<span class="pill hot">${T-score} left</span>` : teamTag));
-  return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?'<span class="dealer">Deals</span>':''}</span><span class="name">${esc(pname(pid))}</span>
-    <span class="score"><b class="cnt" data-key="${g?g.id:''}:${pid}" data-to="${score}">${shownScores[(g?g.id:'')+':'+pid]!=null?shownScores[(g?g.id:'')+':'+pid]:score}</b><small>/${T}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
+  return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?`<span class="dealer">${dealer===true?'Deals':dealer}</span>`:''}</span><span class="name">${esc(pname(pid))}</span>
+    <span class="score"><b class="cnt" data-key="${g?g.id:''}:${pid}" data-to="${score}">${shownScores[(g?g.id:'')+':'+pid]!=null?shownScores[(g?g.id:'')+':'+pid]:score}</b>${T?`<small>/${T}</small>`:''}</span>${T?`<div class="meter"><i style="width:${pct}%"></i></div>`:''}<div class="tag">${tag}</div></div>`;
 }
 function historyTable(g){
+  if(typeOf(g)==='trex') return historyTableTrex(g);
   if(typeOf(g)==='400') return historyTable400(g);
   if(typeOf(g)==='tarneeb') return historyTableTarneeb(g);
   if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Tap “Score the first round” after the first hand is played.</p></section>`;
@@ -868,6 +976,15 @@ function historyTable(g){
     <thead><tr><th>#</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead>
     <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${canScore(g)?`<button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button>`:i+1}</td>${occAt(g,i).map((p,k)=>{const v=roundPts(rd,p);return `<td class="num${p!==g.seats[k]?' was':''}" ${p!==g.seats[k]?`title="${esc(pname(p))}"`:''}>${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
     <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
+}
+function historyTableTrex(g){
+  if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No hands yet. The king picks a contract, then you score each hand after it is played.</p></section>`;
+  const t=totals(g), D=deltas(g), edit=canScore(g), per=trexPer(g);
+  const rows = g.rounds.map((rd,i)=>{ const o=occAt(g,i); const head = i%per===0 ? `<tr class="kgrow"><td colspan="${g.seats.length+2}">Kingdom ${i/per+1} · ${esc(pname(kingAt(g,i)))}</td></tr>` : '';
+    return head+`<tr><td class="num">${edit?`<button class="redit" data-editround="${i}" aria-label="Fix hand ${i+1}">✎</button>`:''}</td><td style="text-align:start">${TREX_NAME[rd.contract]}</td>${o.map((p,k)=>{ const d=D[i][p]; return `<td class="num${p!==g.seats[k]?' was':''}"><b class="${d>0?'ok':d<0?'err':'muted'}">${d>0?'+':''}${d}</b></td>`; }).join('')}</tr>`; }).join('');
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Hand by hand</div>${edit?'<span class="muted" style="font-size:11.5px">Tap ✎ to fix a hand</span>':''}</div><div class="tablewrap"><table>
+    <thead><tr><th></th><th style="text-align:start">Contract</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead><tbody>${rows}</tbody>
+    <tfoot><tr><td></td><td style="text-align:start">Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
 }
 function historyTable400(g){
   if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Enter everyone's bids before the hand, then the tricks they took after it.</p></section>`;
@@ -917,8 +1034,8 @@ function viewHome(){
   const open = S.games.filter(g=>!result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a));
   const done = S.games.filter(g=>result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a)).slice(0,3);
   return `${sampleNote()}
-  <button class="rbook" data-rules="leekha"><span class="rbook-ic" aria-hidden="true">📖</span><span><b>Rule book</b><span class="muted">How to play and score Leekha, 400 and Tarneeb</span></span><span class="muted">›</span></button>
-  <section class="row between"><div><div class="eyebrow">Leekha · 400 · Tarneeb</div><h2>Open tables</h2></div>${open.length?`<button class="btn primary" data-act="new-game">+ New game</button>`:''}</section>
+  <button class="rbook" data-rules="leekha"><span class="rbook-ic" aria-hidden="true">📖</span><span><b>Rule book</b><span class="muted">How to play and score Leekha, 400, Tarneeb and Trex</span></span><span class="muted">›</span></button>
+  <section class="row between"><div><div class="eyebrow">Leekha · 400 · Tarneeb · Trex</div><h2>Open tables</h2></div>${open.length?`<button class="btn primary" data-act="new-game">+ New game</button>`:''}</section>
   ${open.length ? `<div class="glist">${open.map(tableCard).join('')}</div><p class="muted" style="margin:0;font-size:12.5px">Someone had to leave? Just go back to the tables. The game waits here until you continue it.</p>`
     : `<section class="panel"><div class="row" style="gap:6px">${card('Q','♠','big')}${card('10','♦','big')}${card('1','♥','big')}</div><h2>No game on the table</h2><p class="muted" style="margin:0">Start a game with 4 registered players. You can keep several games open at once and come back to any of them later.</p><button class="btn primary big" data-act="new-game">Start a game</button></section>`}
   ${done.length?`<section class="panel"><div class="row between"><div class="eyebrow">Recently finished</div><button class="btn sm ghost" data-go="history">See all</button></div><div class="hlist">${done.map(resultCard).join('')}</div></section>`:''}`;
@@ -952,8 +1069,9 @@ function viewSetup(){
   ${enough?'':`<div class="notice">You need 4 registered players. Add them in the Players tab.</div>`}
   <section class="panel"><div class="row between"><div class="eyebrow">Card game</div><button class="btn sm ghost" data-rules="${setup.type}">Rules</button></div>
     <div class="seg">${GAME_LIST().map(([k,v])=>`<button data-gtype="${k}" aria-pressed="${setup.type===k}">${v}</button>`).join('')}</div>
-    <div class="muted" style="font-size:12.5px">${setup.type==='leekha'?'Stay under 101. Every ♥ is 1, the 10♦ is 10, the Q♠ is 13.':setup.type==='400'?'Teams of 2, hearts are trump. Each player bids, and a team wins when one player reaches 41 with a partner above 0.':'Teams of 2. The highest bidder picks trump. First team to 31 wins.'}</div></section>
-  ${GAME[setup.type].teamsOnly?'':`<section class="panel"><div class="eyebrow">Format</div>
+    ${setup.type==='trex'?`<div class="seg"><button data-tvariant="classic" aria-pressed="${setup.variant!=='complex'}">Classic</button><button data-tvariant="complex" aria-pressed="${setup.variant==='complex'}">Complex</button></div>`:''}
+    <div class="muted" style="font-size:12.5px">${setup.type==='trex'?(setup.variant==='complex'?'Every player for themselves. Each king plays Complex (all penalties in one hand) and Trex. 4 kingdoms, highest total wins.':'Every player for themselves. Each king plays 5 contracts: King of Hearts, Queens, Diamonds, Tricks and Trex. 4 kingdoms, highest total wins.'):setup.type==='leekha'?'Stay under 101. Every ♥ is 1, the 10♦ is 10, the Q♠ is 13.':setup.type==='400'?'Teams of 2, hearts are trump. Each player bids, and a team wins when one player reaches 41 with a partner above 0.':'Teams of 2. The highest bidder picks trump. First team to 31 wins.'}</div></section>
+  ${GAME[setup.type].teamsOnly||GAME[setup.type].soloOnly?'':`<section class="panel"><div class="eyebrow">Format</div>
     <div class="seg"><button data-mode="solo" aria-pressed="${setup.mode==='solo'}">Every player for themselves</button><button data-mode="teams" aria-pressed="${setup.mode==='teams'}">Teams of 2</button></div></section>`}
   <section class="panel"><div class="row between"><div class="eyebrow">Pick 4 players</div><span class="num muted">${picked}/4</span></div>
     ${teams?`<div class="notice">Tap players in order: the first two are <b class="ta">Team A</b>, the next two are <b class="tb">Team B</b>.<br><span>${setup.type==='leekha'?'Partners sit opposite each other. Scores stay individual: the first player to reach 101 loses the game for their team.':setup.type==='400'?'Partners sit opposite each other. Each player keeps their own score.':'Partners sit opposite each other. The team shares one score.'}</span> <span>Tap a player in a team to take them out.</span></div>
@@ -982,20 +1100,25 @@ function fanCard(k, i){
 function viewRound(){
   if(typeOf(cur())==='400') return viewRound400();
   if(typeOf(cur())==='tarneeb') return viewRoundTarneeb();
+  if(typeOf(cur())==='trex') return viewRoundTrex();
   const g = cur(); const a = allocated(); const seatsR = draft.index!=null ? occAt(g,draft.index) : g.seats;
-  if(!draft.own){ const d=leekhaDraft(seatsR, draft); d.index=draft.index; draft=d; }
-  const done = a.total===TOTAL, left = TOTAL - a.total;
+  const heartsLeft = HEARTS - a.hearts;
+  const done = a.total===TOTAL;
+  const left = TOTAL - a.total;
   const moon = g.mode==='solo' ? seatsR.find(p=>rawPts(draft,p)===TOTAL) : null;
-  const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left</span>`;
-  const act = draft.active;
+  const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left · ${heartsLeft} ♥${!draft.queen?' · Q♠':''}${!draft.ten?' · 10♦':''}</span>`;
   return `<section class="row between"><div><div class="eyebrow">${draft.index!=null?`Fixing round ${draft.index+1}`:`Round ${g.rounds.length+1}`}</div><h2>Who took what?</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
-  <div class="givebar"><span class="muted" style="font-size:12px">Giving cards to</span><div class="chips">${seatsR.map(p=>`<button class="chip" data-active="${p}" aria-pressed="${act===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div></div>
-  <div class="fan ${draft._anim?'dealing':''}">${FAN.map(fanCard).join('')}</div>
-  <div class="muted" style="font-size:12px;margin-top:-6px">Tap a card to give it to ${esc(pname(act))}. Tap a given card to put it back.</div>
-  <div class="alloc">${seatsR.map(p=>{const pts=(draft.hearts[p]||0)+(draft.queen===p?13:0)+(draft.ten===p?10:0);
-    return `<div class="prow ${act===p?'active':''}"><div class="head"><button class="who plink" data-active="${p}">${avatar(p)}<b>${esc(pname(p))}</b></button><span class="pts">${pts}<span class="muted" style="font-size:12px;font-family:var(--f-mono)"> pts</span></span></div>
-      ${pts?`<div class="hand">${handFor(draft,p)}</div>`:''}
-      <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div></div>`}).join('')}</div>
+  <div class="notice">Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36.${g.mode==='solo'?' If one player takes all 36, they score 0 and the other three get 36 each.':''}</div>
+  <div class="alloc">${seatsR.map(p=>{const h=draft.hearts[p]||0;const pts=h+(draft.queen===p?13:0)+(draft.ten===p?10:0);
+    return `<div class="prow"><div class="head"><span class="who">${avatar(p)}<b>${esc(pname(p))}</b></span><span class="pts">${pts}<span class="muted" style="font-size:12px;font-family:var(--f-mono)"> pts</span></span></div>
+      <div class="row between" style="flex-wrap:wrap">
+        <div class="step"><button data-h="${p}" data-d="-1" aria-label="One less heart for ${esc(pname(p))}" ${h?'':'disabled'}>−</button><span class="num">${h}</span><button data-h="${p}" data-d="1" aria-label="One more heart for ${esc(pname(p))}" ${heartsLeft?'':'disabled'}>+</button><span class="muted" style="font-size:13px">♥</span></div>
+        <div class="specials">
+          <button class="tog" data-sp="queen" data-p="${p}" aria-pressed="${draft.queen===p}" ${draft.queen&&draft.queen!==p?'disabled title="Already given to '+esc(pname(draft.queen))+'"':''}>${card('Q','♠')}13</button>
+          <button class="tog" data-sp="ten" data-p="${p}" aria-pressed="${draft.ten===p}" ${draft.ten&&draft.ten!==p?'disabled title="Already given to '+esc(pname(draft.ten))+'"':''}>${card('10','♦')}10</button>
+        </div></div>
+      <div class="quick"><button class="btn sm ghost" data-clear="${p}" ${pts?'':'disabled'}>Clear</button><button class="btn sm" data-rest="${p}" ${left>0?'':'disabled'}>Take the rest</button></div>
+      <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
   <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
   <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>${draft.index!=null?'Save changes':'Save round'}</button></div>`;
 }
@@ -1042,6 +1165,39 @@ function viewRoundTarneeb(){
     ${draft.phase==='bid'?`<button class="btn primary" data-act="save-bids" ${draft.bidder?'':'disabled'}>Start the hand</button>`:`<button class="btn primary" data-act="save-round" ${draft.bidder?'':'disabled'}>${idx!=null?'Save changes':'Save round'}</button>`}</div>`;
 }
 
+/* Trex: pick the contract, then record what each player took */
+function trexDraft(seats, contract){ const d={contract, kingTaker:null, kingDouble:null, queens:{}, qDouble:{}, diamonds:{}, tricks:{}, order:[]}; seats.forEach(p=>{ d.diamonds[p]=0; d.tricks[p]=0; }); return d; }
+function trexCheck(d){ const c=d.contract, sum=m=>Object.values(m).reduce((a,b)=>a+b,0), need=[];
+  if((c==='king'||c==='complex') && !d.kingTaker) need.push('who took the K♥');
+  if((c==='queens'||c==='complex') && QSUITS.some(x=>!d.queens[x])) need.push('who took each queen');
+  if((c==='diamonds'||c==='complex') && sum(d.diamonds)!==13) need.push(`diamonds (${sum(d.diamonds)}/13)`);
+  if((c==='tricks'||c==='complex') && sum(d.tricks)!==13) need.push(`tricks (${sum(d.tricks)}/13)`);
+  if(c==='trex' && d.order.length<4) need.push('the finishing order');
+  return need; }
+function viewRoundTrex(){
+  const g=cur(), idx=draft.index, hand = idx!=null ? idx : g.rounds.length, seatsR = idx!=null ? occAt(g,idx) : g.seats;
+  const king = kingAt(g,hand), c=draft.contract, left = idx!=null ? [c] : contractsLeft(g);
+  const pts = trexPoints(draft), need = trexCheck(draft), sum=m=>Object.values(m).reduce((a,b)=>a+b,0);
+  const av = (p,attr,on,dis) => `<button class="avbtn" ${attr}="${p}" aria-pressed="${on}" ${dis?'disabled':''} aria-label="${esc(pname(p))}">${avatar(p)}</button>`;
+  const kingSec = `<section class="panel"><div class="row" style="gap:10px">${card('K','♥','big')}<div><b>King of Hearts</b><div class="muted" style="font-size:12px">−75, or −150 if it was doubled</div></div></div>
+     <div class="eyebrow">Who took it?</div><div class="chips">${seatsR.map(p=>`<button class="chip" data-tk="${p}" aria-pressed="${draft.kingTaker===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
+     <div class="eyebrow">Doubled by</div><div class="chips"><button class="chip plain" data-tkd="none" aria-pressed="${!draft.kingDouble}">Not doubled</button>${seatsR.map(p=>`<button class="chip" data-tkd="${p}" aria-pressed="${draft.kingDouble===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div></section>`;
+  const queenSec = `<section class="panel"><div><b>Queens</b><div class="muted" style="font-size:12px">−25 each, or −50 if doubled. Tap who took each queen, then who doubled it.</div></div>
+     ${QSUITS.map(x=>`<div class="qrow">${card('Q',x)}<div class="qcol"><div class="avrow">${seatsR.map(p=>av(p,'data-tq',draft.queens[x]===p)).join('').replace(/data-tq="/g,`data-tq="${x}|`)}</div>
+       <div class="avrow dbl"><span class="muted">×2</span><button class="avbtn none" data-tqd="${x}|none" aria-pressed="${!draft.qDouble[x]}">–</button>${seatsR.map(p=>`<button class="avbtn sm" data-tqd="${x}|${p}" aria-pressed="${draft.qDouble[x]===p}" aria-label="Doubled by ${esc(pname(p))}">${avatar(p)}</button>`).join('')}</div></div></div>`).join('')}</section>`;
+  const stepSec = (key,title,unit,attr) => `<section class="panel"><div class="row between"><div><b>${title}</b><div class="muted" style="font-size:12px">${unit}</div></div><span class="num ${sum(draft[key])===13?'ok':''}">${sum(draft[key])}/13</span></div>
+     ${seatsR.map(p=>`<div class="row between"><span class="who">${avatar(p)}<b>${esc(pname(p))}</b></span><div class="step"><button ${attr}="${p}" data-d="-1" ${draft[key][p]?'':'disabled'} aria-label="One less">−</button><span class="num">${draft[key][p]}</span><button ${attr}="${p}" data-d="1" ${sum(draft[key])>=13?'disabled':''} aria-label="One more">+</button></div></div>`).join('')}</section>`;
+  const trexSec = `<section class="panel"><div><b>Trex</b><div class="muted" style="font-size:12px">Tap the players in the order they ran out of cards: +200, +150, +100, +50.</div></div>
+     <div class="places">${seatsR.map(p=>{ const i=draft.order.indexOf(p); return `<button class="place" data-tx="${p}" aria-pressed="${i>=0}">${avatar(p,'lg')}<b>${esc(pname(p))}</b><span class="pl">${i>=0?['1st','2nd','3rd','4th'][i]+' · +'+[200,150,100,50][i]:'Tap'}</span></button>`; }).join('')}</div></section>`;
+  const body = c==='king' ? kingSec : c==='queens' ? queenSec : c==='diamonds' ? stepSec('diamonds','Diamonds','−10 for each diamond taken','data-td') : c==='tricks' ? stepSec('tricks','Tricks','−15 for each trick taken','data-tt') : c==='trex' ? trexSec
+    : kingSec + queenSec + stepSec('diamonds','Diamonds','−10 for each diamond taken','data-td') + stepSec('tricks','Tricks','−15 for each trick taken','data-tt');
+  return `<section class="row between"><div><div class="eyebrow">${idx!=null?`Fixing hand ${idx+1}`:`Hand ${hand+1} of ${trexHands(g)}`} · Kingdom ${Math.floor(hand/trexPer(g))+1}</div><h2>${esc(pname(king))}'s kingdom</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
+  <section class="panel"><div class="eyebrow">${idx!=null?'Contract':'Contract chosen by the king'}</div><div class="seg">${left.map(x=>`<button data-tcontract="${x}" aria-pressed="${c===x}">${TREX_NAME[x]}</button>`).join('')}</div></section>
+  ${body}
+  <section class="panel"><div class="eyebrow">This hand</div><div class="preview">${seatsR.map(p=>`<span>${avatar(p)}<b class="${(pts[p]||0)>0?'ok':(pts[p]||0)<0?'err':'muted'}">${(pts[p]||0)>0?'+':''}${pts[p]||0}</b></span>`).join('')}</div></section>
+  <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px" class="${need.length?'err':'ok'}">${need.length?'Still needed: '+need.join(', '):'Ready'}</span><button class="btn primary" data-act="save-round" ${need.length?'disabled':''}>${idx!=null?'Save changes':'Save hand'}</button></div>`;
+}
+
 /* players */
 function viewPlayers(){
   const st = stats();
@@ -1058,6 +1214,7 @@ function viewPlayers(){
     ${confirmRestore&&SY.code?`<div class="notice">Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.</div>`:''}
     ${confirmRestore?`<textarea id="restoreIn" rows="4" placeholder="Paste a backup here" aria-label="Paste a backup"></textarea><div class="row" style="flex-wrap:wrap"><button class="btn sm danger" data-act="restore">Replace all data with this backup</button><button class="btn sm ghost" data-act="cancel-restore">Cancel</button></div>`:''}
     ${backupMsg?`<div style="font-size:13px">${esc(backupMsg)}</div>`:''}</section>
+  <section class="panel"><div class="eyebrow">About</div><a class="btn sm ghost" href="privacy.html" target="_blank" rel="noopener" style="align-self:flex-start">Privacy policy</a></section>
   <section class="panel"><div class="eyebrow">Data</div>
     ${confirmClear ? `<div class="confirm"><span>${SY.code?'Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.':'Delete every player and game?'}</span><button class="btn sm danger" data-act="reset-yes">Delete all</button><button class="btn sm" data-act="reset-no">Keep</button></div>` : `<button class="btn sm ghost danger" data-act="reset">Delete all players and games</button>`}</section>`;
 }
@@ -1065,12 +1222,13 @@ function viewPlayers(){
 /* stats */
 const ofType = () => S.games.filter(g=>typeOf(g)===statsGame);
 function stats(){
-  const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0,bids:0,made:0,bidSum:0,thirteen:0});
+  const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0,bids:0,made:0,bidSum:0,thirteen:0,kings:0,tq:0,firsts:0});
   ofType().forEach(g=>{
     const res = result(g), ty=typeOf(g);
     if(ty!=='leekha'){ const D=deltas(g);
       g.rounds.forEach((rd,i)=>{ Object.keys(D[i]).forEach(p=>{ if(!st[p]) return; st[p].rounds++; st[p].pts+=D[i][p]; });
         if(ty==='400') Object.keys(rd.bids).forEach(p=>{ if(!st[p]) return; st[p].bids++; st[p].bidSum+=rd.bids[p]; if((rd.tricks[p]||0)>=rd.bids[p]) st[p].made++; if(rd.bids[p]===13&&rd.tricks[p]>=13) st[p].thirteen++; });
+        else if(ty==='trex'){ if(st[rd.kingTaker]) st[rd.kingTaker].kings++; Object.values(rd.queens||{}).forEach(p=>{ if(st[p]) st[p].tq++; }); if(rd.order&&st[rd.order[0]]) st[rd.order[0]].firsts++; }
         else if(st[rd.bidder]){ const x=st[rd.bidder]; x.bids++; x.bidSum+=rd.bid; if(rd.taken>=rd.bid) x.made++; if(rd.bid===13&&rd.taken>=13) x.thirteen++; } });
       if(res) g.seats.forEach(p=>{ if(!st[p]) return; st[p].games++; if(res.loser.members.includes(p)) st[p].losses++; if(res.winners.some(w=>w.members.includes(p))) st[p].wins++; });
       return; }
@@ -1116,7 +1274,11 @@ function viewStats(){
     return `<section class="panel"><div><div class="eyebrow">${title}</div>${sub?`<div class="muted" style="font-size:12px">${sub}</div>`:''}</div><div class="bars">${vals.map(x=>`<div class="bar"><button class="lbl plink" data-prof="${x.p.id}">${esc(x.p.name)}</button><div class="track"><i style="width:${x.v/max*100}%"></i></div><span class="num" style="text-align:right">${fmt(x.v)}</span></div>`).join('')}</div></section>`;
   };
   if(!ps.length) return `${sampleNote()}${gamePicker()}<section class="panel"><h2>No stats yet</h2><p class="muted" style="margin:0">Play a few rounds and the leaderboard fills in here.</p></section>`;
-  const specific = statsGame==='leekha' ? `
+  const specific = statsGame==='trex' ? `
+  ${bars('Average points per hand', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Higher is better')}
+  ${bars('First out in Trex', s=>s.firsts, v=>v, 'Trex hands where the player ran out of cards first')}
+  ${bars('King of Hearts taken', s=>s.kings, v=>v, 'Lower is better')}
+  ${bars('Queens taken', s=>s.tq, v=>v, 'Lower is better')}` : statsGame==='leekha' ? `
   ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Lower is better. A fair share is 9.')}
   ${bars('Queen of spades taken', s=>s.queens, v=>v)}
   ${bars('Clean rounds (0 points)', s=>s.clean, v=>v)}
@@ -1160,13 +1322,13 @@ function partnerBoards(){
 }
 function spark(hist){
   if(hist.length<2) return '<p class="muted" style="margin:0">Needs at least 2 finished games.</p>';
-  const T=GAME[statsGame].target, W=320, H=130, L=28, R=8, max=Math.max(T+Math.round(T/5), ...hist.map(h=>h.final)), min=Math.min(0, ...hist.map(h=>h.final));
+  const T=GAME[statsGame].target, W=320, H=130, L=28, R=8, max=Math.max(T?T+Math.round(T/5):10, ...hist.map(h=>h.final)), min=Math.min(0, ...hist.map(h=>h.final));
   const x = i => L + i*(W-L-R)/(hist.length-1), y = v => H-14-((v-min)/(max-min))*(H-26);
   const pts = hist.map((h,i)=>`${x(i).toFixed(1)},${y(h.final).toFixed(1)}`).join(' ');
   const mono = 'font-family="IBM Plex Mono, monospace" font-size="10"';
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Final score in each game">
     <line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/><text x="0" y="${y(0)+4}" ${mono} fill="var(--muted)">0</text>
-    <line x1="${L}" x2="${W-R}" y1="${y(T)}" y2="${y(T)}" stroke="${statsGame==='leekha'?'var(--bad)':'var(--good)'}" stroke-dasharray="4 4"/><text x="0" y="${y(T)+4}" ${mono} fill="${statsGame==='leekha'?'var(--bad)':'var(--good)'}">${T}</text>
+    ${T?`<line x1="${L}" x2="${W-R}" y1="${y(T)}" y2="${y(T)}" stroke="${statsGame==='leekha'?'var(--bad)':'var(--good)'}" stroke-dasharray="4 4"/><text x="0" y="${y(T)+4}" ${mono} fill="${statsGame==='leekha'?'var(--bad)':'var(--good)'}">${T}</text>`:''}
     <polyline points="${pts}" fill="none" stroke="var(--felt)" stroke-width="2"/>
     ${hist.map((h,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(h.final).toFixed(1)}" r="4" fill="${h.won?'var(--good)':h.lost?'var(--bad)':'var(--muted)'}"/>`).join('')}
   </svg><div class="muted" style="font-size:12px">Green: won · Red: lost · Grey: neither (solo games)</div>`;
@@ -1190,12 +1352,13 @@ function viewProfile(id){
   ${titles.length?`<div class="notice potm-badge">♛ Player of the month${titles.length>1?` ${titles.length} times`:''}: ${titles.map(monthName).join(', ')}</div>`:''}
   ${gamePicker()}
   <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
-  ${statsGame==='leekha'?`<div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>`
+  ${statsGame==='trex'?`<div class="kpis"><div class="kpi"><b class="num">${s.firsts}</b><span>first out in Trex</span></div><div class="kpi"><b class="num">${s.kings}</b><span>K♥ taken</span></div><div class="kpi"><b class="num">${s.tq}</b><span>queens taken</span></div></div>`
+   :statsGame==='leekha'?`<div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>`
    :`<div class="kpis"><div class="kpi"><b class="num">${pct(s.made,s.bids)}</b><span>bids made</span></div><div class="kpi"><b class="num">${s.bids?(s.bidSum/s.bids).toFixed(1):'–'}</b><span>average bid</span></div><div class="kpi"><b class="num">${s.thirteen}</b><span>bid 13 and made it</span></div></div>`}
   ${badgePanel(id)}
   <section class="panel"><div class="eyebrow">Record (won–lost)</div>
-    ${statsGame==='leekha'?`<div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>`:''}
-    <div class="row between"><span>Teams of 2</span><b class="num">${rec('teams')}</b></div>
+    ${statsGame==='leekha'||statsGame==='trex'?`<div class="row between"><span>Every player for themselves</span><b class="num">${rec('solo')}</b></div>`:''}
+    ${statsGame==='trex'?'':`<div class="row between"><span>Teams of 2</span><b class="num">${rec('teams')}</b></div>`}
     ${form?`<div><div class="eyebrow" style="margin-bottom:6px">Last ${Math.min(10,hist.length)} games, oldest first</div><div class="form">${form}</div></div>`:''}</section>
   <section class="panel"><div class="eyebrow">Final score per game</div>${spark(hist)}</section>
   <section class="panel"><div class="eyebrow">Partnerships</div>
@@ -1418,7 +1581,7 @@ async function ensureKey(){ const p=S.players.find(x=>x.id===ME); if(!p || p.own
 let rulesOpen = null;   // 'leekha' | '400' | 'tarneeb' | 'app' while the rule book is open
 const RB = {
 en: {
-  title:'Rule book', back:'← Back', tabs:{leekha:'Leekha','400':'400',tarneeb:'Tarneeb',app:'Using the app'},
+  title:'Rule book', back:'← Back', tabs:{leekha:'Leekha','400':'400',tarneeb:'Tarneeb',trex:'Trex',app:'Using the app'},
   leekha:[
     ['At a glance', `<ul><li>4 players, a full 52-card deck, 13 cards each.</li><li>Play <b>every player for themselves</b> or in <b>teams of 2</b> (partners sit opposite).</li><li>Penalty cards: every <b>♥ is 1 point</b>, the <b>10♦ is 10</b>, the <b>Q♠ is 13</b>. That is <b>36 points</b> in every round.</li><li>The goal is to <b>stay under 101</b>.</li></ul>`],
     ['The deal', `<p>The first dealer is picked at random. After that, <b>whoever took the Q♠ deals the next round</b>. If one player took all 13 hearts, that player deals instead.</p>`],
@@ -1445,15 +1608,23 @@ en: {
       <div class="ex"><b>Example</b> Team A bids 9 and takes 10: Team A <b>+10</b>, Team B 0.<br>Team B bids 8 and takes 7: Team B <b>−8</b>, Team A <b>+6</b>.</div>`],
     ['Winning', `<p>The first team to reach <b>31 or more</b> wins the game.</p>`],
   ],
+  trex:[
+    ['At a glance', `<ul><li>4 players, a full 52-card deck, 13 cards each.</li><li><b>Every player for themselves.</b></li><li>The game has <b>4 kingdoms</b>. Each player is the <b>king</b> once.</li><li>The player with the <b>highest total</b> after the 4 kingdoms wins.</li></ul>`],
+    ['Kingdoms and contracts', `<p>In their kingdom, the king chooses the order of the contracts and every contract is played once.</p><ul><li><b>Classic:</b> 5 contracts per kingdom: King of Hearts, Queens, Diamonds, Tricks and Trex. That is 20 hands in a game.</li><li><b>Complex:</b> 2 contracts per kingdom: Complex (all four penalties counted in one hand) and Trex. That is 8 hands in a game.</li></ul><p>The kingdom then passes to the next player around the table.</p>`],
+    ['The penalty contracts', `<table class="rt"><tr><td>King of Hearts</td><td>whoever takes the K♥</td><td><b>−75</b></td></tr><tr><td>Queens</td><td>each queen taken</td><td><b>−25</b></td></tr><tr><td>Diamonds</td><td>each diamond taken</td><td><b>−10</b></td></tr><tr><td>Tricks</td><td>each trick taken</td><td><b>−15</b></td></tr></table><p>Follow the suit that was led if you can. The highest card of the suit led wins the trick. There is no trump.</p><p>In <b>Complex</b>, all four penalties count in the same hand: −500 shared between the players.</p>`],
+    ['Doubling', `<p>A player holding the <b>K♥</b> or a <b>queen</b> can double it before play.</p><ul><li>If someone else takes the doubled card, they lose <b>double</b> (−150 for the K♥, −50 for a queen), and the player who doubled <b>gains</b> the normal value (+75 or +25).</li><li>If the player who doubled ends up taking it, they lose double themselves.</li></ul><div class="ex"><b>Example</b> Maya doubles the K♥ and Rami is forced to take it: Rami <b>−150</b>, Maya <b>+75</b>.</div>`],
+    ['Trex', `<p>Players build the four suits on the table starting from the Jacks, going up and down. The first player to run out of cards scores <b>+200</b>, then <b>+150</b>, <b>+100</b> and <b>+50</b>.</p>`],
+    ['Totals', `<p>Without doubling, the four penalty contracts give out −500 and Trex gives back +500, so every kingdom adds up to zero. The winner is whoever has the most points after the 4th kingdom.</p>`],
+  ],
   app:[
     ['Start a game', `<p>Go to <b>Tables</b> and tap <b>New game</b>. Choose the card game, then tap 4 players. In teams, the first two players you tap are <b>Team A</b> (blue) and the next two are <b>Team B</b> (orange).</p>`],
-    ['Score a round', `<ul><li><b>Leekha:</b> after the hand, give each player their hearts and tap who took the Q♠ and the 10♦. <b>Take the rest</b> gives a player everything not yet given out.</li><li><b>400:</b> enter everyone's bids before the hand, then the tricks after it.</li><li><b>Tarneeb:</b> enter who won the bidding, the bid and the trump, then the tricks the bidding team took.</li></ul><p>Made a mistake? Tap <b>✎</b> next to any round to fix it.</p>`],
+    ['Score a round', `<ul><li><b>Leekha:</b> after the hand, give each player their hearts and tap who took the Q♠ and the 10♦. <b>Take the rest</b> gives a player everything not yet given out.</li><li><b>400:</b> enter everyone's bids before the hand, then the tricks after it.</li><li><b>Tarneeb:</b> enter who won the bidding, the bid and the trump, then the tricks the bidding team took.</li><li><b>Trex:</b> the king picks the contract, then you record who took what, who doubled, or the finishing order.</li></ul><p>Made a mistake? Tap <b>✎</b> next to any round to fix it.</p>`],
     ['Several games at once', `<p>Leave a game at any time with <b>← All tables</b>. It waits there until you continue it. If a player leaves, use <b>Substitute a player</b>: the new player continues from that seat's score.</p>`],
     ['Playing as a group', `<ul><li>Join your group with its 6-letter code under <b>Players → Online sync</b>.</li><li>Pick yourself under <b>This phone belongs to</b>. Only your phone can edit your profile.</li><li>The phone that starts a game keeps its score. Everyone else watches it live as <b>view only</b>.</li><li>Keep your <b>personal key</b>. On a new phone, tap your locked name and enter it to get your profile and games back.</li></ul>`],
   ],
 },
 ar: {
-  title:'كتاب القواعد', back:'→ رجوع', tabs:{leekha:'ليخة','400':'400',tarneeb:'طرنيب',app:'استعمال التطبيق'},
+  title:'كتاب القواعد', back:'→ رجوع', tabs:{leekha:'ليخة','400':'400',tarneeb:'طرنيب',trex:'تركس',app:'استعمال التطبيق'},
   leekha:[
     ['نظرة سريعة', `<ul><li>4 لاعبين، شدّة كاملة من 52 ورقة، 13 ورقة لكلّ لاعب.</li><li>اللعب <b>كلّ لاعب لحاله</b> أو <b>فرق من لاعبَين</b> (الشريكان متقابلان).</li><li>أوراق العقوبة: كلّ <b>♥ بنقطة</b>، <b>الـ10♦ بـ10</b>، <b>الـQ♠ بـ13</b>. أي <b>36 نقطة</b> في كلّ جولة.</li><li>الهدف هو <b>البقاء تحت 101</b>.</li></ul>`],
     ['التوزيع', `<p>الموزّع الأوّل يُختار عشوائياً. بعد ذلك <b>من يأخذ الـQ♠ يوزّع الجولة التالية</b>. وإذا أخذ لاعب كلّ أوراق الكبّة الـ13، يوزّع هو.</p>`],
@@ -1480,9 +1651,17 @@ ar: {
       <div class="ex"><b>مثال</b> الفريق أ طلب 9 وأكل 10: الفريق أ <b>+10</b>، الفريق ب 0.<br>الفريق ب طلب 8 وأكل 7: الفريق ب <b>−8</b>، الفريق أ <b>+6</b>.</div>`],
     ['الربح', `<p>أوّل فريق يصل إلى <b>31 أو أكثر</b> يربح اللعبة.</p>`],
   ],
+  trex:[
+    ['نظرة سريعة', `<ul><li>4 لاعبين، شدّة كاملة من 52 ورقة، 13 ورقة لكلّ لاعب.</li><li><b>كلّ لاعب لحاله.</b></li><li>اللعبة فيها <b>4 ممالك</b>، وكلّ لاعب يكون <b>الملك</b> مرّة واحدة.</li><li>يربح صاحب <b>أعلى مجموع</b> بعد الممالك الأربع.</li></ul>`],
+    ['الممالك والعقود', `<p>في مملكته، يختار الملك ترتيب العقود، ويُلعب كلّ عقد مرّة واحدة.</p><ul><li><b>كلاسيك:</b> 5 عقود في كلّ مملكة: الشايب، البنات، الديناري، اللطوش، والتركس. أي 20 يداً في اللعبة.</li><li><b>كومبلكس:</b> عقدان في كلّ مملكة: الكومبلكس (كلّ العقوبات الأربع في يد واحدة) والتركس. أي 8 أيدٍ في اللعبة.</li></ul><p>ثمّ تنتقل المملكة إلى اللاعب التالي حول الطاولة.</p>`],
+    ['عقود العقوبات', `<table class="rt"><tr><td>الشايب</td><td>من يأخذ الـK♥</td><td><b>−75</b></td></tr><tr><td>البنات</td><td>كلّ بنت</td><td><b>−25</b></td></tr><tr><td>الديناري</td><td>كلّ ورقة ديناري</td><td><b>−10</b></td></tr><tr><td>اللطوش</td><td>كلّ أكلة</td><td><b>−15</b></td></tr></table><p>العب من نفس النوع المطروح إذا كان معك. أعلى ورقة من النوع المطروح تأكل. لا يوجد طرنيب.</p><p>في <b>الكومبلكس</b> تُحسب العقوبات الأربع في نفس اليد: −500 بين اللاعبين.</p>`],
+    ['الدبل', `<p>من معه <b>الشايب</b> أو <b>بنت</b> يستطيع أن يدبّلها قبل اللعب.</p><ul><li>إذا أخذها لاعب آخر، يخسر <b>الضعف</b> (−150 للشايب، −50 للبنت)، ومن دبّل <b>يربح</b> القيمة العادية (+75 أو +25).</li><li>إذا أخذها من دبّلها بنفسه، يخسر الضعف.</li></ul><div class="ex"><b>مثال</b> مايا دبّلت الشايب ورامي اضطرّ أن يأخذه: رامي <b>−150</b>، مايا <b>+75</b>.</div>`],
+    ['التركس', `<p>يبني اللاعبون الأنواع الأربعة على الطاولة بدءاً من الشبّ (J) صعوداً ونزولاً. أوّل من تخلص أوراقه يسجّل <b>+200</b>، ثمّ <b>+150</b> و<b>+100</b> و<b>+50</b>.</p>`],
+    ['المجموع', `<p>بدون دبل، العقوبات الأربع تعطي −500 والتركس يعيد +500، فكلّ مملكة مجموعها صفر. يربح صاحب أكثر النقاط بعد المملكة الرابعة.</p>`],
+  ],
   app:[
     ['بدء لعبة', `<p>اذهب إلى <b>الطاولات</b> واضغط <b>لعبة جديدة</b>. اختر لعبة الورق ثمّ 4 لاعبين. في الفرق، أوّل لاعبَين تختارهما هما <b>الفريق أ</b> (أزرق) والاثنان التاليان <b>الفريق ب</b> (برتقالي).</p>`],
-    ['تسجيل جولة', `<ul><li><b>ليخة:</b> بعد اللعب، أعطِ كلّ لاعب كبّاته واضغط على من أخذ الـQ♠ والـ10♦. زرّ <b>ياخد الباقي</b> يعطي اللاعب كلّ ما لم يُوزَّع بعد.</li><li><b>400:</b> سجّل طلبات الجميع قبل اللعب، ثمّ الأكلات بعده.</li><li><b>طرنيب:</b> سجّل من ربح الطلب والطلب والطرنيب، ثمّ أكلات الفريق الطالب.</li></ul><p>أخطأت؟ اضغط <b>✎</b> بجانب أيّ جولة لتصحيحها.</p>`],
+    ['تسجيل جولة', `<ul><li><b>ليخة:</b> بعد اللعب، أعطِ كلّ لاعب كبّاته واضغط على من أخذ الـQ♠ والـ10♦. زرّ <b>ياخد الباقي</b> يعطي اللاعب كلّ ما لم يُوزَّع بعد.</li><li><b>400:</b> سجّل طلبات الجميع قبل اللعب، ثمّ الأكلات بعده.</li><li><b>طرنيب:</b> سجّل من ربح الطلب والطلب والطرنيب، ثمّ أكلات الفريق الطالب.</li><li><b>تركس:</b> الملك يختار العقد، ثمّ تسجّل من أخذ ماذا ومن دبّل، أو ترتيب الخروج.</li></ul><p>أخطأت؟ اضغط <b>✎</b> بجانب أيّ جولة لتصحيحها.</p>`],
     ['عدّة ألعاب في وقت واحد', `<p>اترك اللعبة متى شئت بزرّ <b>كلّ الطاولات</b>. تنتظرك هناك حتى تكملها. إذا غادر لاعب، استعمل <b>استبدال لاعب</b>: اللاعب الجديد يكمل من نتيجة ذلك المقعد.</p>`],
     ['اللعب كمجموعة', `<ul><li>انضمّ إلى مجموعتك برمزها المؤلّف من 6 أحرف في <b>اللاعبون ← المزامنة</b>.</li><li>اختر نفسك في <b>هذا الهاتف لـ</b>. هاتفك وحده يعدّل ملفّك.</li><li>الهاتف الذي يبدأ اللعبة يسجّل نتائجها، والباقون يشاهدونها مباشرةً <b>للمشاهدة فقط</b>.</li><li>احتفظ <b>بمفتاحك الشخصي</b>. على هاتف جديد، اضغط على اسمك المقفل وأدخله لاستعادة ملفّك وألعابك.</li></ul>`],
   ],
@@ -1492,7 +1671,7 @@ function viewRules(){
   return `<div data-raw class="rules">
     <section class="row between"><button class="btn sm ghost" data-act="rules-close">${L.back}</button><span class="eyebrow">سجّل عندك · Sajjel 3endak</span></section>
     <h2 class="rb-title">${L.title}</h2>
-    <div class="seg">${['leekha','400','tarneeb','app'].map(x=>`<button data-rules="${x}" aria-pressed="${k===x}">${L.tabs[x]}</button>`).join('')}</div>
+    <div class="seg">${['leekha','400','tarneeb','trex','app'].map(x=>`<button data-rules="${x}" aria-pressed="${k===x}">${L.tabs[x]}</button>`).join('')}</div>
     ${L[k].map(([h,body],i)=>`<section class="panel rb"><h3><span class="rb-n">${k==='app'?'•':i+1}</span>${h}</h3>${body}</section>`).join('')}
   </div>`;
 }
@@ -1529,13 +1708,14 @@ function finishedGames(){ return S.games.filter(g=>result(g)).sort((a,b)=>(a.dat
 function streaks(id){ let cur=0, best=0; finishedGames().filter(g=>g.seats.includes(id)).forEach(g=>{ if(result(g).winners.some(w=>w.members.includes(id))){ cur++; best=Math.max(best,cur); } else cur=0; }); return {cur,best}; }
 function potmCount(id){ const keep=statsGame; let n=0; ['leekha','400','tarneeb'].forEach(t=>{ statsGame=t; n+=(potmTitles()[id]||[]).length; }); statsGame=keep; return n; }
 function badgeList(id){
-  let moons=0, queens=0, under50=0, perfect13=0, big=0, slam=0, comeback=0, games=0;
+  let moons=0, queens=0, under50=0, perfect13=0, big=0, slam=0, comeback=0, games=0, trexFirst=0, doubler=0;
   S.games.forEach(g=>{ const r=result(g), ty=typeOf(g), won = r && r.winners.some(w=>w.members.includes(id));
     if(r && g.seats.includes(id)) games++;
     if(ty==='leekha'){ g.rounds.forEach(rd=>{ if(rd.moon===id) moons++; if(rd.queen===id) queens++; }); if(won && g.mode==='solo' && totals(g)[id]<50) under50++; }
     else if(ty==='400') g.rounds.forEach(rd=>{ const b=rd.bids[id]; if(b!=null && (rd.tricks[id]||0)>=b){ if(b===13) perfect13++; if(b>=8) big++; } });
+    else if(ty==='trex') g.rounds.forEach(rd=>{ if(rd.order&&rd.order[0]===id) trexFirst++; if(rd.kingDouble===id && rd.kingTaker && rd.kingTaker!==id) doubler++; });
     else g.rounds.forEach(rd=>{ if(rd.bidder===id && rd.bid===13 && rd.taken>=13) slam++; });
-    if(won && ty!=='leekha'){ const run=[0,0,0,0]; let low=false; deltas(g).forEach((d,i)=>{ const o=occAt(g,i); o.forEach((p,k)=>run[k]+=d[p]); const k=o.indexOf(id); if(k>=0 && run[k]<0) low=true; }); if(low) comeback++; }
+    if(won && ty!=='leekha' && ty!=='trex'){ const run=[0,0,0,0]; let low=false; deltas(g).forEach((d,i)=>{ const o=occAt(g,i); o.forEach((p,k)=>run[k]+=d[p]); const k=o.indexOf(id); if(k>=0 && run[k]<0) low=true; }); if(low) comeback++; }
   });
   const st=streaks(id), potm=potmCount(id);
   // [icon, name, what it takes, times earned, progress towards the first one]
@@ -1547,6 +1727,8 @@ function badgeList(id){
     ['8+','Big bidder','400: make a bid of 8 or more', big],
     ['♛13','Grand slam','Tarneeb: bid 13 and make it', slam],
     ['↗','Comeback','400 or Tarneeb: win after being below zero', comeback],
+    ['1st','Trex master','Trex: be first out in a Trex hand 5 times', Math.floor(trexFirst/5), `${trexFirst%5}/5`],
+    ['×2','Doubler','Trex: double the K♥ and make someone else take it', doubler],
     ['3×','Hot streak','Win 3 games in a row', st.best>=3?1:0, `${Math.min(st.best,3)}/3`],
     ['5×','On fire','Win 5 games in a row', st.best>=5?1:0, `${Math.min(st.best,5)}/5`],
     ['♛','Player of the month','Win Player of the month in any game', potm],
@@ -1566,7 +1748,8 @@ function h2hData(a,b){
     const same = g.teams && g.teams.some(m=>m.includes(a)&&m.includes(b));
     if(same){ if(aw) x.pw++; else x.pl++; }
     else if(aw&&!bw) x.a++; else if(bw&&!aw) x.b++;
-    else if(typeOf(g)==='leekha' && g.mode==='solo'){ const t=totals(g); if(t[a]<t[b]) x.a++; else if(t[b]<t[a]) x.b++; } });
+    else if(typeOf(g)==='leekha' && g.mode==='solo'){ const t=totals(g); if(t[a]<t[b]) x.a++; else if(t[b]<t[a]) x.b++; }
+    else if(typeOf(g)==='trex'){ const t=totals(g); if(t[a]>t[b]) x.a++; else if(t[b]>t[a]) x.b++; } });
   return {out, games:games.reverse()};
 }
 function viewH2H(){
@@ -1696,8 +1879,10 @@ $('#view').addEventListener('click', e=>{
   if(act==='claim-cancel'){ claimFor=null; claimMsg=''; }
   if(act==='claim-key'){ recoverWithKey(claimFor, ($('#claimKey')||{}).value||''); return; }
   if(act==='key-copy'){ const k=myKey(); try{ navigator.clipboard.writeText(k).then(()=>{ syncMsg='Key copied. Keep it somewhere safe.'; render(); }).catch(()=>{}); }catch(err){} }
-  if(b.dataset.clear && draft && draft.own){ const p=b.dataset.clear; Object.keys(draft.own).forEach(k=>{ if(draft.own[k]===p) delete draft.own[k]; }); syncLeekha(draft, Object.keys(draft.hearts)); }
-  if(b.dataset.rest && draft && draft.own){ const p=b.dataset.rest; FAN.forEach(k=>{ if(!draft.own[k]) draft.own[k]=p; }); syncLeekha(draft, Object.keys(draft.hearts)); }
+  if(b.dataset.clear && draft){ const p=b.dataset.clear; draft.hearts[p]=0; if(draft.queen===p) draft.queen=null; if(draft.ten===p) draft.ten=null; }
+  if(b.dataset.rest && draft){ const p=b.dataset.rest; const used=Object.values(draft.hearts).reduce((x,y)=>x+y,0); draft.hearts[p]=(draft.hearts[p]||0)+Math.max(0,HEARTS-used); if(!draft.queen) draft.queen=p; if(!draft.ten) draft.ten=p; }
+  if(b.dataset.h && draft){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
+  if(b.dataset.sp && draft){ const k=b.dataset.sp; if(!draft[k]) draft[k]=b.dataset.p; else if(draft[k]===b.dataset.p) draft[k]=null; }
   if(b.dataset.active && draft) draft.active=b.dataset.active;
   if(b.dataset.card && draft && draft.own){ const k=b.dataset.card; if(draft.own[k]) delete draft.own[k]; else if(draft.active) draft.own[k]=draft.active; syncLeekha(draft, Object.keys(draft.hearts)); }
   if(act==='sub-open') subState={out:null,in:null};
@@ -1712,7 +1897,7 @@ $('#view').addEventListener('click', e=>{
   if(act==='del-game') confirmDel=true;
   if(act==='del-no') confirmDel=false;
   if(act==='del-yes'){ S.games=S.games.filter(x=>x!==g); setOpen(null); save(); }
-  if(act==='rematch'){ const ng={id:uid(),type:typeOf(g),date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
+  if(act==='rematch'){ const ng={id:uid(),type:typeOf(g),variant:g.variant,date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],owner:DEVICE,ownerPlayer:ME,firstDealer:g.seats[Math.floor(Math.random()*4)]};
     S.games.push(ng); tab='game'; openG=ng.id; openH=null; shareMsg=''; save(); window.scrollTo(0,0); }
   if(act==='share-pic'){ sharePicture(g); return; }
   if(act==='share'){ const r=result(g), t=totals(g); const w=r.winners.flatMap(x=>x.members).map(pname).join(' & ');
@@ -1721,11 +1906,20 @@ $('#view').addEventListener('click', e=>{
     if(navigator.share){ navigator.share({text:txt}).catch(()=>{}); }
     else { try{ navigator.clipboard.writeText(txt).then(()=>done('Result copied. Paste it in your WhatsApp group.')).catch(()=>done('Sharing is not available here.')); }catch(err){ shareMsg='Sharing is not available here.'; } } }
   if(b.dataset.editround){ const i=+b.dataset.editround, rd=g.rounds[i], ty=typeOf(g);
-    draft = ty==='leekha' ? Object.assign(leekhaDraft(occAt(g,i), rd), {index:i})
+    draft = ty==='leekha' ? {hearts:{...rd.hearts},queen:rd.queen,ten:rd.ten,index:i}
       : ty==='400' ? {phase:'both',bids:{...rd.bids},tricks:{...rd.tricks},index:i}
+      : ty==='trex' ? Object.assign(trexDraft(occAt(g,i), rd.contract), JSON.parse(JSON.stringify(rd)), {index:i})
       : {phase:'both',bidder:rd.bidder,bid:rd.bid,trump:rd.trump||null,taken:rd.taken,index:i};
     window.scrollTo(0,0); }
   if(act==='edit-bids' && g && g.pending){ draft = typeOf(g)==='400' ? {phase:'bids',bids:{...g.pending.bids},tricks:{}} : {phase:'bid',bidder:g.pending.bidder,bid:g.pending.bid,trump:g.pending.trump||null,taken:0}; window.scrollTo(0,0); }
+  if(b.dataset.tcontract && draft){ const keep=draft.index; draft=trexDraft(Object.keys(draft.diamonds), b.dataset.tcontract); if(keep!=null) draft.index=keep; }
+  if(b.dataset.tk && draft) draft.kingTaker = draft.kingTaker===b.dataset.tk ? null : b.dataset.tk;
+  if(b.dataset.tkd && draft) draft.kingDouble = b.dataset.tkd==='none' ? null : b.dataset.tkd;
+  if(b.dataset.tq && draft){ const [x,p]=b.dataset.tq.split('|'); draft.queens[x] = draft.queens[x]===p ? undefined : p; if(!draft.queens[x]) delete draft.queens[x]; }
+  if(b.dataset.tqd && draft){ const [x,p]=b.dataset.tqd.split('|'); if(p==='none') delete draft.qDouble[x]; else draft.qDouble[x]=p; }
+  if(b.dataset.td && draft){ const p=b.dataset.td, d=+b.dataset.d, sum=Object.values(draft.diamonds).reduce((a,c)=>a+c,0); if(!(d>0&&sum>=13)) draft.diamonds[p]=Math.max(0,draft.diamonds[p]+d); }
+  if(b.dataset.tt && draft){ const p=b.dataset.tt, d=+b.dataset.d, sum=Object.values(draft.tricks).reduce((a,c)=>a+c,0); if(!(d>0&&sum>=13)) draft.tricks[p]=Math.max(0,draft.tricks[p]+d); }
+  if(b.dataset.tx && draft){ const p=b.dataset.tx, i=draft.order.indexOf(p); if(i>=0) draft.order.splice(i,1); else if(draft.order.length<4) draft.order.push(p); }
   if(b.dataset.bid4){ const p=b.dataset.bid4; draft.bids[p]=Math.max(2,Math.min(13,(draft.bids[p]||2)+Number(b.dataset.d))); }
   if(b.dataset.trick4){ const p=b.dataset.trick4; const sum=Object.values(draft.tricks).reduce((x,y)=>x+y,0), d=Number(b.dataset.d); if(!(d>0&&sum>=13)) draft.tricks[p]=Math.max(0,Math.min(13,(draft.tricks[p]||0)+d)); }
   if(b.dataset.tbidder) draft.bidder=b.dataset.tbidder;
@@ -1734,7 +1928,8 @@ $('#view').addEventListener('click', e=>{
   if(b.dataset.ttaken) draft.taken=Math.max(0,Math.min(13,draft.taken+Number(b.dataset.ttaken)));
   if(act==='save-bids' && g){ g.pending = typeOf(g)==='400' ? {bids:{...draft.bids}} : {bidder:draft.bidder,bid:draft.bid,trump:draft.trump}; g.updated=Date.now(); draft=null; save(); window.scrollTo(0,0); }
   if(act==='new-game'){ setup={type:'leekha',mode:'solo',seats:[]}; draft=null; }
-  if(b.dataset.gtype){ setup.type=b.dataset.gtype; if(GAME[setup.type].teamsOnly) setup.mode='teams'; setup.seats=setup.seats.filter(Boolean); }
+  if(b.dataset.gtype){ setup.type=b.dataset.gtype; if(GAME[setup.type].teamsOnly) setup.mode='teams'; if(GAME[setup.type].soloOnly) setup.mode='solo'; setup.seats=setup.seats.filter(Boolean); }
+  if(b.dataset.tvariant) setup.variant=b.dataset.tvariant;
   if(act==='cancel-setup') setup=null;
   if(b.dataset.mode) setup.mode=b.dataset.mode;
   if(b.dataset.seat){ const id=b.dataset.seat, i=setup.seats.indexOf(id);
@@ -1742,9 +1937,11 @@ $('#view').addEventListener('click', e=>{
     else { const h=setup.seats.indexOf(null); if(h>=0) setup.seats[h]=id; else if(setup.seats.length<4) setup.seats.push(id); } }
   if(b.dataset.mode) setup.seats=setup.seats.filter(Boolean);
   if(act==='start'){ const s=setup.seats.filter(Boolean); if(s.length!==4){ render(); return; } const ng={id:uid(),type:setup.type||'leekha',date:new Date().toISOString().slice(0,10),mode:GAME[setup.type||'leekha'].teamsOnly?'teams':setup.mode,seats:s.slice(),teams:(setup.mode==='teams'||GAME[setup.type||'leekha'].teamsOnly)?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
+    if(ng.type==='trex'){ ng.mode='solo'; ng.teams=null; ng.variant=setup.variant==='complex'?'complex':'classic'; }
     ng.updated=Date.now(); ng.owner=DEVICE; ng.ownerPlayer=ME; ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
   if(act==='add-round'){ const ty=typeOf(g);
-    if(ty==='leekha'){ draft=leekhaDraft(g.seats); }
+    if(ty==='trex'){ if(!g.firstDealer){ render(); return; } draft=trexDraft(g.seats, contractsLeft(g)[0]); }
+    else if(ty==='leekha'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
     else if(ty==='400'){ const bids={}, tricks={}; g.seats.forEach(p=>{ bids[p]=g.pending?g.pending.bids[p]:2; tricks[p]=0; }); draft={phase:g.pending?'tricks':'bids',bids,tricks}; }
     else draft = g.pending ? {phase:'tricks',bidder:g.pending.bidder,bid:g.pending.bid,trump:g.pending.trump||null,taken:g.pending.bid} : {phase:'bid',bidder:null,bid:7,trump:null,taken:7};
     window.scrollTo(0,0); }
@@ -1752,6 +1949,12 @@ $('#view').addEventListener('click', e=>{
   if(act==='save-round'){ const before=totals(g), wasOver=!!result(g); const idx=draft.index, ty=typeOf(g); let rd;
     if(ty==='leekha'){ rd={hearts:{...draft.hearts},queen:draft.queen,ten:draft.ten}; if(g.mode==='solo'){ const m=Object.keys(rd.hearts).find(p=>rawPts(rd,p)===TOTAL); if(m) rd.moon=m; } }
     else if(ty==='400') rd={bids:{...draft.bids},tricks:{...draft.tricks}};
+    else if(ty==='trex'){ if(trexCheck(draft).length){ render(); return; } const c=draft.contract; rd={contract:c};
+      if(c==='king'||c==='complex'){ rd.kingTaker=draft.kingTaker; rd.kingDouble=draft.kingDouble||null; }
+      if(c==='queens'||c==='complex'){ rd.queens={...draft.queens}; rd.qDouble={...draft.qDouble}; }
+      if(c==='diamonds'||c==='complex') rd.diamonds={...draft.diamonds};
+      if(c==='tricks'||c==='complex') rd.tricks={...draft.tricks};
+      if(c==='trex') rd.order=draft.order.slice(); }
     else rd={bidder:draft.bidder,bid:draft.bid,trump:draft.trump||null,taken:draft.taken};
     if(idx!=null) g.rounds[idx]=rd; else { g.rounds.push(rd); delete g.pending; g.updated=Date.now(); }
     draft=null; save(); window.scrollTo(0,0); if(!wasOver && result(g)) celebrate=g.id;
