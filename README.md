@@ -1,12 +1,6 @@
-# Sajjel 3endak
+# Sajjel 3endak · سجّل عندك
 
-Card game scorebook, starting with Leekha. Installable web app: open it on the phone and choose "Add to Home Screen".
+Card game scorebook for Leekha, 400, Tarneeb and Trex.
 
-Files
-- `index.html`: the app
-- `manifest.webmanifest`, icons: home-screen install
-- `sw.js`: offline support (bump VERSION when index.html changes)
-- `supabase-setup.sql`: run once in Supabase > SQL Editor to switch on online sync
-- `.github/workflows/keepalive.yml`: pings Supabase every 3 days so the free project does not pause
-
-Online sync: set `SUPA_URL` and `SUPA_KEY` (publishable key) near the "online sync" section of index.html.
+© 2026 Nicolas Farah. All rights reserved. This code is published only so the app can be served.
+Copying, modifying or redistributing it without written permission is prohibited.
