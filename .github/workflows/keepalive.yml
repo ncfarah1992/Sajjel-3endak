@@ -1,0 +1,16 @@
+# Keeps the free Supabase project awake: free projects pause after a week with no activity.
+# GitHub runs this every 3 days for free. Nothing to do once it is uploaded.
+name: Keep Supabase awake
+on:
+  schedule:
+    - cron: "17 6 */3 * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the database
+        run: |
+          curl -sS -X POST "https://ubbnrqpvpsbodfknzjli.supabase.co/rest/v1/rpc/sj_group_info" \
+            -H "apikey: sb_publishable_h1nVsRCsRaTkiS2Fce2pnA_q7GuN0H9" -H "Content-Type: application/json" \
+            -d '{"p_code":"KEEPALIVE"}'
