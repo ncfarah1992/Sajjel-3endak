@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Sajjel 3endak</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Reem+Kufi:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Reem+Kufi:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
 /* Layout: one-column phone app on green felt; scoreboard is a card table with players seated N/E/S/W; gold for actions, ivory for cards */
 :root{
@@ -48,7 +48,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .logo{min-width:0;flex:none}
 .logo .lat b{white-space:nowrap}
 .brand small{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
-.logo .lat{display:flex;flex-direction:column;line-height:1.05;border-left:1px solid var(--line);padding-left:10px}
+.logo .lat{display:flex;flex-direction:column;line-height:1.05;border-inline-start:1px solid var(--line);padding-inline-start:10px}
 .logo .lat b{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:.01em}
 .logo .lat b i{font-style:normal;color:var(--gold)}
 .logo .lat span{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
@@ -138,8 +138,8 @@ input::placeholder,textarea::placeholder{color:rgba(246,241,227,.4)}
 /* tables */
 .tablewrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:13px}
-th,td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
+th,td{padding:7px 6px;text-align:end;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:start}
 th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:600}
 tfoot td{font-weight:700;border-bottom:0;font-size:14px}
 td .muted{font-size:12px}
@@ -158,7 +158,7 @@ td .muted{font-size:12px}
 .bar .track{height:12px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
 .bar .track i{display:block;height:100%;background:linear-gradient(90deg,#c9a24e,var(--gold));border-radius:6px}
 .bar .lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.plink{border:0;background:none;text-align:left;padding:0;min-width:0;font:inherit;color:inherit}
+.plink{border:0;background:none;text-align:start;padding:0;min-width:0;font:inherit;color:inherit}
 button.lbl.plink{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
 .form{display:flex;gap:4px;flex-wrap:wrap}
 .form .f{width:26px;height:36px;border-radius:5px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:12px;background:var(--ivory);color:#777;box-shadow:0 1px 3px rgba(0,0,0,.3)}
@@ -196,10 +196,73 @@ textarea{font:12px/1.4 var(--f-mono);color:var(--ink);background:rgba(0,0,0,.25)
 .sw[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
 .chip.mini{font-size:12px;padding:4px 10px}
 
+/* home + history */
+.glist,.hlist{display:flex;flex-direction:column;gap:10px}
+.gcard{display:flex;flex-direction:column;gap:10px;text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;color:var(--ink)}
+.gcard:active,.hcard:active{transform:scale(.99)}
+.gseats{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gs{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:58px}
+.gs .nm{font-size:11.5px;max-width:72px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs b{font-size:15px}
+.gs.hot b{color:var(--warn)}
+.vs{font:600 10px var(--f-mono);color:var(--gold);letter-spacing:.1em}
+.gwarn{font-size:12px;color:var(--warn)}
+.go{font-size:13px;font-weight:600;color:var(--gold);align-self:flex-end}
+.hcard{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:start;width:100%;background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:14px;padding:10px 12px;color:var(--ink)}
+.hav{display:flex}
+.hav .avatar{width:34px;height:34px}
+.hav .avatar+.avatar{margin-inline-start:-10px}
+.hwin{font-family:var(--f-display);font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hmonth{display:flex;flex-direction:column;gap:8px}
+.winrow{display:flex;gap:16px;flex-wrap:wrap}
+.winner{display:flex;flex-direction:column;align-items:center;gap:4px}
+.winner .avatar{box-shadow:0 0 0 3px var(--gold),0 0 18px rgba(231,196,106,.5)}
+.redit{border:0;background:none;padding:0;color:var(--gold);font:inherit;font-family:var(--f-mono)}
+
+/* dealer, substitutes, player of the month */
+.avwrap{position:relative;display:inline-block}
+.dealer{position:absolute;right:-16px;bottom:-4px;background:var(--gold);color:var(--gold-ink);font:700 9px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 6px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.dealnote{display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;margin-top:-6px}
+.dealnote .pc{width:22px;height:30px;font-size:9px}
+.subnotes{margin:0;padding:0;padding-inline-start:18px;font-size:12.5px;color:var(--muted)}
+td.was{color:var(--muted);font-style:italic}
+.potm{border-color:var(--gold);background:linear-gradient(160deg,rgba(231,196,106,.16),rgba(0,0,0,.25))}
+.potm-top{display:flex;align-items:center;gap:14px;width:100%}
+.potm-name{font-family:var(--f-display);font-weight:800;font-size:22px;color:var(--gold)}
+.crownwrap{position:relative;display:inline-block}
+.crownic{position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-8deg);color:var(--gold);font-size:22px;text-shadow:0 2px 4px rgba(0,0,0,.4)}
+.potm-run{display:grid;grid-template-columns:auto auto 1fr;gap:10px;align-items:center;width:100%}
+.potm-past .potm-run{grid-template-columns:auto 1fr}
+.potm-past{display:flex;flex-direction:column;gap:8px}
+.potm-badge{color:var(--gold);border-color:var(--gold)}
+
+/* language */
+.hdr-r{display:flex;align-items:center;gap:8px;min-width:0}
+.langbtn{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--gold);font:700 14px var(--f-logo-ar);display:grid;place-items:center;padding:0}
+.langbtn.en{font:700 11px var(--f-mono)}
+@media (max-width:440px){.logo .lat span{display:none}.logo .ar{font-size:23px}.brand small{padding:3px 8px}}
+:root[lang="ar"]{--f-body:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;--f-display:"Reem Kufi","IBM Plex Sans Arabic",serif}
+:root[lang="ar"] .eyebrow,:root[lang="ar"] th,:root[lang="ar"] .seat .team,:root[lang="ar"] nav.tabs button{letter-spacing:0;text-transform:none}
+:root[lang="ar"] .brand small{letter-spacing:0;font-family:var(--f-body)}
+:root[lang="ar"] .eyebrow{font-size:12px}
+
+/* online sync */
+.syncdot{width:9px;height:9px;border-radius:50%;background:var(--good);flex:none;box-shadow:0 0 0 2px rgba(0,0,0,.25)}
+.syncdot.busy{background:var(--gold);animation:pulse 1s infinite alternate}
+.syncdot.offline{background:var(--muted)} .syncdot.error{background:var(--bad)}
+.syncdot.big{width:14px;height:14px}
+@keyframes pulse{to{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.syncdot.busy{animation:none}}
+.syncbox{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.codebox{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.25);border:1px dashed var(--gold);border-radius:12px;padding:10px 12px}
+.codebox b{font-size:24px;letter-spacing:.18em;color:var(--gold);flex:1}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:13px}
+.check input{margin-top:3px;accent-color:var(--gold)}
+
 /* tab bar */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(10,36,28,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
-nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
 nav.tabs button{border:0;background:none;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
 nav.tabs button[aria-current="page"]{color:var(--gold)}
 nav.tabs svg{width:22px;height:22px}
@@ -210,12 +273,13 @@ nav.tabs svg{width:22px;height:22px}
 
 <div class="app">
   <header class="top">
-    <div class="brand"><h1 class="logo" aria-label="Sajjel 3endak"><span class="ar" lang="ar">سجّل عندك</span><span class="lat"><b>Sajjel <i>3endak</i></b><span>Card scorebook</span></span></h1><small id="hdrSub">Leekha</small></div>
+    <div class="brand"><h1 class="logo" aria-label="Sajjel 3endak"><span class="ar" lang="ar">سجّل عندك</span><span class="lat"><b>Sajjel <i>3endak</i></b><span>Card scorebook</span></span></h1><span class="hdr-r"><span id="syncDot" class="syncdot" hidden></span><small id="hdrSub">Leekha</small><button id="langBtn" class="langbtn" type="button" aria-label="العربية">ع</button></span></div>
   </header>
   <main id="view"></main>
 </div>
 <nav class="tabs" aria-label="Sections"><div class="in">
-  <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="11" height="16" rx="2"/><path d="M9 7v1M18 6l2 .5-3 14-6-1.4"/></svg>Game</button>
+  <button data-tab="game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="11" height="16" rx="2"/><path d="M9 7v1M18 6l2 .5-3 14-6-1.4"/></svg>Tables</button>
+  <button data-tab="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/><path d="M12 8v4l3 2"/></svg>History</button>
   <button data-tab="players"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.3 3-5 6-5s5.4 1.7 6 5M16 5.2a3 3 0 0 1 0 5.6M18 14.4c1.6.6 2.7 2.2 3 4.6"/></svg>Players</button>
   <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"/></svg>Stats</button>
 </div></nav>
@@ -264,12 +328,14 @@ function sample(){
     ['teams',T(0,3,1,2)],['teams',T(0,4,2,5)],['solo',T(0,1,3,4)],['teams',T(1,3,2,5)],['teams',T(0,2,1,3)],['teams',T(4,5,1,3)],
     ['teams',T(0,4,1,3)],['solo',T(0,2,3,5)]];
   const games = plan.map(([m,s])=>play(m,s));
-  const live = play('teams',T(0,4,1,3),3); games.push(live);
+  const live = play('teams',T(0,4,1,3),3); live.updated=Date.now()-36e5; games.push(live);
+  const live2 = play('solo',T(2,1,5,3),2); live2.date='2026-10-17'; live2.updated=Date.now()-3*864e5; games.push(live2);
   return normalize({players, games, current:live.id, sample:true});
 }
 function load(){ try{ const s = localStorage.getItem(KEY); if(s) return normalize(JSON.parse(s));
   for(const k of OLDKEYS){ const o = localStorage.getItem(k); if(o){ const d = JSON.parse(o); if(!d.sample) return normalize(d); } } }catch(e){} return {players:[],games:[],current:null,sample:false}; }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); return true; }catch(e){ return false; } }
+function saveLocal(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); return true; }catch(e){ return false; } }
+function save(){ const ok=saveLocal(); if(ok && typeof scheduleSync==='function') scheduleSync(); return ok; }
 let S = null;
 let tab = 'game';
 let draft = null;      // round being entered
@@ -278,12 +344,25 @@ let confirmClear = false;
 let editing = false;   // editing the open player's name
 let backupMsg = '', showBackup = false, confirmRestore = false;
 let profile = null;    // player id whose dashboard is open
+let openG = null, openH = null;   // game open in the Tables tab / History tab
+let confirmDel = false, shareMsg = '', subState = null;
+let histMode = 'all', histPlayer = null;
 
 /* ---------- scoring ---------- */
 const rawPts = (rd,pid) => (rd.hearts[pid]||0) + (rd.queen===pid?13:0) + (rd.ten===pid?10:0);
 /* Solo games: whoever takes all 36 scores 0 and every other player gets 36 */
 const roundPts = (rd,pid) => rd.moon ? (rd.moon===pid?0:TOTAL) : rawPts(rd,pid);
-function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); g.rounds.forEach(rd=>g.seats.forEach(p=>t[p]+=roundPts(rd,p))); return t; }
+/* Substitutes: a new player can take over a seat. Each round is scored to whoever sat there at the time,
+   and the seat's running total carries over to the newcomer. */
+function occAt(g,i){ const s=(g.seats0||g.seats).slice(); (g.subs||[]).forEach(x=>{ if(x.at<=i) s[x.seat]=x.in; }); return s; }
+function totals(g){ const t={}; g.seats.forEach(p=>t[p]=0); g.rounds.forEach((rd,i)=>{ const o=occAt(g,i); g.seats.forEach((p,k)=>t[p]+=roundPts(rd,o[k])); }); return t; }
+/* Dealer: whoever took the Q♠ last round deals next, unless one player took all 13 hearts (then they deal). First deal is random. */
+function dealerOf(g){
+  if(!g.rounds.length) return g.firstDealer && g.seats.includes(g.firstDealer) ? g.firstDealer : null;
+  const i=g.rounds.length-1, rd=g.rounds[i];
+  const d = Object.keys(rd.hearts).find(p=>rd.hearts[p]===HEARTS) || rd.queen;
+  const k = occAt(g,i).indexOf(d); return k>=0 ? g.seats[k] : null;
+}
 function sides(g){ // returns [{label, members, score}]
   const t = totals(g);
   if(g.mode==='teams') return g.teams.map((m,i)=>({label:'Team '+(i?'B':'A'), members:m, score:m.reduce((a,p)=>a+t[p],0)}));
@@ -303,8 +382,129 @@ function result(g){
   return {loser, winners: rest.filter(s=>s.score===best)};
 }
 const pname = id => (S.players.find(p=>p.id===id)||{name:'?'}).name;
-const cur = () => S.games.find(g=>g.id===S.current);
+const openId = () => tab==='history' ? openH : openG;
+const cur = () => S.games.find(g=>g.id===openId());
+const setOpen = id => { if(tab==='history') openH=id; else openG=id; confirmDel=false; shareMsg=''; subState=null; };
+const lastPlayed = g => g.updated || Date.parse(g.date) || 0;
+function ago(ts){ const d=Math.floor((Date.now()-ts)/864e5); if(d<=0) return 'today'; if(d===1) return 'yesterday'; if(d<7) return d+' days ago'; return new Date(ts).toISOString().slice(0,10); }
 S = load();
+
+/* ---------- language ---------- */
+let lang = (()=>{ try{ return localStorage.getItem('sajjel-lang')||'en'; }catch(e){ return 'en'; } })();
+const AR = {
+'Card scorebook':'دفتر نتائج الورق','Leekha':'ليخة','Finished':'انتهت',
+'New here? Register your players below, or':'جديد هنا؟ سجّل اللاعبين في الأسفل، أو','try it with example data':'جرّب التطبيق ببيانات تجريبية','first.':'أولاً.',
+'Open tables':'الطاولات المفتوحة','No game on the table':'لا لعبة على الطاولة',
+'Start a game with 4 registered players. You can keep several games open at once and come back to any of them later.':'ابدأ لعبة مع 4 لاعبين مسجّلين. يمكنك إبقاء عدّة ألعاب مفتوحة والعودة إلى أيّ منها لاحقاً.',
+'Start a game':'ابدأ لعبة','Tables':'الطاولات','History':'السجلّ','Players':'اللاعبون','Stats':'الإحصاءات',
+'Register a player':'تسجيل لاعب','First name':'الاسم','Last name':'الشهرة','Alias':'اللقب','(optional, shown on the scoreboard)':'(اختياري، يظهر على لوحة النتائج)',
+'Avatar':'الصورة الرمزية','Upload photo':'تحميل صورة','Change photo':'تغيير الصورة','Use drawn avatar':'استعمال الرسم','Surprise me':'فاجئني',
+'Skin':'البشرة','Hair':'الشعر','Bald':'أصلع','Short':'قصير','Side part':'مفروق','Curly':'مجعّد','Long':'طويل','Bun':'كعكة','Hijab':'حجاب','Cap':'قبّعة',
+'Hair color':'لون الشعر','Face':'الوجه','None':'لا شيء','Stubble':'ذقن خفيفة','Beard':'لحية','Moustache':'شوارب','Glasses':'نظّارات','Top':'الملابس','Scarf / top':'الحجاب / الملابس',
+'Register player':'سجّل اللاعب','No players yet.':'لا لاعبين بعد.','Backup':'نسخة احتياطية',
+'Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.':'كلّ شيء محفوظ على هذا الهاتف فقط. خذ نسخة احتياطية من وقت لآخر واحفظها في ملاحظاتك أو أرسلها لنفسك.',
+'Copy backup':'نسخ النسخة الاحتياطية','Save backup file':'حفظ ملف النسخة الاحتياطية','Restore from backup':'استعادة من نسخة احتياطية','Open backup file':'فتح ملف نسخة احتياطية',
+'Data':'البيانات','Delete all players and games':'حذف كلّ اللاعبين والألعاب','e.g. Abou Elie, Nico, Big Rami':'مثلاً: أبو إيلي، نيكو، رامي الكبير',
+'Finished games will appear here.':'ستظهر الألعاب المنتهية هنا.','No stats yet':'لا إحصاءات بعد','Play a few rounds and the leaderboard fills in here.':'العب بعض الجولات وستظهر الترتيبات هنا.',
+'Example players and games are loaded so you can see how it works.':'تمّ تحميل لاعبين وألعاب تجريبية لترى كيف يعمل التطبيق.','Clear examples':'حذف البيانات التجريبية',
+'+ New game':'+ لعبة جديدة','today':'اليوم','yesterday':'أمس','vs':'ضد','Continue →':'← تابِع',
+'Someone had to leave? Just go back to the tables. The game waits here until you continue it.':'اضطرّ أحدهم للمغادرة؟ ارجع إلى الطاولات فقط. اللعبة تنتظرك هنا حتى تكملها.',
+'Recently finished':'انتهت مؤخّراً','See all':'عرض الكل','›':'‹','← All tables':'→ كلّ الطاولات','← History':'→ السجلّ','← Back':'→ رجوع',
+'TEAM A':'الفريق أ','TEAM B':'الفريق ب','Team A':'الفريق أ','Team B':'الفريق ب','Deals':'يوزّع','deals next':'يوزّع الجولة التالية','deals first':'يوزّع أوّلاً',
+'Deal next round':'وزّع الجولة التالية','Round by round':'جولة بجولة','Tap ✎ to fix a round':'اضغط ✎ لتصحيح جولة','Total':'المجموع',
+'Substitute a player':'استبدال لاعب','Undo last round':'تراجع عن آخر جولة','Delete game':'حذف اللعبة','Cancel':'إلغاء',
+'Who is leaving?':'مين فالِل؟','Who takes the seat?':'مين بياخد محلّه؟','takes':'بياخد محلّ',"'s seat and continues from":'ويكمّل من','Confirm substitution':'تأكيد الاستبدال',
+'Everyone registered is already at this table. Add the new player in the Players tab first.':'كلّ اللاعبين المسجّلين على هذه الطاولة. أضف اللاعب الجديد من صفحة اللاعبين أوّلاً.',
+'Who took what?':'مين أخد شو؟','Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36.':'كلّ ♥ بنقطة، الـ10♦ بـ10، والـQ♠ بـ13. الجولة تكتمل عند 36.',
+'Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36. If one player takes all 36, they score 0 and the other three get 36 each.':'كلّ ♥ بنقطة، الـ10♦ بـ10، والـQ♠ بـ13. الجولة تكتمل عند 36. إذا أخذ لاعب الـ36 كلّها، يسجّل 0 ويسجّل كلّ من الباقين 36.',
+'pts':'نقطة','Save round':'حفظ الجولة','All 36 points allocated':'تمّ توزيع النقاط الـ36','Save changes':'حفظ التعديلات',
+'Delete this game for good?':'حذف هذه اللعبة نهائياً؟','Delete':'حذف','Keep':'إبقاء','New game':'لعبة جديدة','Card game':'لعبة الورق','♥ Leekha':'♥ ليخة',
+'More card games will be added here.':'ستُضاف ألعاب ورق أخرى هنا.','Format':'طريقة اللعب','Every player for themselves':'كلّ لاعب لحاله','Teams of 2':'فرق من لاعبَين',
+'Pick 4 players':'اختر 4 لاعبين','Sit down and deal':'اقعدوا ووزّعوا','Team A:':'الفريق أ:','· Team B:':'· الفريق ب:',
+'Teams follow the order you tap players. Scores stay individual: the first player to reach 101 loses the game for their team.':'تتشكّل الفرق حسب ترتيب اختيارك. النتائج فردية: أوّل لاعب يصل إلى 101 يخسر اللعبة لفريقه.',
+'You need 4 registered players. Add them in the Players tab.':'تحتاج إلى 4 لاعبين مسجّلين. أضفهم من صفحة اللاعبين.',
+'First deal':'أوّل توزيعة','First dealer':'الموزّع الأوّل','Pick at random':'اختيار عشوائي',
+'After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.':'بعدها، من يأخذ الـQ♠ يوزّع الجولة التالية. وإذا أخذ أحدهم كلّ أوراق الكبّة الـ13، يوزّع هو.',
+'Score the first round':'سجّل الجولة الأولى','No rounds yet. Tap “Score the first round” after the first hand is played.':'لا جولات بعد. اضغط «سجّل الجولة الأولى» بعد أوّل يد.',
+'Winners':'الفائزون','Winner':'الفائز','Rematch':'إعادة اللعب','Share result':'مشاركة النتيجة','Won':'فاز','Lost':'خسر','Clean hand':'يد نظيفة','Took all 36 → 0':'أخذ الـ36 ← 0',
+'All':'الكل','Solo':'فردي','Teams':'فرق','No games match this filter.':'لا ألعاب تطابق هذا الاختيار.',
+'games finished':'ألعاب منتهية','rounds played':'جولات ملعوبة','players':'لاعبون',
+'Most wins this month (at least 3 games). Ties go to the better win rate, then the fewest points per round.':'أكثر انتصارات هذا الشهر (3 ألعاب على الأقل). عند التعادل: نسبة الفوز الأعلى، ثمّ أقلّ نقاط في الجولة.',
+'No one has played 3 finished games yet this month. The race starts with the next game.':'لم يلعب أحد 3 ألعاب منتهية هذا الشهر بعد. السباق يبدأ مع اللعبة القادمة.',
+'Past winners':'الفائزون السابقون',"Tap a player's name to open their dashboard.":'اضغط على اسم لاعب لفتح لوحته.',
+'Win rate':'نسبة الفوز','Finished games only':'الألعاب المنتهية فقط','Average points per round':'معدّل النقاط في الجولة','Lower is better. A fair share is 9.':'الأقلّ أفضل. الحصّة العادية 9.',
+'Queen of spades taken':'مرّات أخذ بنت البستوني','Clean rounds (0 points)':'جولات نظيفة (0 نقاط)','Took all 36':'أخذ الـ36 كلّها','Solo games only':'الألعاب الفردية فقط',
+'Best partnerships':'أفضل الشراكات','Teams of 2, finished games':'فرق من لاعبَين، ألعاب منتهية','Pair':'الثنائي','Games':'ألعاب','W–L':'فوز–خسارة','Win %':'نسبة الفوز',
+'Partnership rivalries':'مواجهات الشراكات','Record of the first pair against the second':'نتيجة الثنائي الأوّل ضدّ الثاني','Matchup':'المواجهة','Record':'النتيجة',
+'Edit':'تعديل','win rate':'نسبة الفوز','points per round':'نقطة في الجولة','Q♠ taken':'مرّات Q♠','10♦ taken':'مرّات 10♦','took all 36':'أخذ الـ36','Record (won–lost)':'النتيجة (فوز–خسارة)',
+'L':'خ','W':'ف','Final score per game':'النتيجة النهائية في كلّ لعبة','Green: won · Red: lost · Grey: neither (solo games)':'أخضر: فوز · أحمر: خسارة · رمادي: لا فوز ولا خسارة (ألعاب فردية)',
+'Partnerships':'الشراكات','Best partner':'أفضل شريك','Best partner (only 1 game so far)':'أفضل شريك (لعبة واحدة حتى الآن)','Partner':'الشريك','Partnership':'الشراكة',
+'No finished team games yet.':'لا ألعاب فرق منتهية بعد.','Needs at least 2 finished games.':'يحتاج إلى لعبتين منتهيتين على الأقل.',
+'Remove':'إزالة','Edit player':'تعديل اللاعب','Replace all data with this backup':'استبدال كلّ البيانات بهذه النسخة','Delete every player and game?':'حذف كلّ اللاعبين والألعاب؟','Delete all':'حذف الكل','Paste a backup here':'الصق النسخة الاحتياطية هنا',
+'Enter both a first and a last name.':'أدخل الاسم والشهرة.','Backup file saved.':'تمّ حفظ ملف النسخة الاحتياطية.','That file is not a Sajjel 3endak backup.':'هذا الملف ليس نسخة احتياطية من سجّل عندك.',
+'That text is not a Sajjel 3endak backup. Paste the full text you copied with “Copy backup”.':'هذا النص ليس نسخة احتياطية من سجّل عندك. الصق النص الكامل الذي نسخته بـ«نسخ النسخة الاحتياطية».',
+'Copying was blocked here. Select all of the text above and copy it.':'النسخ ممنوع هنا. حدّد كلّ النص في الأعلى وانسخه.',
+'Result copied. Paste it in your WhatsApp group.':'تمّ نسخ النتيجة. الصقها في مجموعة الواتساب.','Sharing is not available here.':'المشاركة غير متاحة هنا.',
+'The phone is out of storage space for this app. Remove some player photos and try again.':'لا توجد مساحة كافية على الهاتف لهذا التطبيق. احذف بعض صور اللاعبين وحاول مجدّداً.',
+'That file could not be opened as a photo. Try a JPG or PNG.':'تعذّر فتح هذا الملف كصورة. جرّب صورة JPG أو PNG.',
+'Online sync':'المزامنة عبر الإنترنت','Online group':'المجموعة على الإنترنت','Online sync is not switched on in this copy of the app yet. Until it is, everything stays on this phone.':'المزامنة غير مفعّلة في هذه النسخة من التطبيق بعد. حتى ذلك الحين يبقى كلّ شيء على هذا الهاتف.',
+'Share players and games with your card group. Everyone who joins with the same code sees the same tables, history and stats on their own phone.':'شارك اللاعبين والألعاب مع شلّتك. كلّ من ينضمّ بنفس الرمز يرى نفس الطاولات والسجلّ والإحصاءات على هاتفه.',
+'Start a new group':'إنشاء مجموعة جديدة','Group name, e.g. Thursday Leekha':'اسم المجموعة، مثلاً: ليخة الخميس','Create':'إنشاء',"This phone's players and games go into the new group.":'لاعبو وألعاب هذا الهاتف ينتقلون إلى المجموعة الجديدة.',
+"Join a friend's group":'الانضمام إلى مجموعة صديق','Group code':'رمز المجموعة','Join':'انضمام',"Also add this phone's players and games to the group":'أضف أيضاً لاعبي وألعاب هذا الهاتف إلى المجموعة',
+"Leave it unticked to replace this phone's data with the group's. Tick it only if these players are not in the group yet, or they will appear twice.":'اتركه فارغاً لاستبدال بيانات هذا الهاتف ببيانات المجموعة. اختره فقط إذا كان هؤلاء اللاعبون غير موجودين في المجموعة، وإلّا سيظهرون مرّتين.',
+'Copy':'نسخ',"Send this code to your friends. Anyone with it can see and change this group's games, so share it only with your card group.":'أرسل هذا الرمز لأصدقائك. كلّ من يملكه يستطيع رؤية وتعديل ألعاب المجموعة، فشاركه مع شلّتك فقط.',
+'Sync now':'زامِن الآن','Leave group':'مغادرة المجموعة','Stay':'البقاء','Stop syncing on this phone? Your data stays here and online.':'إيقاف المزامنة على هذا الهاتف؟ تبقى بياناتك هنا وعلى الإنترنت.',
+'Syncing…':'جارٍ المزامنة…','Offline. Changes will sync when you are back online.':'لا اتصال. ستتمّ مزامنة التغييرات عند عودة الإنترنت.','Not synced yet':'لم تتمّ المزامنة بعد','Synced just now':'تمّت المزامنة الآن',
+'Your group is also saved online. A backup file is still a good extra copy.':'مجموعتك محفوظة أيضاً على الإنترنت. ملف النسخة الاحتياطية يبقى نسخة إضافية مفيدة.',
+"Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.":'حذف كلّ اللاعبين والألعاب على هذا الهاتف؟ سيغادر الهاتف المجموعة، وتبقى بيانات المجموعة محفوظة.',
+"Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.":'استعادة نسخة احتياطية تجعل هذا الهاتف يغادر المجموعة أوّلاً، حتى لا تُستبدل بيانات المجموعة.',
+'No internet connection. Try again when you are online.':'لا يوجد اتصال بالإنترنت. حاول مجدّداً عند الاتصال.','Type the group code first.':'اكتب رمز المجموعة أوّلاً.','No group has this code. Check it and try again.':'لا توجد مجموعة بهذا الرمز. تحقّق منه وحاول مجدّداً.',
+'Code copied.':'تمّ نسخ الرمز.','This group no longer exists online.':'هذه المجموعة لم تعد موجودة على الإنترنت.',
+};
+const MODE = {'Solo':'فردي','Teams':'فرق','Teams of 2':'فرق من لاعبَين'};
+const ARX = [
+[/^Round (\d+)$/,'الجولة $1'],[/^Round (\d+) played$/,'انتهت الجولة $1'],[/^Fixing round (\d+)$/,'تصحيح الجولة $1'],[/^Cards taken in round (\d+)$/,'الأوراق المأخوذة في الجولة $1'],
+[/^(\d+) pts$/,'$1 نقطة'],[/^(\d+) pts left · (\d+) ♥(.*)$/,'باقي $1 نقطة · $2 ♥$3'],[/^(\d+) left$/,'باقي $1'],[/^(\d+) days ago$/,'منذ $1 أيام'],
+[/^(\d+) finished games?$/,'$1 لعبة منتهية'],[/^(\d+) registered$/,'$1 مسجّل'],
+[/^(\d+) games · (\d+) wins · (\d+) losses$/,'$1 ألعاب · $2 فوز · $3 خسارة'],
+[/^(Teams of 2|Solo|Teams) · (.+)$/,(m,a,b)=>MODE[a]+' · '+(b==='not started'?'لم تبدأ':b.replace(/^round (\d+)$/,'الجولة $1'))],
+[/^(\d{4}-\d{2}-\d{2}) · (Solo|Teams) · (\d+) rounds · (.+) hit (\d+)$/,(m,d,mo,r,n,s)=>`${d} · ${MODE[mo]} · ${r} جولات · ${n} وصل إلى ${s}`],
+[/^Lowest score when someone reached (\d+) · (\d+) rounds$/,'أقلّ نتيجة عندما وصل أحدهم إلى $1 · $2 جولات'],
+[/^Team (A|B) takes the game · (\d+) rounds$/,(m,t,r)=>`الفريق ${t==='A'?'أ':'ب'} يربح اللعبة · ${r} جولات`],
+[/^(.+) took all 36: they score 0, everyone else gets 36$/,'$1 أخذ الـ36 كلّها: له 0 ولكلّ الباقين 36'],
+[/^(.+) took (.+)'s seat after round (\d+)$/,'$1 أخذ محلّ $2 بعد الجولة $3'],[/^(.+) took (.+)'s seat before the first round$/,'$1 أخذ محلّ $2 قبل الجولة الأولى'],
+[/^points\. Past rounds stay in (.+)'s own stats\.$/,'نقطة. الجولات السابقة تبقى في إحصاءات $1.'],
+[/^(.+) deals (next|first)$/,(m,n,w)=>`${n} ${w==='next'?'يوزّع الجولة التالية':'يوزّع أوّلاً'}`],
+[/^(.+) is (\d+) away from (\d+)$/,'$1 على بعد $2 من $3'],
+[/^(.+) hit (\d+)$/,'$1 وصل إلى $2'],
+[/^Showing games with (.+): (\d+) won, (\d+) lost\.$/,'ألعاب $1: $2 فوز، $3 خسارة.'],
+[/^Player of the month · (.+)$/,'لاعب الشهر · $1'],
+[/^(\d+) wins? from (\d+) games · (.+) pts\/round$/,'$1 فوز من $2 ألعاب · $3 نقطة/جولة'],
+[/^(.+) · (\d+) wins?$/,'$1 · $2 فوز'],
+[/^vs (.+)$/,'ضدّ $1'],[/^With (.+), against$/,'مع $1، ضدّ'],
+[/^(.+) · alias “(.+)” · registered (.+)$/,'$1 · اللقب «$2» · مسجّل منذ $3'],[/^(.+) · registered (.+)$/,'$1 · مسجّل منذ $2'],
+[/^♛ Player of the month(?: (\d+) times)?: (.+)$/,(m,n,l)=>`♛ لاعب الشهر${n?` ${n} مرّات`:''}: ${l}`],
+[/^Last (\d+) games, oldest first$/,'آخر $1 ألعاب، الأقدم أوّلاً'],
+[/^(.+) is already registered\. Add an alias to tell them apart\.$/,'$1 مسجّل من قبل. أضف لقباً للتمييز بينهما.'],
+[/^Another player already shows as “(.+)”\. Add an alias to tell them apart\.$/,'هناك لاعب يظهر باسم «$1». أضف لقباً للتمييز بينهما.'],
+[/^The alias “(.+)” is already taken\. Pick another one\.$/,'اللقب «$1» مستعمل. اختر لقباً آخر.'],
+[/^Backup copied: (\d+) players, (\d+) games\.$/,'تمّ نسخ النسخة الاحتياطية: $1 لاعبين، $2 ألعاب.'],
+[/^Restored (\d+) players and (\d+) games\.$/,'تمّت استعادة $1 لاعبين و$2 ألعاب.'],
+[/^Synced (\d+) min ago$/,'تمّت المزامنة منذ $1 دقيقة'],[/^Synced (.+)$/,(m,x)=>'تمّت المزامنة '+tr(x)],[/^Sync problem: (.+)$/,(m,x)=>'مشكلة في المزامنة: '+tr(x)],
+[/^Group created\. Share the code (\w+) with your friends\.$/,'تمّ إنشاء المجموعة. شارك الرمز $1 مع أصدقائك.'],[/^You joined (.+)\.$/,'انضممت إلى $1.'],
+[/^Could not create the group: (.+)$/,'تعذّر إنشاء المجموعة: $1'],[/^Could not join: (.+)$/,'تعذّر الانضمام: $1'],[/^Copy blocked\. The code is (\w+)\.$/,'النسخ ممنوع. الرمز هو $1.'],[/^The code is (\w+)\.$/,'الرمز هو $1.'],
+];
+function tr(str){ const m=String(str).match(/^(\s*)([\s\S]*?)(\s*)$/); const core=m[2]; if(!core) return str;
+  let out = Object.prototype.hasOwnProperty.call(AR,core) ? AR[core] : null;
+  if(out==null) for(const [re,rep] of ARX){ if(re.test(core)){ out=core.replace(re,rep); break; } }
+  return out==null ? str : m[1]+out+m[3]; }
+function localize(root){
+  const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:n=>n.parentElement&&n.parentElement.closest('script,style,svg,[data-raw]')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  let n; while((n=w.nextNode())){ if(n.__en==null) n.__en=n.nodeValue; const v = lang==='ar' ? tr(n.__en) : n.__en; if(n.nodeValue!==v) n.nodeValue=v; }
+  root.querySelectorAll('[placeholder]').forEach(el=>{ if(el.__ph==null) el.__ph=el.getAttribute('placeholder'); el.setAttribute('placeholder', lang==='ar'?tr(el.__ph):el.__ph); });
+}
+function applyLang(){ const r=document.documentElement; r.lang = lang==='ar'?'ar':'en'; r.dir = lang==='ar'?'rtl':'ltr';
+  const b=$('#langBtn'); if(b){ b.textContent = lang==='ar'?'EN':'ع'; b.className='langbtn'+(lang==='ar'?' en':''); b.setAttribute('aria-label', lang==='ar'?'English':'العربية'); } }
 
 /* ---------- card glyphs ---------- */
 const card = (rank,suit,cls='') => `<span class="pc ${suit==='♥'||suit==='♦'?'r':'k'} ${cls}" aria-label="${rank} of ${suit}"><span>${rank}</span><span>${suit}</span></span>`;
@@ -317,64 +517,123 @@ const handFor = (rd,pid,cls='') => {
 function render(){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-current', b.dataset.tab===tab?'page':'false'));
   const v = $('#view');
-  if(tab==='game') v.innerHTML = draft ? viewRound() : (setup ? viewSetup() : viewGame());
+  if(tab==='game') v.innerHTML = draft ? viewRound() : (setup ? viewSetup() : (cur() ? viewGame() : viewHome()));
+  if(tab==='history') v.innerHTML = draft ? viewRound() : (cur() ? viewGame() : viewHistory());
   if(tab==='players') v.innerHTML = profile ? viewProfile(profile) : viewPlayers();
   if(tab==='stats') v.innerHTML = profile ? viewProfile(profile) : viewStats();
-  const g = cur(); $('#hdrSub').textContent = tab==='game' && g ? `Round ${g.rounds.length + (draft?1:0)}` : 'Leekha';
+  applyLang();
+  const g = cur(); $('#hdrSub').textContent = g ? (result(g)&&!draft ? 'Finished' : `Round ${draft&&draft.index!=null ? draft.index+1 : g.rounds.length + (draft?1:0)}`) : 'Leekha';
+  localize(document.querySelector('.app')); localize(document.querySelector('nav.tabs')); pendingRender=false; paintSync();
 }
 
 function sampleNote(){ if(!S.players.length && !S.games.length) return `<div class="notice">New here? Register your players below, or <button class="btn sm ghost" data-act="load-sample">try it with example data</button> first.</div>`; return S.sample ? `<div class="notice">Example players and games are loaded so you can see how it works. <button class="btn sm ghost" data-act="clear-sample">Clear examples</button></div>` : ''; }
 
 function viewGame(){
   const g = cur();
-  if(!g) return `${sampleNote()}<section class="panel"><div class="row" style="gap:6px">${card('Q','♠','big')}${card('10','♦','big')}${card('1','♥','big')}</div><h2>No game on the table</h2><p class="muted" style="margin:0">Register at least 4 players, then start a game. Each round you split the 36 points between the players.</p><button class="btn primary big" data-act="new-game">Start a game</button></section>${recentGames()}`;
   const t = totals(g), res = result(g);
   const sd = sides(g);
   // partners sit opposite each other: South, West, North, East
   const order = g.mode==='teams' ? [g.seats[0], g.seats[2], g.seats[1], g.seats[3]] : g.seats;
   const spots = ['s','w','n','e'];
-  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i])).join('');
-  const banner = res ? `<section class="panel result"><div class="row between"><span class="crown">Game over</span><span class="pill lose">${esc(res.loser.who?pname(res.loser.who):res.loser.label)} hit ${res.loser.score}</span></div>
-     <p style="margin:0">Winner: <b>${res.winners.map(w=>esc(w.label)+(g.mode==='teams'?' ('+w.members.map(pname).map(esc).join(' & ')+')':'')).join(', ')}</b>${g.mode==='teams'?'':' (lowest score)'}.</p>
-     <button class="btn primary" data-act="new-game">New game</button></section>` : '';
-  return `${sampleNote()}
-  <section><div class="eyebrow">${g.mode==='teams'?'Teams of 2':'Every player for themselves'} · ${esc(g.date)}</div><h2>On the table</h2></section>
+  const dl = dealerOf(g);
+  const board = order.map((p,i)=>seat(p, t[p], g.mode==='teams' ? (g.teams[0].includes(p)?'TEAM A':'TEAM B') : '', res, spots[i], p===dl)).join('');
+  const subNotes = (g.subs||[]).map(x=>`<li>${esc(pname(x.in))} took ${esc(pname(x.out))}'s seat ${x.at?`after round ${x.at}`:'before the first round'}</li>`).join('');
+  const others = S.players.filter(p=>!g.seats.includes(p.id));
+  const subPanel = !res && subState ? `<section class="panel"><div class="row between"><h2>Substitute a player</h2><button class="btn sm ghost" data-act="sub-cancel">Cancel</button></div>
+     <div class="eyebrow">Who is leaving?</div><div class="chips">${g.seats.map(p=>`<button class="chip" data-subout="${p}" aria-pressed="${subState.out===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
+     <div class="eyebrow">Who takes the seat?</div>${others.length?`<div class="chips">${others.map(p=>`<button class="chip" data-subin="${p.id}" aria-pressed="${subState.in===p.id}">${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>`:`<p class="muted" style="margin:0;font-size:13px">Everyone registered is already at this table. Add the new player in the Players tab first.</p>`}
+     ${subState.out&&subState.in?`<div class="notice"><b>${esc(pname(subState.in))}</b> takes <b>${esc(pname(subState.out))}</b>'s seat and continues from <b>${t[subState.out]}</b> points. Past rounds stay in ${esc(pname(subState.out))}'s own stats.</div>`:''}
+     <button class="btn primary" data-act="sub-yes" ${subState.out&&subState.in?'':'disabled'}>Confirm substitution</button></section>` : '';
+  const firstDeal = !res && !g.rounds.length ? `<section class="panel"><div class="row between"><div class="eyebrow">First dealer</div><button class="btn sm ghost" data-act="rand-dealer">Pick at random</button></div>
+     <div class="chips">${g.seats.map(p=>`<button class="chip" data-firstdealer="${p}" aria-pressed="${dl===p}">${avatar(p)}${esc(pname(p))}</button>`).join('')}</div>
+     <div class="muted" style="font-size:12px">After this, whoever takes the Q♠ deals the next round. If someone takes all 13 hearts, they deal instead.</div></section>` : '';
+  const winners = res ? res.winners.flatMap(w=>w.members) : [];
+  const banner = res ? `<section class="panel result">
+     <div class="row between"><span class="crown">${winners.length>1?'Winners':'Winner'}</span><span class="pill lose">${esc(res.loser.who?pname(res.loser.who):res.loser.label)} hit ${res.loser.score}</span></div>
+     <div class="winrow">${winners.map(p=>`<span class="winner">${avatar(p,'xl')}<b>${esc(pname(p))}</b></span>`).join('')}</div>
+     <p class="muted" style="margin:0;font-size:13px">${g.mode==='teams'?res.winners[0].label+' takes the game':'Lowest score when someone reached '+LIMIT} · ${g.rounds.length} rounds</p>
+     <div class="row" style="flex-wrap:wrap"><button class="btn primary" data-act="rematch">Rematch</button><button class="btn" data-act="share">Share result</button></div>
+     ${shareMsg?`<div style="font-size:13px">${esc(shareMsg)}</div>`:''}</section>` : '';
+  const backTo = tab==='history' ? 'History' : 'All tables';
+  return `<section class="row between"><button class="btn sm ghost" data-act="close-game">← ${backTo}</button><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${esc(g.date)}</span></section>
   ${banner}
   <div class="tablebox"><div class="oval"></div>
     <div class="center"><div class="pile">${card('1','♥','big')}${card('Q','♠','big')}${card('10','♦','big')}</div><div class="rlabel">${g.rounds.length?`Round ${g.rounds.length} played`:'First deal'}</div></div>
     ${board}</div>
+  ${dl&&!res?`<div class="dealnote">${card('Q','♠')} <span><b>${esc(pname(dl))}</b> deals ${g.rounds.length?'next':'first'}</span></div>`:''}
+  ${firstDeal}
   ${res?'':`<button class="btn primary big" data-act="add-round">${g.rounds.length?'Deal next round':'Score the first round'}</button>`}
+  ${subNotes?`<ul class="subnotes">${subNotes}</ul>`:''}
+  ${subPanel}
   ${historyTable(g)}
   ${lastRoundCards(g)}
-  ${res?'':`<div class="row" style="justify-content:flex-end"><button class="btn sm ghost danger" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button><button class="btn sm ghost" data-act="new-game">Abandon & new game</button></div>`}
-  ${recentGames()}`;
+  <div class="row" style="justify-content:flex-end;flex-wrap:wrap">${res?'':`${subState?'':`<button class="btn sm ghost" data-act="sub-open">Substitute a player</button>`}<button class="btn sm ghost" data-act="undo" ${g.rounds.length?'':'disabled'}>Undo last round</button>`}
+    ${confirmDel?`<span style="font-size:13px">Delete this game for good?</span><button class="btn sm danger" data-act="del-yes">Delete</button><button class="btn sm" data-act="del-no">Keep</button>`:`<button class="btn sm ghost danger" data-act="del-game">Delete game</button>`}</div>`;
 }
-function seat(pid, score, team, res, spot){
+function seat(pid, score, team, res, spot, dealer){
   const pct = Math.min(100, score/LIMIT*100);
   const won = res && res.winners.some(w=>w.members.includes(pid)), lost = res && res.loser.members.includes(pid);
   const cls = [spot, score>=LIMIT?'bad':(score>=80?'warn':''), won?'won':'', lost?'lost':''].join(' ');
   const tag = res ? (lost?'<span class="pill lose">Lost</span>':(won?'<span class="pill win">Won</span>':(team?`<span class="team">${team}</span>`:''))) : (score>=80&&score<LIMIT?`<span class="pill hot">${LIMIT-score} left</span>`:(team?`<span class="team">${team}</span>`:''));
-  return `<div class="seat ${cls}">${avatar(pid,'lg')}<span class="name">${esc(pname(pid))}</span>
+  return `<div class="seat ${cls}"><span class="avwrap">${avatar(pid,'lg')}${dealer&&!res?'<span class="dealer">Deals</span>':''}</span><span class="name">${esc(pname(pid))}</span>
     <span class="score">${score}<small>/${LIMIT}</small></span><div class="meter"><i style="width:${pct}%"></i></div><div class="tag">${tag}</div></div>`;
 }
 function historyTable(g){
   if(!g.rounds.length) return `<section class="panel"><p class="muted" style="margin:0">No rounds yet. Tap “Score the first round” after the first hand is played.</p></section>`;
   const t = totals(g);
-  return `<section class="panel"><div class="eyebrow">Round by round</div><div class="tablewrap"><table>
+  return `<section class="panel"><div class="row between"><div class="eyebrow">Round by round</div><span class="muted" style="font-size:11.5px">Tap ✎ to fix a round</span></div><div class="tablewrap"><table>
     <thead><tr><th>#</th>${g.seats.map(p=>`<th>${esc(pname(p).slice(0,7))}</th>`).join('')}</tr></thead>
-    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num">${i+1}</td>${g.seats.map(p=>{const v=roundPts(rd,p);return `<td class="num">${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
+    <tbody>${g.rounds.map((rd,i)=>`<tr><td class="num"><button class="redit" data-editround="${i}" aria-label="Fix round ${i+1}">${i+1} ✎</button></td>${occAt(g,i).map((p,k)=>{const v=roundPts(rd,p);return `<td class="num${p!==g.seats[k]?' was':''}" ${p!==g.seats[k]?`title="${esc(pname(p))}"`:''}>${v?v:'<span class="muted">0</span>'}${rd.queen===p?' <span>♠</span>':''}${rd.ten===p?' <span style="color:var(--red)">♦</span>':''}${rd.moon===p?' <span class="ok">★</span>':''}</td>`}).join('')}</tr>`).join('')}</tbody>
     <tfoot><tr><td>Total</td>${g.seats.map(p=>`<td class="num">${t[p]}</td>`).join('')}</tr></tfoot></table></div></section>`;
 }
 function lastRoundCards(g){
   if(!g.rounds.length) return '';
   const rd = g.rounds[g.rounds.length-1];
   return `<section class="panel"><div class="eyebrow">Cards taken in round ${g.rounds.length}</div>
-    ${g.seats.map(p=>`<div class="row" style="align-items:flex-start"><div style="width:76px;flex:none;font-weight:600">${esc(pname(p))}<div class="num muted" style="font-size:12px">${rd.moon===p?'Took all 36 → 0':roundPts(rd,p)+' pts'}</div></div><div class="hand">${handFor(rd,p)||'<span class="muted" style="font-size:13px">Clean hand</span>'}</div></div>`).join('')}</section>`;
+    ${occAt(g,g.rounds.length-1).map(p=>`<div class="row" style="align-items:flex-start"><div style="width:76px;flex:none;font-weight:600">${esc(pname(p))}<div class="num muted" style="font-size:12px">${rd.moon===p?'Took all 36 → 0':roundPts(rd,p)+' pts'}</div></div><div class="hand">${handFor(rd,p)||'<span class="muted" style="font-size:13px">Clean hand</span>'}</div></div>`).join('')}</section>`;
 }
-function recentGames(){
-  const done = S.games.filter(g=>result(g)&&g.id!==S.current).slice(-3).reverse();
-  if(!done.length) return '';
-  return `<section class="panel"><div class="eyebrow">Recent games</div>${done.map(g=>{const r=result(g);return `<div class="row between"><span>${esc(g.date)} · ${g.mode==='teams'?'Teams':'Solo'}</span><span>Won by <b>${r.winners.map(w=>esc(w.label)).join(', ')}</b></span></div>`}).join('')}</section>`;
+function tableCard(g){
+  const t = totals(g); const order = g.mode==='teams' ? [g.teams[0][0],g.teams[0][1],g.teams[1][0],g.teams[1][1]] : g.seats.slice().sort((a,b)=>t[a]-t[b]);
+  const hot = g.seats.filter(p=>t[p]>=80).sort((a,b)=>t[b]-t[a])[0];
+  return `<button class="gcard" data-open="${g.id}">
+    <div class="row between"><span class="eyebrow">${g.mode==='teams'?'Teams of 2':'Solo'} · ${g.rounds.length?`round ${g.rounds.length}`:'not started'}</span><span class="muted" style="font-size:12px">${ago(lastPlayed(g))}</span></div>
+    <div class="gseats">${order.map((p,i)=>`${g.mode==='teams'&&i===2?'<span class="vs">vs</span>':''}<span class="gs ${t[p]>=80?'hot':''}">${avatar(p)}<span class="nm">${esc(pname(p))}</span><b class="num">${t[p]}</b></span>`).join('')}</div>
+    ${hot?`<div class="gwarn">${esc(pname(hot))} is ${LIMIT-t[hot]} away from ${LIMIT}</div>`:''}
+    ${dealerOf(g)?`<div class="muted" style="font-size:12px">${esc(pname(dealerOf(g)))} deals ${g.rounds.length?'next':'first'}</div>`:''}
+    <span class="go">Continue →</span></button>`;
+}
+function resultCard(g){
+  const r = result(g); const t = totals(g); const winners = r.winners.flatMap(w=>w.members);
+  return `<button class="hcard" data-open="${g.id}">
+    <div class="hav">${winners.map(p=>avatar(p)).join('')}</div>
+    <div style="min-width:0"><div class="hwin">${winners.map(pname).map(esc).join(' & ')}</div>
+      <div class="muted" style="font-size:12px">${esc(g.date)} · ${g.mode==='teams'?'Teams':'Solo'} · ${g.rounds.length} rounds · ${esc(r.loser.who?pname(r.loser.who):r.loser.label)} hit ${r.loser.score}</div></div>
+    <span class="muted">›</span></button>`;
+}
+function viewHome(){
+  const open = S.games.filter(g=>!result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a));
+  const done = S.games.filter(g=>result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a)).slice(0,3);
+  return `${sampleNote()}
+  <section class="row between"><div><div class="eyebrow">Leekha</div><h2>Open tables</h2></div>${open.length?`<button class="btn primary" data-act="new-game">+ New game</button>`:''}</section>
+  ${open.length ? `<div class="glist">${open.map(tableCard).join('')}</div><p class="muted" style="margin:0;font-size:12.5px">Someone had to leave? Just go back to the tables. The game waits here until you continue it.</p>`
+    : `<section class="panel"><div class="row" style="gap:6px">${card('Q','♠','big')}${card('10','♦','big')}${card('1','♥','big')}</div><h2>No game on the table</h2><p class="muted" style="margin:0">Start a game with 4 registered players. You can keep several games open at once and come back to any of them later.</p><button class="btn primary big" data-act="new-game">Start a game</button></section>`}
+  ${done.length?`<section class="panel"><div class="row between"><div class="eyebrow">Recently finished</div><button class="btn sm ghost" data-go="history">See all</button></div><div class="hlist">${done.map(resultCard).join('')}</div></section>`:''}`;
+}
+function viewHistory(){
+  let done = S.games.filter(g=>result(g)).sort((a,b)=>lastPlayed(b)-lastPlayed(a));
+  const all = done.length;
+  if(histMode!=='all') done = done.filter(g=>g.mode===histMode);
+  if(histPlayer) done = done.filter(g=>g.seats.includes(histPlayer));
+  const months = {}; done.forEach(g=>{ const k=(g.date||'').slice(0,7); (months[k]=months[k]||[]).push(g); });
+  const mname = k => { const [y,m]=k.split('-'); return new Date(+y, +m-1, 1).toLocaleDateString('en-GB',{month:'long',year:'numeric'}); };
+  const played = S.players.filter(p=>S.games.some(g=>result(g)&&g.seats.includes(p.id)));
+  return `${sampleNote()}<section><div class="eyebrow">${all} finished game${all===1?'':'s'}</div><h2>History</h2></section>
+  ${all?`<section class="panel">
+    <div class="seg"><button data-hmode="all" aria-pressed="${histMode==='all'}">All</button><button data-hmode="solo" aria-pressed="${histMode==='solo'}">Solo</button><button data-hmode="teams" aria-pressed="${histMode==='teams'}">Teams</button></div>
+    <div class="chips">${played.map(p=>`<button class="chip" data-hplayer="${p.id}" aria-pressed="${histPlayer===p.id}">${avatar(p.id)}${esc(p.name)}</button>`).join('')}</div>
+    ${histPlayer?`<div class="muted" style="font-size:12.5px">Showing games with ${esc(pname(histPlayer))}: ${done.filter(g=>result(g).winners.some(w=>w.members.includes(histPlayer))).length} won, ${done.filter(g=>result(g).loser.members.includes(histPlayer)).length} lost.</div>`:''}
+  </section>`:''}
+  ${Object.keys(months).map(k=>`<section class="hmonth"><div class="eyebrow">${monthName(k)}</div><div class="hlist">${months[k].map(resultCard).join('')}</div></section>`).join('') || `<section class="panel"><p class="muted" style="margin:0">${all?'No games match this filter.':'Finished games will appear here.'}</p></section>`}`;
 }
 
 /* new game setup */
@@ -398,15 +657,15 @@ function viewSetup(){
 /* round entry */
 function allocated(){ let n = Object.values(draft.hearts).reduce((a,b)=>a+b,0); return {hearts:n, total:n+(draft.queen?13:0)+(draft.ten?10:0)}; }
 function viewRound(){
-  const g = cur(); const a = allocated();
+  const g = cur(); const a = allocated(); const seatsR = draft.index!=null ? occAt(g,draft.index) : g.seats;
   const heartsLeft = HEARTS - a.hearts;
   const done = a.total===TOTAL;
   const left = TOTAL - a.total;
-  const moon = g.mode==='solo' ? g.seats.find(p=>rawPts(draft,p)===TOTAL) : null;
+  const moon = g.mode==='solo' ? seatsR.find(p=>rawPts(draft,p)===TOTAL) : null;
   const msg = moon ? `<span class="ok">${esc(pname(moon))} took all 36: they score 0, everyone else gets 36</span>` : done ? `<span class="ok">All 36 points allocated</span>` : `<span>${left} pts left · ${heartsLeft} ♥${!draft.queen?' · Q♠':''}${!draft.ten?' · 10♦':''}</span>`;
-  return `<section class="row between"><div><div class="eyebrow">Round ${g.rounds.length+1}</div><h2>Who took what?</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
+  return `<section class="row between"><div><div class="eyebrow">${draft.index!=null?`Fixing round ${draft.index+1}`:`Round ${g.rounds.length+1}`}</div><h2>Who took what?</h2></div><button class="btn sm ghost" data-act="cancel-round">Cancel</button></section>
   <div class="notice">Each ♥ is 1 point, the 10♦ is 10, the Q♠ is 13. The round is complete at 36.${g.mode==='solo'?' If one player takes all 36, they score 0 and the other three get 36 each.':''}</div>
-  <div class="alloc">${g.seats.map(p=>{const h=draft.hearts[p]||0;const pts=h+(draft.queen===p?13:0)+(draft.ten===p?10:0);
+  <div class="alloc">${seatsR.map(p=>{const h=draft.hearts[p]||0;const pts=h+(draft.queen===p?13:0)+(draft.ten===p?10:0);
     return `<div class="prow"><div class="head"><span class="who">${avatar(p)}<b>${esc(pname(p))}</b></span><span class="pts">${pts}<span class="muted" style="font-size:12px;font-family:var(--f-mono)"> pts</span></span></div>
       <div class="row between" style="flex-wrap:wrap">
         <div class="step"><button data-h="${p}" data-d="-1" aria-label="One less heart for ${esc(pname(p))}" ${h?'':'disabled'}>−</button><span class="num">${h}</span><button data-h="${p}" data-d="1" aria-label="One more heart for ${esc(pname(p))}" ${heartsLeft?'':'disabled'}>+</button><span class="muted" style="font-size:13px">♥</span></div>
@@ -416,7 +675,7 @@ function viewRound(){
         </div></div>
       <div class="hand">${handFor(draft,p)}</div></div>`}).join('')}</div>
   <div class="total-bar"><span class="num" style="font-weight:700;font-size:18px">${a.total}<span class="muted" style="font-size:13px">/36</span></span><div class="meter"><i style="width:${a.total/TOTAL*100}%"></i></div></div>
-  <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>Save round</button></div>`;
+  <div class="row between" style="flex-wrap:wrap"><span style="font-size:13px">${msg}</span><button class="btn primary" data-act="save-round" ${done?'':'disabled'}>${draft.index!=null?'Save changes':'Save round'}</button></div>`;
 }
 
 /* players */
@@ -428,13 +687,15 @@ function viewPlayers(){
   <div class="plist">${S.players.map(p=>{const s=st[p.id];return `<div class="pitem">${avatar(p.id)}
     <button class="grow plink" data-prof="${p.id}"><b>${esc(p.name)}</b> <span class="muted">›</span><div class="muted" style="font-size:13px">${esc(fullName(p))}</div><div class="muted" style="font-size:13px">${s.games} games · ${s.wins} wins · ${s.losses} losses</div></button>
     <button class="btn sm ghost danger" data-del="${p.id}" ${s.games?'disabled title="Has game history"':''}>Remove</button></div>`}).join('') || '<p class="muted">No players yet.</p>'}</div></section>
-  <section class="panel"><div><div class="eyebrow">Backup</div><div class="muted" style="font-size:13px">Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.</div></div>
+  ${syncPanel()}
+  <section class="panel"><div><div class="eyebrow">Backup</div><div class="muted" style="font-size:13px">${SY.code?'Your group is also saved online. A backup file is still a good extra copy.':'Everything is saved on this phone only. Copy a backup now and then, and keep it in your notes or send it to yourself.'}</div></div>
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="copy-backup">Copy backup</button><button class="btn sm" data-act="download-backup">Save backup file</button><button class="btn sm ghost" data-act="show-restore">Restore from backup</button><label class="btn sm ghost" style="cursor:pointer">Open backup file<input type="file" id="backupFile" accept=".json,application/json" hidden></label></div>
     ${showBackup?`<textarea id="backupOut" readonly rows="4" aria-label="Backup text">${esc(JSON.stringify(S))}</textarea><div class="muted" style="font-size:12px">Copying was blocked here. Select all of the text above and copy it.</div>`:''}
+    ${confirmRestore&&SY.code?`<div class="notice">Restoring a backup makes this phone leave the online group first, so the group's data is not overwritten.</div>`:''}
     ${confirmRestore?`<textarea id="restoreIn" rows="4" placeholder="Paste a backup here" aria-label="Paste a backup"></textarea><div class="row" style="flex-wrap:wrap"><button class="btn sm danger" data-act="restore">Replace all data with this backup</button><button class="btn sm ghost" data-act="cancel-restore">Cancel</button></div>`:''}
     ${backupMsg?`<div style="font-size:13px">${esc(backupMsg)}</div>`:''}</section>
   <section class="panel"><div class="eyebrow">Data</div>
-    ${confirmClear ? `<div class="confirm"><span>Delete every player and game?</span><button class="btn sm danger" data-act="reset-yes">Delete all</button><button class="btn sm" data-act="reset-no">Keep</button></div>` : `<button class="btn sm ghost danger" data-act="reset">Delete all players and games</button>`}</section>`;
+    ${confirmClear ? `<div class="confirm"><span>${SY.code?'Delete every player and game on this phone? This phone leaves the online group; the group keeps its data.':'Delete every player and game?'}</span><button class="btn sm danger" data-act="reset-yes">Delete all</button><button class="btn sm" data-act="reset-no">Keep</button></div>` : `<button class="btn sm ghost danger" data-act="reset">Delete all players and games</button>`}</section>`;
 }
 
 /* stats */
@@ -442,10 +703,36 @@ function stats(){
   const st = {}; S.players.forEach(p=>st[p.id]={games:0,wins:0,losses:0,rounds:0,pts:0,queens:0,tens:0,clean:0,moons:0});
   S.games.forEach(g=>{
     const res = result(g);
-    g.rounds.forEach(rd=>g.seats.forEach(p=>{ if(!st[p]) return; const v=roundPts(rd,p); st[p].rounds++; st[p].pts+=v; if(rd.queen===p)st[p].queens++; if(rd.ten===p)st[p].tens++; if(!v&&rd.moon!==p)st[p].clean++; if(rd.moon===p)st[p].moons++; }));
+    g.rounds.forEach(rd=>Object.keys(rd.hearts).forEach(p=>{ if(!st[p]) return; const v=roundPts(rd,p); st[p].rounds++; st[p].pts+=v; if(rd.queen===p)st[p].queens++; if(rd.ten===p)st[p].tens++; if(!v&&rd.moon!==p)st[p].clean++; if(rd.moon===p)st[p].moons++; }));
     if(res) g.seats.forEach(p=>{ if(!st[p]) return; st[p].games++; if(res.loser.members.includes(p)) st[p].losses++; if(res.winners.some(w=>w.members.includes(p))) st[p].wins++; });
   });
   return st;
+}
+function monthTable(){ // month -> player -> {games,wins,pts,rounds}
+  const m = {};
+  S.games.forEach(g=>{ const r=result(g); if(!r) return; const k=(g.date||'').slice(0,7); const mt=m[k]=m[k]||{};
+    g.seats.forEach(p=>{ const x=mt[p]=mt[p]||{games:0,wins:0,pts:0,rounds:0}; x.games++; if(r.winners.some(w=>w.members.includes(p))) x.wins++; });
+    g.rounds.forEach(rd=>Object.keys(rd.hearts).forEach(p=>{ const x=mt[p]=mt[p]||{games:0,wins:0,pts:0,rounds:0}; x.pts+=roundPts(rd,p); x.rounds++; })); });
+  return m;
+}
+const MIN_GAMES = 3;
+function rankMonth(mt){ return Object.entries(mt).filter(([p,x])=>x.games>=MIN_GAMES && S.players.some(q=>q.id===p))
+  .sort((a,b)=>b[1].wins-a[1].wins || b[1].wins/b[1].games-a[1].wins/a[1].games || a[1].pts/Math.max(1,a[1].rounds)-b[1].pts/Math.max(1,b[1].rounds)); }
+const monthName = k => { const [y,mm]=k.split('-'); return new Date(+y, +mm-1, 1).toLocaleDateString(lang==='ar'?'ar-LB':'en-GB',{month:'long',year:'numeric'}); };
+function potmTitles(){ const t={}; const now=new Date().toISOString().slice(0,7); const mt=monthTable(); Object.keys(mt).filter(k=>k<now).forEach(k=>{ const top=rankMonth(mt[k])[0]; if(top) (t[top[0]]=t[top[0]]||[]).push(k); }); return t; }
+function potmPanel(){
+  const mt = monthTable(); const now = new Date().toISOString().slice(0,7);
+  const ranked = rankMonth(mt[now]||{});
+  const line = x => `${x.wins} win${x.wins===1?'':'s'} from ${x.games} games · ${x.rounds?(x.pts/x.rounds).toFixed(1):'–'} pts/round`;
+  const past = Object.keys(mt).filter(k=>k<now).sort().reverse().map(k=>[k,rankMonth(mt[k])[0]]).filter(x=>x[1]);
+  return `<section class="panel potm"><div class="eyebrow">Player of the month · ${monthName(now)}</div>
+    ${ranked.length?`<button class="potm-top plink" data-prof="${ranked[0][0]}"><span class="crownwrap">${avatar(ranked[0][0],'xl')}<span class="crownic" aria-hidden="true">♛</span></span>
+      <span><b class="potm-name">${esc(pname(ranked[0][0]))}</b><span class="muted" style="display:block;font-size:13px">${line(ranked[0][1])}</span></span></button>
+      ${ranked.slice(1,3).map(([p,x],i)=>`<button class="potm-run plink" data-prof="${p}"><span class="num muted">${i+2}</span>${avatar(p)}<span style="min-width:0"><b>${esc(pname(p))}</b><span class="muted" style="display:block;font-size:12px">${line(x)}</span></span></button>`).join('')}`
+    :`<p class="muted" style="margin:0;font-size:13px">No one has played ${MIN_GAMES} finished games yet this month. The race starts with the next game.</p>`}
+    <div class="muted" style="font-size:11.5px">Most wins this month (at least ${MIN_GAMES} games). Ties go to the better win rate, then the fewest points per round.</div>
+    ${past.length?`<div class="eyebrow" style="margin-top:4px">Past winners</div><div class="potm-past">${past.map(([k,[p,x]])=>`<button class="potm-run plink" data-prof="${p}">${avatar(p)}<span style="min-width:0"><b>${esc(pname(p))}</b><span class="muted" style="display:block;font-size:12px">${monthName(k)} · ${x.wins} wins</span></span></button>`).join('')}</div>`:''}
+  </section>`;
 }
 function viewStats(){
   const st = stats(); const finished = S.games.filter(result).length;
@@ -458,6 +745,7 @@ function viewStats(){
   };
   if(!ps.length) return `${sampleNote()}<section class="panel"><h2>No stats yet</h2><p class="muted" style="margin:0">Play a few rounds and the leaderboard fills in here.</p></section>`;
   return `${sampleNote()}<div class="kpis"><div class="kpi"><b class="num">${finished}</b><span>games finished</span></div><div class="kpi"><b class="num">${rounds}</b><span>rounds played</span></div><div class="kpi"><b class="num">${S.players.length}</b><span>players</span></div></div>
+  ${potmPanel()}
   <div class="notice">Tap a player's name to open their dashboard.</div>
   ${bars('Win rate', s=>s.games?s.wins/s.games:0, v=>Math.round(v*100)+'%', 'Finished games only')}
   ${bars('Average points per round', s=>s.rounds?s.pts/s.rounds:0, v=>v.toFixed(1), 'Lower is better. A fair share is 9.')}
@@ -508,7 +796,7 @@ function spark(hist){
 function viewProfile(id){
   const p = S.players.find(x=>x.id===id);
   if(!p){ profile=null; return tab==='stats' ? viewStats() : viewPlayers(); }
-  const s = stats()[id]; const {pairs, vs} = partnerships();
+  const s = stats()[id]; const {pairs, vs} = partnerships(); const titles = potmTitles()[id]||[];
   const hist = S.games.filter(g=>g.seats.includes(id) && result(g)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0)
     .map(g=>{ const r=result(g); return {g, won:r.winners.some(w=>w.members.includes(id)), lost:r.loser.members.includes(id), final:totals(g)[id]}; });
   const rec = m => { const h=hist.filter(x=>x.g.mode===m); return `${h.filter(x=>x.won).length}–${h.filter(x=>x.lost).length}`; };
@@ -520,6 +808,7 @@ function viewProfile(id){
     <div style="flex:1;min-width:0"><h2>${esc(p.name)}</h2><div class="muted" style="font-size:13px">${esc(fullName(p))}${p.alias?` · alias “${esc(p.alias)}”`:''} · registered ${esc(p.joined||'')}</div></div>
     ${editing?'':`<button class="btn sm ghost" data-act="edit-player">Edit</button>`}</section>
   ${editing?`<section class="panel"><h2>Edit player</h2>${nameForm('editForm', p, 'Save changes')}<button class="btn sm ghost" data-act="cancel-edit">Cancel</button></section>`:''}
+  ${titles.length?`<div class="notice potm-badge">♛ Player of the month${titles.length>1?` ${titles.length} times`:''}: ${titles.map(monthName).join(', ')}</div>`:''}
   <div class="kpis"><div class="kpi"><b class="num">${s.games}</b><span>games finished</span></div><div class="kpi"><b class="num">${pct(s.wins,s.games)}</b><span>win rate</span></div><div class="kpi"><b class="num">${s.rounds?(s.pts/s.rounds).toFixed(1):'–'}</b><span>points per round</span></div></div>
   <div class="kpis"><div class="kpi"><b class="num">${s.queens}</b><span>Q♠ taken</span></div><div class="kpi"><b class="num">${s.tens}</b><span>10♦ taken</span></div><div class="kpi"><b class="num">${s.moons}</b><span>took all 36</span></div></div>
   <section class="panel"><div class="eyebrow">Record (won–lost)</div>
@@ -591,11 +880,119 @@ function avatarEditor(){
     <div class="avrow"><span>${f.hair===6?'Scarf / top':'Top'}</span><div class="sws">${sw('shirt',SHIRTS)}</div></div>`}`;
 }
 function startAvatar(forId, p){ avDraft = {for:forId, face:{...(p?faceOf(p):randomFace(Date.now()))}, photo:p?(p.photo||null):null, color:p?colorOf(p.id):PALETTE[S.players.length % PALETTE.length]}; }
-function refreshAvatar(){ const box=$('#avEd'); if(box) box.innerHTML = avatarEditor(); }
+function refreshAvatar(){ const box=$('#avEd'); if(box){ box.innerHTML = avatarEditor(); localize(box); } }
 function resizePhoto(file){ return new Promise((ok,fail)=>{ const url=URL.createObjectURL(file); const img=new Image();
   img.onload=()=>{ const n=192, c=document.createElement('canvas'); c.width=c.height=n; const s=Math.min(img.naturalWidth,img.naturalHeight);
     c.getContext('2d').drawImage(img,(img.naturalWidth-s)/2,(img.naturalHeight-s)/2,s,s,0,0,n,n); URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg',.82)); };
   img.onerror=()=>{ URL.revokeObjectURL(url); fail(); }; img.src=url; }); }
+
+
+/* ---------- online sync (Supabase) ---------- */
+// Paste your Supabase Project URL and publishable key here (Supabase > Project Settings > API Keys).
+const SUPA_URL = 'https://ubbnrqpvpsbodfknzjli.supabase.co';
+const SUPA_KEY = 'sb_publishable_h1nVsRCsRaTkiS2Fce2pnA_q7GuN0H9';
+const SYNC_KEY = 'sajjel-sync-v1';
+const syncReady = () => /^https:\/\//.test(SUPA_URL) && SUPA_KEY.length > 20;
+let SY = (()=>{ try{ return JSON.parse(localStorage.getItem(SYNC_KEY)) || null; }catch(e){ return null; } })() || {code:null,name:null,cursor:0,hashes:{},last:0};
+const saveSY = () => { try{ localStorage.setItem(SYNC_KEY, JSON.stringify(SY)); }catch(e){} };
+let syncState = 'idle', syncErr = '', syncMsg = '', syncBusyUI = false, confirmLeave = false, pendingRender = false;
+async function rpc(fn, args){
+  let r; try{ r = await fetch(SUPA_URL.replace(/\/+$/,'') + '/rest/v1/rpc/' + fn, {method:'POST', headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'}, body:JSON.stringify(args)}); }
+  catch(e){ const x=new Error('offline'); x.offline=true; throw x; }
+  const txt = await r.text(); let j=null; try{ j = txt ? JSON.parse(txt) : null; }catch(e){}
+  if(!r.ok){ const x=new Error((j && (j.message||j.hint)) || ('HTTP '+r.status)); x.status=r.status; throw x; }
+  return j;
+}
+function strHash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0).toString(36)+'.'+s.length; }
+const recKey = (kind,id) => kind+':'+id;
+function localRecords(){ const m={};
+  S.players.forEach(p=>{ if(!p.sample) m[recKey('player',p.id)]={kind:'player',id:p.id,data:p}; });
+  S.games.forEach(g=>{ if(!g.sample) m[recKey('game',g.id)]={kind:'game',id:g.id,data:g}; });
+  return m; }
+function applyRemote(r){
+  if(r.kind==='player'){ const p=r.data; if(p.first===undefined){ const parts=(p.name||'').trim().split(/\s+/); p.first=parts[0]||''; p.last=parts.slice(1).join(' '); }
+    p.alias=p.alias||''; p.name=display(p); if(!p.color) p.color=PALETTE[S.players.length % PALETTE.length];
+    const i=S.players.findIndex(x=>x.id===r.id); if(i>=0) S.players[i]=p; else S.players.push(p); return p; }
+  const g=r.data; g.type=g.type||'leekha'; const i=S.games.findIndex(x=>x.id===r.id); if(i>=0) S.games[i]=g; else S.games.push(g); return g;
+}
+function removeLocal(kind,id){ if(kind==='player') S.players=S.players.filter(p=>p.id!==id); else S.games=S.games.filter(g=>g.id!==id); }
+let syncing=null, syncAgain=false, syncTimer=null;
+function scheduleSync(){ if(!syncReady()||!SY.code) return; clearTimeout(syncTimer); syncTimer=setTimeout(syncNow, 1200); }
+function syncNow(){
+  if(!syncReady() || !SY.code) return Promise.resolve();
+  if(syncing){ syncAgain=true; return syncing; }
+  syncing = (async()=>{
+    syncState='busy'; paintSync(); let changed=false;
+    try{
+      // 1. bring in what the others changed (5 s overlap so nothing slips between two saves)
+      const rows = await rpc('sj_pull', {p_code:SY.code, p_since:Math.max(0,(SY.cursor||0)-5000)}) || [];
+      const local = localRecords(); let maxTs = SY.cursor||0;
+      for(const r of rows){
+        maxTs = Math.max(maxTs, +r.server_ts||0); const k=recKey(r.kind,r.id), loc=local[k];
+        const dirty = loc ? strHash(JSON.stringify(loc.data))!==SY.hashes[k] : SY.hashes[k]!=null;   // changed or deleted here, not sent yet
+        if(dirty) continue;                       // this phone's newer change is sent below and wins
+        if(r.deleted){ if(loc){ removeLocal(r.kind,r.id); changed=true; } delete SY.hashes[k]; continue; }
+        if(loc && strHash(JSON.stringify(r.data))===SY.hashes[k]) continue;
+        const obj = applyRemote(r); SY.hashes[k]=strHash(JSON.stringify(obj)); changed=true;
+      }
+      if(changed) saveLocal();
+      // 2. send what changed on this phone
+      const now=Date.now(), mine=localRecords(), out=[];
+      for(const k in mine){ const h=strHash(JSON.stringify(mine[k].data)); if(h!==SY.hashes[k]) out.push({row:{kind:mine[k].kind,id:mine[k].id,data:mine[k].data,updated_at:now,deleted:false},k,h}); }
+      for(const k in SY.hashes){ if(!mine[k]){ const i=k.indexOf(':'); out.push({row:{kind:k.slice(0,i),id:k.slice(i+1),data:null,updated_at:now,deleted:true},k,h:null}); } }
+      for(let i=0;i<out.length;i+=100){ const part=out.slice(i,i+100); await rpc('sj_push', {p_code:SY.code, p_rows:part.map(x=>x.row)});
+        part.forEach(x=>{ if(x.h==null) delete SY.hashes[x.k]; else SY.hashes[x.k]=x.h; }); }
+      SY.cursor=maxTs; SY.last=Date.now(); saveSY(); syncState='idle'; syncErr='';
+    }catch(e){ syncState = e.offline ? 'offline' : 'error'; syncErr = e.message; if(/Unknown group code/.test(e.message)) syncErr='This group no longer exists online.'; saveSY(); }
+    syncing=null; paintSync(); if(changed) safeRender();
+    if(syncAgain){ syncAgain=false; setTimeout(syncNow, 300); }
+  })();
+  return syncing;
+}
+function safeRender(){ const a=document.activeElement;
+  if(draft || setup || editing || subState || avDraft&&tab==='players' || (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))){ pendingRender=true; return; }
+  render(); }
+function syncLabel(){
+  if(syncState==='busy') return 'Syncing…';
+  if(syncState==='offline') return 'Offline. Changes will sync when you are back online.';
+  if(syncState==='error') return 'Sync problem: '+syncErr;
+  if(!SY.last) return 'Not synced yet';
+  const m=Math.floor((Date.now()-SY.last)/60000); return m<1 ? 'Synced just now' : m<60 ? `Synced ${m} min ago` : `Synced ${ago(SY.last)}`;
+}
+function paintSync(){
+  const d=$('#syncDot'); if(d){ d.hidden=!(syncReady()&&SY.code); d.className='syncdot '+syncState; d.title=syncLabel(); }
+  const l=$('#syncLabel'); if(l){ l.textContent=syncLabel(); localize(l); }
+}
+function syncPanel(){
+  if(!syncReady()) return `<section class="panel"><div><div class="eyebrow">Online sync</div><div class="muted" style="font-size:13px">Online sync is not switched on in this copy of the app yet. Until it is, everything stays on this phone.</div></div></section>`;
+  if(!SY.code) return `<section class="panel sync"><div><div class="eyebrow">Online sync</div><div class="muted" style="font-size:13px">Share players and games with your card group. Everyone who joins with the same code sees the same tables, history and stats on their own phone.</div></div>
+    <div class="syncbox"><b>Start a new group</b><div class="row"><input type="text" id="syncName" maxlength="40" placeholder="Group name, e.g. Thursday Leekha" autocomplete="off"><button class="btn primary" data-act="sync-create" ${syncBusyUI?'disabled':''}>Create</button></div>
+      <div class="muted" style="font-size:12px">This phone's players and games go into the new group.</div></div>
+    <div class="syncbox"><b>Join a friend's group</b><div class="row"><input type="text" id="syncCode" maxlength="8" placeholder="Group code" autocomplete="off" autocapitalize="characters" style="text-transform:uppercase;font-family:var(--f-mono);letter-spacing:.12em"><button class="btn" data-act="sync-join" ${syncBusyUI?'disabled':''}>Join</button></div>
+      ${(S.players.some(p=>!p.sample)||S.games.some(g=>!g.sample))?`<label class="check"><input type="checkbox" id="syncMerge"> Also add this phone's players and games to the group</label><div class="muted" style="font-size:12px">Leave it unticked to replace this phone's data with the group's. Tick it only if these players are not in the group yet, or they will appear twice.</div>`:''}</div>
+    ${syncMsg?`<div class="err" style="font-size:13px">${esc(syncMsg)}</div>`:''}</section>`;
+  return `<section class="panel sync"><div class="row between"><div><div class="eyebrow">Online group</div><h2>${esc(SY.name||'')}</h2></div><span class="syncdot big ${syncState}"></span></div>
+    <div class="codebox"><span class="muted" style="font-size:12px">Group code</span><b class="num" data-raw>${esc(SY.code)}</b><button class="btn sm" data-act="sync-copy">Copy</button></div>
+    <div class="muted" style="font-size:12.5px">Send this code to your friends. Anyone with it can see and change this group's games, so share it only with your card group.</div>
+    <div id="syncLabel" style="font-size:13px">${esc(syncLabel())}</div>
+    ${syncMsg?`<div style="font-size:13px">${esc(syncMsg)}</div>`:''}
+    <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-act="sync-now">Sync now</button>
+      ${confirmLeave?`<span style="font-size:13px">Stop syncing on this phone? Your data stays here and online.</span><button class="btn sm danger" data-act="sync-leave-yes">Leave group</button><button class="btn sm" data-act="sync-leave-no">Stay</button>`:`<button class="btn sm ghost danger" data-act="sync-leave">Leave group</button>`}</div></section>`;
+}
+function leaveGroup(){ SY={code:null,name:null,cursor:0,hashes:{},last:0}; saveSY(); syncState='idle'; paintSync(); }
+async function syncCreate(){ const name=($('#syncName')||{}).value||''; syncBusyUI=true; syncMsg=''; render();
+  try{ const r=(await rpc('sj_create_group',{p_name:name}))[0]; SY={code:r.code,name:r.name,cursor:0,hashes:{},last:0}; saveSY(); syncBusyUI=false; render(); await syncNow(); syncMsg=`Group created. Share the code ${r.code} with your friends.`; }
+  catch(e){ syncBusyUI=false; syncMsg = e.offline ? 'No internet connection. Try again when you are online.' : 'Could not create the group: '+e.message; }
+  render(); }
+async function syncJoin(){ const code=(($('#syncCode')||{}).value||'').trim().toUpperCase(); const merge=!!($('#syncMerge')||{}).checked;
+  if(!code){ syncMsg='Type the group code first.'; render(); return; }
+  syncBusyUI=true; syncMsg=''; render();
+  try{ const info=await rpc('sj_group_info',{p_code:code}); if(!info||!info.length){ syncBusyUI=false; syncMsg='No group has this code. Check it and try again.'; render(); return; }
+    if(!merge){ S={players:S.players.filter(p=>p.sample),games:S.games.filter(g=>g.sample),current:null,sample:S.sample}; openG=openH=null; saveLocal(); }
+    SY={code:info[0].code,name:info[0].name,cursor:0,hashes:{},last:0}; saveSY(); syncBusyUI=false; render(); await syncNow();
+    syncMsg=`You joined ${info[0].name}.`; }
+  catch(e){ syncBusyUI=false; syncMsg = e.offline ? 'No internet connection. Try again when you are online.' : 'Could not join: '+e.message; }
+  render(); }
 
 /* ---------- player names ---------- */
 function nameForm(id, p, label){
@@ -623,16 +1020,18 @@ function checkName(first, last, alias, exceptId){
 }
 
 /* ---------- events ---------- */
-document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; tab=b.dataset.tab; confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
+function goTab(t){ if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
+$('#langBtn').addEventListener('click', ()=>{ lang = lang==='ar'?'en':'ar'; try{ localStorage.setItem('sajjel-lang', lang); }catch(e){} render(); });
+document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; goTab(b.dataset.tab); confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
 $('#view').addEventListener('submit', e=>{
   e.preventDefault(); const id = e.target.id; const v = k => $('#'+id+'-'+k).value.trim().replace(/\s+/g,' ');
   const first=v('first'), last=v('last'), alias=v('alias'); const err=$('#'+id+'-err');
   const editId = id==='editForm' ? profile : null;
   const problem = checkName(first, last, alias, editId);
-  if(problem){ err.textContent=problem; err.hidden=false; return; }
+  if(problem){ err.textContent=problem; err.hidden=false; localize(err); return; }
   if(editId){ const p=S.players.find(x=>x.id===editId); Object.assign(p,{first,last,alias,face:avDraft.face,photo:avDraft.photo}); p.name=display(p); editing=false; avDraft=null; save(); render(); return; }
   const p={id:uid(),first,last,alias,face:avDraft.face,photo:avDraft.photo,color:avDraft.color,joined:new Date().toISOString().slice(0,10)}; p.name=display(p);
-  avDraft=null; S.players.push(p); if(!save()){ S.players.pop(); err.textContent='The phone is out of storage space for this app. Remove some player photos and try again.'; err.hidden=false; return; } render(); $('#addForm-first').focus();
+  avDraft=null; S.players.push(p); if(!save()){ S.players.pop(); err.textContent='The phone is out of storage space for this app. Remove some player photos and try again.'; err.hidden=false; localize(err); return; } render(); $('#addForm-first').focus();
 });
 $('#view').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(!b || b.disabled) return;
@@ -641,20 +1040,49 @@ $('#view').addEventListener('click', e=>{
   if(b.dataset.avact==='shuffle'){ avDraft.face=randomFace(Date.now()^Math.floor(Math.random()*1e9)); refreshAvatar(); return; }
   if(b.dataset.avact==='nophoto'){ avDraft.photo=null; refreshAvatar(); return; }
   const g = cur(); const act = b.dataset.act;
+  if(b.dataset.go){ goTab(b.dataset.go); window.scrollTo(0,0); }
+  if(b.dataset.open){ setOpen(b.dataset.open); window.scrollTo(0,0); }
+  if(act==='close-game'){ setOpen(null); }
+  if(b.dataset.hmode) histMode=b.dataset.hmode;
+  if(b.dataset.hplayer) histPlayer = histPlayer===b.dataset.hplayer ? null : b.dataset.hplayer;
+  if(act==='sub-open') subState={out:null,in:null};
+  if(act==='sub-cancel') subState=null;
+  if(b.dataset.subout) subState.out=b.dataset.subout;
+  if(b.dataset.subin) subState.in=b.dataset.subin;
+  if(act==='sub-yes'){ const k=g.seats.indexOf(subState.out); if(!g.seats0) g.seats0=g.seats.slice(); (g.subs=g.subs||[]).push({seat:k,out:subState.out,in:subState.in,at:g.rounds.length});
+    g.seats[k]=subState.in; if(g.teams) g.teams=g.teams.map(m=>m.map(x=>x===subState.out?subState.in:x)); if(g.firstDealer===subState.out) g.firstDealer=subState.in;
+    g.updated=Date.now(); subState=null; save(); }
+  if(b.dataset.firstdealer){ g.firstDealer=b.dataset.firstdealer; save(); }
+  if(act==='rand-dealer'){ g.firstDealer=g.seats[Math.floor(Math.random()*4)]; save(); }
+  if(act==='del-game') confirmDel=true;
+  if(act==='del-no') confirmDel=false;
+  if(act==='del-yes'){ S.games=S.games.filter(x=>x!==g); setOpen(null); save(); }
+  if(act==='rematch'){ const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),updated:Date.now(),mode:g.mode,seats:g.seats.slice(),teams:g.teams?g.teams.map(t=>t.slice()):null,rounds:[],firstDealer:g.seats[Math.floor(Math.random()*4)]};
+    S.games.push(ng); tab='game'; openG=ng.id; openH=null; shareMsg=''; save(); window.scrollTo(0,0); }
+  if(act==='share'){ const r=result(g), t=totals(g); const w=r.winners.flatMap(x=>x.members).map(pname).join(' & ');
+    const txt=`سجّل عندك · Sajjel 3endak\nLeekha · ${g.date} · ${g.mode==='teams'?'Teams':'Solo'}\n🏆 ${w}\n${r.loser.who?pname(r.loser.who):r.loser.label} hit ${r.loser.score}\n\n${g.seats.slice().sort((a,b)=>t[a]-t[b]).map(p=>`${pname(p)}: ${t[p]}`).join('\n')}\n(${g.rounds.length} rounds)`;
+    const done=m=>{ shareMsg=m; render(); };
+    if(navigator.share){ navigator.share({text:txt}).catch(()=>{}); }
+    else { try{ navigator.clipboard.writeText(txt).then(()=>done('Result copied. Paste it in your WhatsApp group.')).catch(()=>done('Sharing is not available here.')); }catch(err){ shareMsg='Sharing is not available here.'; } } }
+  if(b.dataset.editround){ const rd=g.rounds[+b.dataset.editround]; draft={hearts:{...rd.hearts},queen:rd.queen,ten:rd.ten,index:+b.dataset.editround}; window.scrollTo(0,0); }
   if(act==='new-game'){ setup={mode:'solo',seats:[]}; draft=null; }
   if(act==='cancel-setup') setup=null;
   if(b.dataset.mode) setup.mode=b.dataset.mode;
   if(b.dataset.seat){ const i=setup.seats.indexOf(b.dataset.seat); i>=0?setup.seats.splice(i,1):setup.seats.push(b.dataset.seat); }
   if(act==='start'){ const s=setup.seats; const ng={id:uid(),type:'leekha',date:new Date().toISOString().slice(0,10),mode:setup.mode,seats:s.slice(),teams:setup.mode==='teams'?[[s[0],s[1]],[s[2],s[3]]]:null,rounds:[]};
-    S.games.push(ng); S.current=ng.id; setup=null; save(); }
+    ng.updated=Date.now(); ng.firstDealer=s[Math.floor(Math.random()*4)]; S.games.push(ng); openG=ng.id; setup=null; save(); }
   if(act==='add-round'){ draft={hearts:{},queen:null,ten:null}; g.seats.forEach(p=>draft.hearts[p]=0); }
   if(act==='cancel-round') draft=null;
   if(b.dataset.h){ const p=b.dataset.h; draft.hearts[p]=Math.max(0,(draft.hearts[p]||0)+Number(b.dataset.d)); }
   if(b.dataset.sp){ const k=b.dataset.sp; draft[k] = draft[k]===b.dataset.p ? null : b.dataset.p; }
-  if(act==='save-round'){ if(g.mode==='solo'){ const m=g.seats.find(p=>rawPts(draft,p)===TOTAL); if(m) draft.moon=m; } g.rounds.push(draft); draft=null; save(); }
-  if(act==='undo'){ g.rounds.pop(); save(); }
-  if(act==='load-sample'){ S=sample(); save(); }
-  if(act==='clear-sample'){ S={players:S.players.filter(p=>!p.sample),games:S.games.filter(x=>!x.sample),current:null,sample:false}; save(); }
+  if(act==='save-round'){ const before=totals(g), wasOver=!!result(g); const idx=draft.index; delete draft.index; delete draft.moon;
+    if(g.mode==='solo'){ const m=Object.keys(draft.hearts).find(p=>rawPts(draft,p)===TOTAL); if(m) draft.moon=m; }
+    if(idx!=null) g.rounds[idx]=draft; else { g.rounds.push(draft); g.updated=Date.now(); }
+    draft=null; save(); window.scrollTo(0,0);
+    const after=totals(g); try{ if(!wasOver && result(g)) navigator.vibrate&&navigator.vibrate([120,60,120,60,300]); else if(g.seats.some(p=>before[p]<80&&after[p]>=80)) navigator.vibrate&&navigator.vibrate(150); }catch(err){} }
+  if(act==='undo'){ g.rounds.pop(); g.updated=Date.now(); save(); }
+  if(act==='load-sample'){ S=sample(); openG=openH=null; save(); }
+  if(act==='clear-sample'){ const keep=S.players.filter(p=>!p.sample); const ids=new Set(keep.map(p=>p.id)); S={players:keep,games:S.games.filter(x=>!x.sample && x.seats.every(p=>ids.has(p))),current:null,sample:false}; openG=openH=null; histPlayer=null; save(); }
   if(b.dataset.del){ S.players=S.players.filter(p=>p.id!==b.dataset.del); save(); }
   if(b.dataset.prof){ profile=b.dataset.prof; window.scrollTo(0,0); }
   if(act==='back'){ profile=null; editing=false; }
@@ -666,21 +1094,33 @@ $('#view').addEventListener('click', e=>{
   if(act==='show-restore'){ confirmRestore=true; backupMsg=''; }
   if(act==='cancel-restore') confirmRestore=false;
   if(act==='restore'){ try{ const d=JSON.parse($('#restoreIn').value); if(!Array.isArray(d.players)||!Array.isArray(d.games)) throw 0;
-      S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); confirmRestore=false; backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }
+      if(SY.code) leaveGroup(); S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); confirmRestore=false; backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }
     catch(err){ backupMsg='That text is not a Sajjel 3endak backup. Paste the full text you copied with “Copy backup”.'; } }
+  if(act==='sync-create'){ syncCreate(); return; }
+  if(act==='sync-join'){ syncJoin(); return; }
+  if(act==='sync-now'){ syncMsg=''; syncNow(); }
+  if(act==='sync-copy'){ try{ navigator.clipboard.writeText(SY.code).then(()=>{ syncMsg='Code copied.'; render(); }).catch(()=>{ syncMsg='Copy blocked. The code is '+SY.code+'.'; render(); }); }catch(err){ syncMsg='The code is '+SY.code+'.'; } }
+  if(act==='sync-leave') confirmLeave=true;
+  if(act==='sync-leave-no') confirmLeave=false;
+  if(act==='sync-leave-yes'){ leaveGroup(); confirmLeave=false; syncMsg=''; }
   if(act==='reset') confirmClear=true;
   if(act==='reset-no') confirmClear=false;
-  if(act==='reset-yes'){ S={players:[],games:[],current:null,sample:false}; confirmClear=false; save(); }
+  if(act==='reset-yes'){ if(SY.code) leaveGroup(); S={players:[],games:[],current:null,sample:false}; openG=openH=null; confirmClear=false; save(); }
   render();
 });
-$('#view').addEventListener('change', e=>{ if(e.target.id==='avFile' && e.target.files[0]){ resizePhoto(e.target.files[0]).then(d=>{ avDraft.photo=d; refreshAvatar(); }).catch(()=>{ const er=$('#avErr'); if(er){ er.textContent='That file could not be opened as a photo. Try a JPG or PNG.'; er.hidden=false; } }); return; } });
+$('#view').addEventListener('change', e=>{ if(e.target.id==='avFile' && e.target.files[0]){ resizePhoto(e.target.files[0]).then(d=>{ avDraft.photo=d; refreshAvatar(); }).catch(()=>{ const er=$('#avErr'); if(er){ er.textContent='That file could not be opened as a photo. Try a JPG or PNG.'; er.hidden=false; localize(er); } }); return; } });
 $('#view').addEventListener('change', e=>{ if(e.target.id!=='backupFile' || !e.target.files[0]) return; const r=new FileReader();
-  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.players)||!Array.isArray(d.games)) throw 0; S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }catch(err){ backupMsg='That file is not a Sajjel 3endak backup.'; } render(); };
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.players)||!Array.isArray(d.games)) throw 0; if(SY.code) leaveGroup(); S=normalize({players:d.players,games:d.games,current:d.current||null,sample:false}); save(); backupMsg=`Restored ${S.players.length} players and ${S.games.length} games.`; }catch(err){ backupMsg='That file is not a Sajjel 3endak backup.'; } render(); };
   r.readAsText(e.target.files[0]); });
 // keep the screen awake while scoring
 let lock=null; async function wake(){ try{ if('wakeLock' in navigator && document.visibilityState==='visible') lock=await navigator.wakeLock.request('screen'); }catch(e){} }
 document.addEventListener('visibilitychange', wake); wake();
-render();
+// sync when the app opens, comes back to the screen, gets internet back, and every 20 seconds while open
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible') syncNow(); });
+window.addEventListener('online', ()=>syncNow());
+setInterval(()=>{ if(document.visibilityState==='visible') syncNow(); }, 20000);
+document.addEventListener('focusout', ()=>{ if(pendingRender) setTimeout(()=>{ if(pendingRender) safeRender(); }, 50); });
+render(); syncNow();
 })();
 </script>
 
