@@ -444,6 +444,9 @@ body.at-table #tablebg .emblem{display:none}
 tr.kgrow td{text-align:start!important;font:600 11px var(--f-mono);letter-spacing:.06em;color:var(--gold);text-transform:uppercase;padding-top:12px}
 :root[lang="ar"] tr.kgrow td{letter-spacing:0}
 
+.logobtn{display:flex;align-items:center;gap:10px;border:0;background:none;padding:0;color:inherit;font:inherit;cursor:pointer;text-align:start}
+.logobtn:active{opacity:.8}
+
 /* tab bar */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:linear-gradient(0deg,#24140a,#3a2213);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -459,7 +462,7 @@ nav.tabs svg{width:22px;height:22px}
 <div id="tablebg" aria-hidden="true"><div class="rail"><div class="felt"><div class="emblem"><div class="em-ring"></div><span class="em-game" id="emGame">سجّل عندك</span><span class="em-sub" id="emSub">SAJJEL 3ENDAK</span><span class="em-suits">♠ ♥ ♦ ♣</span></div></div></div></div>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1 class="logo" aria-label="Sajjel 3endak"><span class="ar" lang="ar">سجّل عندك</span><span class="lat"><b>Sajjel <i>3endak</i></b><span>Card scorebook</span></span></h1><span class="hdr-r"><span id="syncDot" class="syncdot" hidden></span><small id="hdrSub">Leekha</small><button id="langBtn" class="langbtn" type="button" aria-label="العربية">ع</button></span></div>
+    <div class="brand"><h1 class="logo" aria-label="Sajjel 3endak"><button id="homeBtn" class="logobtn" type="button" aria-label="Home"><span class="ar" lang="ar">سجّل عندك</span><span class="lat"><b>Sajjel <i>3endak</i></b><span>Card scorebook</span></span></button></h1><span class="hdr-r"><span id="syncDot" class="syncdot" hidden></span><small id="hdrSub">Leekha</small><button id="langBtn" class="langbtn" type="button" aria-label="العربية">ع</button></span></div>
   </header>
   <main id="view"></main>
 </div>
@@ -1837,6 +1840,7 @@ function checkName(first, last, alias, exceptId){
 
 /* ---------- events ---------- */
 function goTab(t){ rulesOpen=null; h2h=null; if(t===tab){ if(t==='game'){ openG=null; setup=null; } if(t==='history') openH=null; } tab=t; draft=null; confirmDel=false; shareMsg=''; }
+$('#homeBtn').addEventListener('click', ()=>{ rulesOpen=null; h2h=null; profile=null; editing=false; draft=null; setup=null; openG=null; subState=null; confirmDel=false; shareMsg=''; tab='game'; render(); window.scrollTo(0,0); });
 $('#langBtn').addEventListener('click', ()=>{ lang = lang==='ar'?'en':'ar'; try{ localStorage.setItem('sajjel-lang', lang); }catch(e){} render(); });
 document.querySelector('nav.tabs').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; goTab(b.dataset.tab); confirmClear=false; profile=null; editing=false; backupMsg=''; showBackup=false; confirmRestore=false; render(); window.scrollTo(0,0); });
 $('#view').addEventListener('submit', e=>{
