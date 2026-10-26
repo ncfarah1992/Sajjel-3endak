@@ -107,3 +107,42 @@ grant execute on function public.sj_create_group(text)      to anon, authenticat
 grant execute on function public.sj_group_info(text)        to anon, authenticated;
 grant execute on function public.sj_pull(text, bigint)      to anon, authenticated;
 grant execute on function public.sj_push(text, jsonb)       to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Viewers on a table (added in version 2.1). Each phone that has a table open
+-- checks in every 15 seconds; the app shows how many are watching.
+create table if not exists public.sj_watch (
+  group_id  uuid not null references public.sj_groups(id) on delete cascade,
+  game_id   text not null,
+  device    text not null,
+  seen      bigint not null,
+  constraint sj_watch_pkey primary key (group_id, game_id, device)
+);
+alter table public.sj_watch enable row level security;
+revoke all on table public.sj_watch from anon, authenticated;
+
+create or replace function public.sj_watch(p_code text, p_game text, p_device text)
+returns table (game_id text, device text)
+language plpgsql security definer set search_path = public
+as $$
+declare
+  gid    uuid;
+  now_ms bigint := (extract(epoch from clock_timestamp()) * 1000)::bigint;
+begin
+  select g.id into gid from sj_groups g where g.code = upper(trim(p_code));
+  if gid is null then
+    raise exception 'Unknown group code';
+  end if;
+  delete from sj_watch w where w.group_id = gid and w.seen < now_ms - 600000;   -- forget phones gone for 10 minutes
+  if p_device is not null and length(p_device) <= 60 then
+    -- a phone watches one table at a time
+    delete from sj_watch w where w.group_id = gid and w.device = p_device and (p_game is null or w.game_id <> p_game);
+    if p_game is not null and length(p_game) <= 40 then
+      insert into sj_watch as w (group_id, game_id, device, seen) values (gid, p_game, p_device, now_ms)
+        on conflict on constraint sj_watch_pkey do update set seen = excluded.seen;
+    end if;
+  end if;
+  return query select w.game_id, w.device from sj_watch w where w.group_id = gid and w.seen >= now_ms - 45000;
+end $$;
+
+grant execute on function public.sj_watch(text, text, text) to anon, authenticated;
